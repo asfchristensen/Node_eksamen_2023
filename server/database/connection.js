@@ -1,17 +1,21 @@
-import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
 
-const URL = "mongodb://127.0.0.1:27017";
-const client = new MongoClient(URL);
+import { MongoClient, ServerApiVersion } from "mongodb";
+
+const uri = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@${process.env.ATLAS_DB_NAME}.9aribne.mongodb.net/?retryWrites=true&w=majority`;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
 
 await client.connect();
 console.log('Connected to MongoDB');
+const db = client.db("foodUniverse");
 
-const dbToDelete = client.db("food_universe");
-dbToDelete.dropDatabase();
-const db = client.db("food_universe");      
+export default db;
 
-
-export default {
-    db,
-    users: db.collection("users")
-}

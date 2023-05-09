@@ -7,8 +7,9 @@ const app = express();
 app.use(express.json());
 
 
-import helmet  from "helmet";
+import helmet from "helmet";
 app.use(helmet());
+
 
 
 import cors from "cors";
@@ -18,13 +19,14 @@ app.use(cors({
 }));
 
 
+
 import session from "express-session";
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false, 
     saveUninitialized: true,
     cookie: { secure: false } 
-  }));
+}));
 
 
 import rateLimit from 'express-rate-limit'
@@ -42,19 +44,21 @@ const loginLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-app.use(apiLimiter);
-app.use("/auth/login", loginLimiter);
+//app.use(apiLimiter);
+//app.use("/auth/login", loginLimiter);
 
 
 // middleware
 
-// import routes 
 
+// import routes 
+import authRouter from "./routes/authRouter.js";
+app.use(authRouter);
 
 const PORT = process.env.PORT || 8080;
-app.listen((error) => {
-    if (error) { 
-        console.log(error) 
+app.listen(PORT, (error) => {
+    if (error){
+        console.log(error);
     }
-    console.log("Server is running on port ", PORT);
+    console.log("Server is running on PORT: ", PORT);
 });
