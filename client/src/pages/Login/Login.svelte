@@ -1,0 +1,80 @@
+<script>
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { user, role } from "../../stores/user.js";
+    import { navigate } from "svelte-navigator";
+    import toastr from "toastr";
+    import 'toastr/build/toastr.css';
+
+    toastr.options = {
+        "positionClass": "toast-top-center",
+        "timeOut": "1200"
+    }
+
+    let email = "";
+    let password = "";
+
+    async function validateLogin() {
+        const userCredentials = JSON.stringify({ email, password });
+        const loginURL = $BASE_URL + "/api/auth/login";
+
+        const response = await fetch(loginURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: userCredentials,
+            credentials: "include"
+        });
+        const result = await response.json();
+
+        if (result.email === email) {
+            let authenticatedUsername = result.username;
+            let authenticatedEmail = result.email;
+            let authenticatedRole = result.role;
+            $user = authenticatedUsername;
+            $role = authenticatedRole;
+            
+            toastr.success(`You've logged in successfully, welcome back ${$user}`);
+            setTimeout(() => {
+                navigate("/profile", { replace: true });
+            }, 1500)
+        } else {
+            toastr.error("Wrong email or password. Try again.");
+        }
+
+        email = "";
+        password = "";
+    }
+</script>
+
+<slot></slot>
+
+<h2>Login page</h2>
+
+<div class="form-login">
+    <form on:submit|preventDefault={validateLogin}>
+        <input type="email" placeholder="email" name="email" bind:value={email} required><br><br>
+
+        <input type="password" placeholder="password" name="password" bind:value={password} required><br><br>
+
+        <button type="submit">Log in</button>
+    </form><br><br>
+</div>
+
+<style>
+    .form-login {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        border: solid;
+        border-color: rgb(242, 242, 126);
+        border-radius: 30em;
+        background-color: rgb(247, 244, 204);
+        padding: 3em; 
+        margin: 0em 30em 0em 30em;
+    }
+
+    button {
+        margin: 0em 1em 0em 2em;
+    }
+</style>
