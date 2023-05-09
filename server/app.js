@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 
-import helmet  from "helmet";
+import helmet from "helmet";
 app.use(helmet());
 
 
@@ -24,7 +24,7 @@ app.use(session({
     resave: false, 
     saveUninitialized: true,
     cookie: { secure: false } 
-  }));
+}));
 
 
 import rateLimit from 'express-rate-limit'
@@ -35,7 +35,6 @@ const apiLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10, 
@@ -44,20 +43,27 @@ const loginLimiter = rateLimit({
 });
 
 app.use(apiLimiter);
-app.use("/auth/login", loginLimiter);
+app.use("/api/auth/login", loginLimiter);
 
 
-// middleware
+function authChecker(req, res, next) {
+    console.log("In authChecker...");
+    if (!req.session.object.username) {
+        return res.status(400).send({ message: "You are not authorized to see this page" });
+    }
+    next();
+};
 
-// import routes 
-import userRouter from "./routes/userRouter.js";
-app.use(userRouter);
+//app.use("/api/auth/...", authChecker);
 
+
+import authRouter from "./routes/authRouter.js";
+app.use(authRouter);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, (error) => {
     if (error) {
         console.log(error);
     }
-    console.log("Server is running on port ", PORT);
+    console.log("Server is running on PORT: ", PORT);
 });
