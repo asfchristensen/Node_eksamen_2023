@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { MongoClient } from "mongodb";
 
 const URL = "mongodb://127.0.0.1:27017";
@@ -6,12 +8,6 @@ const client = new MongoClient(URL);
 await client.connect();
 console.log('Connected to MongoDB');
 
-const dbToDelete = client.db("food_universe");
-dbToDelete.dropDatabase();
-const db = client.db("food_universe");      
+const db = client.db(process.env.LOCAL_DB_NAME);
 
-
-export default {
-    db,
-    users: db.collection("users")
-}
+export default db;

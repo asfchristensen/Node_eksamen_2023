@@ -35,6 +35,7 @@ const apiLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10, 
@@ -49,12 +50,14 @@ app.use("/auth/login", loginLimiter);
 // middleware
 
 // import routes 
+import userRouter from "./routes/userRouter.js";
+app.use(userRouter);
 
 
 const PORT = process.env.PORT || 8080;
-app.listen((error) => {
-    if (error) { 
-        console.log(error) 
+app.listen(PORT, (error) => {
+    if (error) {
+        console.log(error);
     }
     console.log("Server is running on port ", PORT);
 });

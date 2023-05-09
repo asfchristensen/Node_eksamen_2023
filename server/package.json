@@ -5,6 +5,8 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
+    "reset-db": "node ./database/createDatabase.js delete_mode",
+    "create-db": "node ./database/createDatabase.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
