@@ -15,19 +15,16 @@
             <!-- admin = 1 -->
             {#if hasRole === 1}
             <nav>
-                <Link to="/">Home</Link>
                 <Link to="/profile">Profile</Link>
                 <Logout/>
             </nav>
             <!-- user = 2 -->
             {:else if hasRole === 2}
             <nav>
-                <Link to="/">Home</Link>
                 <Link to="/profile">Profile</Link>
                 <Logout/>
             </nav>
             {:else}
-                <Link to="/">Home</Link>
                 <Link to="/signup">Sign up</Link>
                 <Link to="/profile">Profile</Link>
             {/if}

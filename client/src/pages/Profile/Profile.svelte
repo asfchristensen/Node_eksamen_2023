@@ -1,18 +1,29 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { user } from "../../stores/user.js";
-
+    import { user, mail, recipes } from "../../stores/user.js";
 
     onMount(async () => {
-        const recipesURL = null;
+        const recipesURL = $BASE_URL + `/api/recipes/${$mail}`;
+        const response = await fetch(recipesURL);
+        const result = await response.json();
+        recipes.set(result.data); 
+        console.log(typeof recipes);
     });
-    $: username = $user;
+
 </script>
 
 <h2>Profile</h2>
-<h5>Welcome to your profile page <span class="user">{username}</span></h5>
+<h5>Welcome to your profile page <span class="user">{$user}</span></h5>
 
+
+<div class="recipes">
+    <h1>Her skal der være opskrifter</h1>
+    {#each $recipes as recipe}
+        <img src="{recipe.picURL}" alt="image of food"/>
+        <p>{recipe.title}</p>
+    {/each}
+</div>
 
 <!--
 <div class="form-signup">

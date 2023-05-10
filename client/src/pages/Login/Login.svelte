@@ -1,6 +1,6 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { user, role } from "../../stores/user.js";
+    import { user, mail, role } from "../../stores/user.js";
     import { navigate } from "svelte-navigator";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
@@ -27,11 +27,13 @@
         });
         const result = await response.json();
 
-        if (result.email === email) {
-            let authenticatedUsername = result.username;
-            let authenticatedEmail = result.email;
-            let authenticatedRole = result.role;
+        if (result.data.email === email) {
+            let authenticatedUsername = result.data.username;
+            let authenticatedEmail = result.data.email;
+            let authenticatedRole = result.data.role;
+            console.log(authenticatedRole);
             $user = authenticatedUsername;
+            $mail = authenticatedEmail;
             $role = authenticatedRole;
             
             toastr.success(`You've logged in successfully, welcome back ${$user}`);

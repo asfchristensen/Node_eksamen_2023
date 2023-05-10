@@ -5,8 +5,11 @@ import db from "../database/connectionAtlas.js"
 import validator from "validator";
 
 
-router.get("/api/recipes", async (req, res) => {
-    const users = await db.collection("users").findOne({ email: req.session.object.email }); 
+router.get("/api/recipes/:mail", async (req, res) => {
+    const { mail } = req.params;
+    console.log(mail);
+    const users = await db.collection("users").findOne({ email: mail }); 
+    console.log(users);
 
     if (!users) {
         console.log("No user with email");
@@ -21,7 +24,7 @@ router.post("/api/recipes", async (req, res) => {
     const { title, category, picURL, ingredients, procedure} = req.body; 
     const sanitizedTitle = validator.escape(title);  
     const sanitizedCategory = validator.escape(category);  
-    const sanitizedPicURL = validator.escape(picURL);  
+    const sanitizedPicURL = picURL;  
     const sanitizedIngredients = validator.escape(ingredients);  
     const sanitizedProcedure = validator.escape(procedure);  
     
