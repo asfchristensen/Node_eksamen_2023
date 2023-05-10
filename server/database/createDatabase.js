@@ -24,3 +24,9 @@ if (isDeleteMode) {
     ]);
 }
 
+// recipe
+const recipeOne = { title: "pasta med hjemmelavet pesto", ingredients: "frisk pasta, din yndlings pesto"};
+const recipetwo = { title: "sommer salat", ingredients: "grønt med grønt og en dress"};
+const recipeThree = { title: "kylling med BBQ", ingredients: "en kyllling"};
+
+db.collection("users").updateOne({email: "user@mail.dk"}, {$push: {recipes: { recipeOne, recipetwo } } } )

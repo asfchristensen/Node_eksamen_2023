@@ -60,6 +60,10 @@ function authChecker(req, res, next) {
 import authRouter from "./routes/authRouter.js";
 app.use(authRouter);
 
+import recipeRouter from "./routes/recipeRouter.js"
+app.use(recipeRouter);
+
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, (error) => {
     if (error) {
