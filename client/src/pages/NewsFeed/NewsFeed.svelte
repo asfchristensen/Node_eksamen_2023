@@ -1,0 +1,1 @@
+<h1>This is news feed</h1>

@@ -1,11 +1,10 @@
 <script>
-    import { user, role } from "../../stores/user.js";
+    import { user } from "../../stores/user.js";
     import { Link } from "svelte-navigator";
-
     import Logout from "../Logout/Logout.svelte";
 
-    $: hasRole = $role;
-    $: username = $user;
+    console.log($user)
+
 </script>
 
 
@@ -13,27 +12,32 @@
     <div class="navbar">
         <div class="nav-link">
             <!-- admin = 1 -->
-            {#if hasRole === 1}
+            {#if $user}
+            {#if $user.role === 1}
             <nav>
                 <Link to="/profile">Profile</Link>
                 <Logout/>
             </nav>
             <!-- user = 2 -->
-            {:else if hasRole === 2}
+            {:else if $user.role === 2}
             <nav>
                 <Link to="/profile">Profile</Link>
                 <Logout/>
             </nav>
-            {:else}
+            {/if}
+            {/if}
+            {#if !$user}
                 <Link to="/signup">Sign up</Link>
-                <Link to="/profile">Profile</Link>
+                <Link to="/login">Log in</Link>
             {/if}
         </div>
         <div class="nav-user">
-            {#if username}
-            <p>Logged in as: <span class="username">{username}</span></p>
+            {#if $user}
+            {#if $user.username}
+            <p>Logged in as: <span class="username">{$user.username}</span></p>
             {:else}
             <h3><span class="logo-text">The epic ice cream store</span></h3>
+            {/if}
             {/if}
         </div>
     </div>
@@ -65,7 +69,7 @@
     }
 
     .logo-text {
-        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+        font-family:Impact, 'Arial Narrow Bold', sans-serif; 
         color: rgb(250, 250, 199);
     }
 

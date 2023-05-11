@@ -10,10 +10,10 @@
         "timeOut": "1200"
     }
 
-    let email = "";
-    let password = "";
+    let email = "fie@mail.dk";
+    let password = "1234";
 
-    async function validateLogin() {
+    async function handleLogin() {
         const userCredentials = JSON.stringify({ email, password });
         const loginURL = $BASE_URL + "/api/auth/login";
 
@@ -28,17 +28,15 @@
         const result = await response.json();
 
         if (result.data.email === email) {
-            let authenticatedUsername = result.data.username;
-            let authenticatedEmail = result.data.email;
-            let authenticatedRole = result.data.role;
-            console.log(authenticatedRole);
-            $user = authenticatedUsername;
-            $mail = authenticatedEmail;
-            $role = authenticatedRole;
-            
+            console.log(result.data)
+            console.log(JSON.stringify(result.data))
+            localStorage.setItem("user",JSON.stringify(result.data));
+            user.set(result.data);
+           
+        
             toastr.success(`You've logged in successfully, welcome back ${$user}`);
             setTimeout(() => {
-                navigate("/profile", { replace: true });
+                navigate("/newsFeed", { replace: true });
             }, 1500)
         } else {
             toastr.error("Wrong email or password. Try again.");
@@ -54,7 +52,7 @@
 <h2>Login page</h2>
 
 <div class="form-login">
-    <form on:submit|preventDefault={validateLogin}>
+    <form on:submit|preventDefault={handleLogin}>
         <input type="email" placeholder="email" name="email" bind:value={email} required><br><br>
 
         <input type="password" placeholder="password" name="password" bind:value={password} required><br><br>

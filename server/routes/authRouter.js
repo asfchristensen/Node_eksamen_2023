@@ -27,9 +27,9 @@ router.post("/api/auth/login", async (req, res) => {
 
         // set session
         const user = userExist[0]
-        req.session.object = { username: user.username, email: user.email, role: user.role_id };
-        console.log("session: ", req.session.object);
-        res.status(200).send({ data: req.session.object });
+        req.session.user = { username: user.username, email: user.email, role: user.role_id };
+        console.log("session: ", req.session.user);
+        res.status(200).send({ data: req.session.user });
     }
 });
 

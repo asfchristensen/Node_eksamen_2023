@@ -1,3 +1,4 @@
+<hr>
 <p>© Food Universe 2023</p>
 
 <style>

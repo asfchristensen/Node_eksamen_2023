@@ -30,7 +30,7 @@ app.use(session({
 import rateLimit from 'express-rate-limit'
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 300,
     standardHeaders: true, 
     legacyHeaders: false,
 });
@@ -48,7 +48,7 @@ app.use("/api/auth/login", loginLimiter);
 
 function authChecker(req, res, next) {
     console.log("In authChecker...");
-    if (!req.session.object.username) {
+    if (!req.session.username) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
     }
     next();

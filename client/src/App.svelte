@@ -6,6 +6,7 @@
     import Profile from "./pages/Profile/Profile.svelte";
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
+    import NewsFeed from "./pages/NewsFeed/NewsFeed.svelte";
 </script>
 
 <Router>
@@ -23,6 +24,10 @@
         <!-- for all -->
         <PrivateRoute path="/profile">
             <Profile/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/newsFeed">
+            <NewsFeed/>
         </PrivateRoute>
     </main>
 
