@@ -2,7 +2,6 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes } from "../../stores/user.js";
-    import { navigate } from "svelte-navigator"; 
     import toastr from "toastr";
 
     console.log('recipes:', $recipes);
@@ -60,7 +59,6 @@
                 getAllRecipes();
                 console.log(response);
                 console.log(result);
-                //navigate("/profile", { replace: true });
             }, 1000)
         } else {
             toastr.error("Failed to create recipe");

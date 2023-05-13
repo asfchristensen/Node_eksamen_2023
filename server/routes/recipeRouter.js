@@ -29,8 +29,7 @@ router.patch("/api/recipes", async (req, res) => {
     const sanitizedProcedure = validator.escape(procedure);  
     
     console.log("body: ", req.body);
-    //console.log("users email: ", req.session.email);
-
+    
     const sanitizedRecipe = { title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, ingredients: sanitizedIngredients, procedure: sanitizedProcedure};
     
     if (!sanitizedRecipe) {

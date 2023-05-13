@@ -1,1 +1,4 @@
-<h1>This is news feed</h1>
+<script>
+
+</script>
+<h1>News Feed</h1>
