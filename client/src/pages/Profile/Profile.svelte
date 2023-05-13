@@ -71,8 +71,10 @@
         picURL = "";
         ingredients = "";
         procedure = "";
+    }
 
-
+    function publishPost(recipe) {
+        alert('You published this post - nice!' + recipe.procedure)
     }
 
 </script>
@@ -113,6 +115,8 @@
         {#each $recipes as recipe}
             <img src="{recipe.picURL}" alt="image of food"/>
             <p>{recipe.title}</p>
+            <p>{recipe.procedure}</p><br>
+            <button on:click={publishPost.bind(null, recipe)}>Publish</button>
         {/each}
     {/if}
 </div>
