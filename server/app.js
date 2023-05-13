@@ -66,6 +66,9 @@ app.use(recipeRouter);
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);
 
+import forgotPasswordRouter from "./routes/forgotPasswordRouter.js";
+app.use(forgotPasswordRouter);
+
 
 
 const PORT = process.env.PORT || 8080;
