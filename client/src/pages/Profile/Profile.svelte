@@ -7,17 +7,17 @@
     console.log('recipes:', $recipes);
 
     onMount(async () => {
-       await getAllRecipes();
+       await handleGetAllRecipes();
+       console.log('recipes after onmount:', $recipes);
+
     });
 
-    async function getAllRecipes(){
+    async function handleGetAllRecipes(){
         const recipesURL = $BASE_URL + `/api/recipes/${$user.email}`;
         const response = await fetch(recipesURL);
-        console.log(response)
         const result = await response.json();
-        console.log(result)
+        console.log("From get all recipes:", result.data);
         recipes.set(result.data); 
-        console.log(typeof $recipes);
     }
 
     const categories = [
@@ -39,7 +39,7 @@
     let placeholder = "Category";
 
     async function handleCreateRecipe() {
-        const recipeInfo = JSON.stringify({ title, category, picURL, ingredients, procedure });
+        const recipeInfo = JSON.stringify({ isPublished: false, title, category, picURL, ingredients, procedure });
         console.log("object to send: ", recipeInfo);
         const response = await fetch($BASE_URL + "/api/recipes", {
             method: "PATCH",
@@ -54,11 +54,9 @@
         console.log(result); 
 
         if (response.ok) { 
-            toastr.success(`Recipe uploaded, good job ${$user}`);
+            toastr.success(`Recipe uploaded, good job ${$user.username}`);
             setTimeout(() => {
-                getAllRecipes();
-                console.log(response);
-                console.log(result);
+                handleGetAllRecipes();
             }, 1000)
         } else {
             toastr.error("Failed to create recipe");
@@ -71,9 +69,53 @@
         procedure = "";
     }
 
-    function publishPost(recipe) {
-        alert('You published this post - nice!' + recipe.procedure)
+    async function handlePublishRecipe(recipe) {
+        console.log("Handle publish recipes", recipe);
+        recipe.isPublished = true;
+        
+        /*const recipeToPublish = { author: $user.email, ...recipe };
+        const recipeToJSON = JSON.stringify(recipeToPublish);
+
+        // sætter recipen til published collection
+        const response = await fetch($BASE_URL + "/api/publishedRecipes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: recipeToJSON,
+            credentials: "include"
+        });*/ 
+
+        //if (response.ok) {
+            // opdaterer samme recipe i useren 
+            const recipeInfo = JSON.stringify({ ...recipe });
+            const res = await fetch($BASE_URL + "/api/recipes/published", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: recipeInfo,
+            credentials: "include"
+        });
+
+         
+
+        if (res.ok) {
+            console.log("Changes isPublished to true in user Laura");
+            
+        } else {
+            console.log("error - not changed anything");
+        }
+         
+
+            /*console.log(res);
+            toastr.success("You have successfully published your recipe");
+        } else {
+            toastr.error("Failed to publish recipe");
+        }*/
     }
+
+
 
 </script>
 
@@ -104,17 +146,20 @@
     </form>
 </div>
 
-
 <div class="recipes">
     <h1>Her skal der være opskrifter</h1>
-    {#if $recipes === null}
+    {#if $recipes === null || $recipes === undefined}
         <h4>Add your recipes here...</h4>
     {:else}
         {#each $recipes as recipe}
             <img src="{recipe.picURL}" alt="image of food"/>
             <p>{recipe.title}</p>
             <p>{recipe.procedure}</p><br>
-            <button on:click={publishPost.bind(null, recipe)}>Publish</button>
+            {#if !recipe.isPublished}
+            <button on:click={handlePublishRecipe.bind(null, recipe)}>Publish</button>
+            {:else}
+            <button disabled>Published</button>
+            {/if}
         {/each}
     {/if}
 </div>

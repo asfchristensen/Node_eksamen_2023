@@ -22,6 +22,7 @@
             {:else if $user.role === 2}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <Link to="/newsFeed">News feed</Link>
                 <Logout/>
             </nav>
             {/if}

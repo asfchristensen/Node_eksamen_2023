@@ -66,6 +66,8 @@ app.use(recipeRouter);
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);
 
+import publishedRecipesRouter from "./routes/publishedRecipesRouter.js";
+app.use(publishedRecipesRouter);
 
 
 const PORT = process.env.PORT || 8080;
