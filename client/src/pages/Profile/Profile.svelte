@@ -17,7 +17,7 @@
         const response = await fetch(recipesURL);
         const result = await response.json();
         console.log("From get all recipes:", result.data);
-        recipes.set(result.data); 
+        recipes.set(result.data);
     }
 
     const categories = [
@@ -73,7 +73,7 @@
         console.log("Handle publish recipes", recipe);
         recipe.isPublished = true;
         
-        /*const recipeToPublish = { author: $user.email, ...recipe };
+        const recipeToPublish = { author: $user.email, ...recipe };
         const recipeToJSON = JSON.stringify(recipeToPublish);
 
         // sætter recipen til published collection
@@ -84,9 +84,9 @@
             },
             body: recipeToJSON,
             credentials: "include"
-        });*/ 
+        });
 
-        //if (response.ok) {
+        if (response.ok) {
             // opdaterer samme recipe i useren 
             const recipeInfo = JSON.stringify({ ...recipe });
             const res = await fetch($BASE_URL + "/api/recipes/published", {
@@ -98,23 +98,20 @@
             credentials: "include"
         });
 
-         
-
         if (res.ok) {
             console.log("Changes isPublished to true in user Laura");
-            
+            const updateRecipes = $recipes.map((r) => {
+                if (r.procedure === recipe.procedure) {
+                    return recipe;
+                }
+                return r;
+            });
+            $recipes = updateRecipes;
         } else {
             console.log("error - not changed anything");
         }
-         
-
-            /*console.log(res);
-            toastr.success("You have successfully published your recipe");
-        } else {
-            toastr.error("Failed to publish recipe");
-        }*/
     }
-
+}
 
 
 </script>
@@ -163,20 +160,6 @@
         {/each}
     {/if}
 </div>
-
-<!--
-<div class="form-signup">
-    <form on:submit|preventDefault={handleSignup}>
-        <input type="text" placeholder="username" name="username" bind:value={username} required><br><br>
-
-        <input type="password" placeholder="password" name="password" bind:value={password} required><br><br>
-
-        <input type="email" placeholder="email" name="email" bind:value={email} required><br><br>
-
-        <button type="submit">Sign up</button>
-    </form>
-</div>
--->
 
 <style>
     .user {
