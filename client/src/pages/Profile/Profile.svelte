@@ -3,6 +3,7 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes } from "../../stores/user.js";
     import toastr from "toastr";
+    import MyLikes from "../../components/MyLikes/MyLikes.svelte";
 
     console.log('recipes:', $recipes);
 
@@ -118,6 +119,10 @@
 
 </script>
 
+<MyLikes/>
+
+<hr>
+
 <h2>Profile</h2>
 <h5>Welcome to your profile page <span class="user">{$user.username}</span></h5>
 
@@ -162,6 +167,8 @@
         {/each}
     {/if}
 </div>
+
+
 
 <style>
     .user {
