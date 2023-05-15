@@ -10,8 +10,8 @@
         "timeOut": "1200"
     }
 
-    let email = "fie@mail.dk";
-    let password = "fie123";
+    let email = "bob@mail.dk";
+    let password = "bob123";
 
     async function handleLogin() {
         const userCredentials = JSON.stringify({ email, password });

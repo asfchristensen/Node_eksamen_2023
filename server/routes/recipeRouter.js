@@ -40,6 +40,7 @@ router.patch("/api/recipes", async (req, res) => {
     }
 });
 
+// ændre fra ...recipe til kun at være procedure og isPublished (HUSK frontend også!)
 router.patch("/api/recipes/published", async (req, res) => {
     const { ...recipe } = req.body;  
     console.log("update to publish ",req.body)   

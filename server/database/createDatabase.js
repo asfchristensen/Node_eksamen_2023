@@ -76,7 +76,6 @@ if (isDeleteMode) {
             picURL: "https://www.valdemarsro.dk/wp-content/2018/01/rucolapesto.jpg", 
             ingredients: "Rucola, pinjekerner, hvidløg, olivenolie, salt", 
             procedure: "Op i en blender - hak, hak, hak..",
-            likes: [] 
         },
         { 
             author: "bob@mail.dk", 
@@ -85,7 +84,6 @@ if (isDeleteMode) {
             picURL: "https://helios-i.mashable.com/imagery/articles/001D2uXLBncMj8L2MxtRNd0/hero-image.fill.size_1200x900.v1611608312.jpg", 
             ingredients: "Favorit pølsen, pølsebrød, dressing efter smag, syltede agurker, rå løg og syltede, sennep, kethup, lidt grønt hvis man er til det", 
             procedure: "Byg den op som lego: først brød, så læg pølsen i revnen, smør den med valgt dressing og top af med topping",
-            likes: [] 
         }
         /*
         { 
@@ -95,7 +93,6 @@ if (isDeleteMode) {
             picURL: "", 
             ingredients: "", 
             procedure: "", 
-            likes: [] 
         },
         { 
             author: "", 
@@ -104,7 +101,6 @@ if (isDeleteMode) {
             picURL: "", 
             ingredients: "", 
             procedure: "", 
-            likes: [] 
         },*/
     ]);
 }
