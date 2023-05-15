@@ -97,13 +97,7 @@
 
         $publishedRecipes = updatePublishedRecipes;
     }
-
-    function getAllLikedRecipe(){
-        const myLikes = $publishedRecipes.filter( recipe => recipe.likes && recipe.likes.includes('bob@mail.dk'));
-        console.log("Bobs liked list:", myLikes);
-        return myLikes;
-    }
-
+    
 </script>
 
 <h1>News Feed</h1>
