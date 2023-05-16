@@ -4,6 +4,7 @@
     import { publishedRecipes } from "../../stores/publishedRecipes.js";
     import { recipes, user } from "../../stores/user.js";
     import { add_render_callback, comment, text } from "svelte/internal";
+    import SearchBar from "../../components/SearchBar/SearchBar.svelte";
 
     // importer component med special navbar også .. 
     onMount(async () => {
@@ -161,10 +162,12 @@
 </script>
 
 <h1>News Feed</h1>
+<SearchBar/>
 
 <div class="recipes">
     <h1>Her er der opskrifter</h1>
     {#each $publishedRecipes as recipe}
+        <a id="{recipe._id.toLowerCase()}"></a> 
         <p>{recipe.author}</p>
         <img src="{recipe.picURL}" alt="image of food"/>
         <p>{recipe.title}</p>

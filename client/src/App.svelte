@@ -7,13 +7,15 @@
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
     import NewsFeed from "./pages/NewsFeed/NewsFeed.svelte";
+    import SearchBar from "./components/SearchBar/SearchBar.svelte";
 </script>
 
 <Router>
    
     <Navbar/>
-
+    
     <main>
+
         <!-- Public routes -->
 
         <Route path="/login" component={Login}></Route>
@@ -32,6 +34,8 @@
     </main>
 
 </Router>
+
+
 
 <Footer/>
 
