@@ -60,8 +60,7 @@ router.patch("/api/publishedRecipes/likes", async (req, res) => {
     }
 });
 
-// lav et unike
-
+// lav et dislike
 router.patch("/api/publishedRecipes/dislike", async (req, res) => {
     const { email, id } = req.body;
     
@@ -80,8 +79,28 @@ router.patch("/api/publishedRecipes/dislike", async (req, res) => {
     } else {
         res.status(400).send({ message: "error - unable to dislike published recipe" });
     }
+});
+
+router.patch("/api/publishedRecipes/comment", async (req, res) => {
+    const { email, id, comment } = req.body;
     
-    
+    if (!email || !id) {
+        return res.status(400).send({ message: "invalid email or id" });
+    }
+
+    const chosenRecipe = await db.collection("published_recipes").findOne({ _id: new ObjectId(id) });
+    console.log("chosen ",chosenRecipe);
+   
+   
+    const commentedRecipe = await db.collection("published_recipes").updateOne({ _id: new ObjectId(id) }, { $push: { comments: { email: email, comment: comment} }});
+    console.log("status for creating comment to recipe", commentedRecipe);
+
+    if (commentedRecipe.modifiedCount === 1) {
+        return res.status(200).send({ data: commentedRecipe });
+    } else {
+        return res.status(400).send({ message: "error - unable to dislike published recipe" });
+    }
+       
 });
 
 export default router;
