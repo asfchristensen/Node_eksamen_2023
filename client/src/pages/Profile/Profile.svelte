@@ -4,6 +4,7 @@
     import { user, recipes } from "../../stores/user.js";
     import toastr from "toastr";
     import MyLikes from "../../components/MyLikes/MyLikes.svelte";
+    import Rating from "../../components/Rating/Rating.svelte";
 
     console.log('recipes:', $recipes);
 
@@ -118,7 +119,7 @@
 
 
 </script>
-
+<Rating/>
 <MyLikes/>
 
 <hr>

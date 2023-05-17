@@ -3,7 +3,6 @@
     import { BASE_URL } from "../../stores/urlDomain.js"; 
     import { publishedRecipes } from "../../stores/publishedRecipes.js";
     import { recipes, user } from "../../stores/user.js";
-    import { add_render_callback, comment, text } from "svelte/internal";
     import SearchBar from "../../components/SearchBar/SearchBar.svelte";
 
     // importer component med special navbar også .. 

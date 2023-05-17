@@ -16,6 +16,7 @@
             {#if $user.role === 1}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <Link to="/admin">Read ratings</Link>
                 <Logout/>
             </nav>
             <!-- user = 2 -->
@@ -28,6 +29,7 @@
             {/if}
             {/if}
             {#if !$user}
+                <Link to="/home">Home</Link>
                 <Link to="/signup">Sign up</Link>
                 <Link to="/login">Log in</Link>
             {/if}
