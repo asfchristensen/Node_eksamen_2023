@@ -66,6 +66,10 @@ app.use(recipeRouter);
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);
 
+import eventRouter from "./routes/eventRouter.js";
+app.use(eventRouter);
+
+
 
 
 const PORT = process.env.PORT || 8080;

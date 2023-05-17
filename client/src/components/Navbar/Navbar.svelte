@@ -27,8 +27,9 @@
             {/if}
             {/if}
             {#if !$user}
+                <Link to="/maps">Google MAPS</Link> 
                 <Link to="/signup">Sign up</Link>
-                <Link to="/login">Log in</Link>
+                <Link to="/login">Log in</Link> 
             {/if}
         </div>
         <div class="nav-user">

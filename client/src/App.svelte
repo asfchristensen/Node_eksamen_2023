@@ -7,6 +7,7 @@
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
     import NewsFeed from "./pages/NewsFeed/NewsFeed.svelte";
+    import GoogleMaps from "./components/GoogleMaps/GoogleMaps.svelte";
 </script>
 
 <Router>
@@ -18,6 +19,7 @@
 
         <Route path="/login" component={Login}></Route>
         <Route path="/signup" component={Signup}></Route>
+        <Route path="/maps" component={GoogleMaps}></Route>
 
         <!-- Private routes -->
 
