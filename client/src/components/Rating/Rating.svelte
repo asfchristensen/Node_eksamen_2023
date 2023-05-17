@@ -8,10 +8,10 @@
     let comment = "";
 
     function handleCreateRating () {
-        console.log("handle create rating ()", $ratings);
+        console.log("handle create rating, ", $ratings);
        
         ratings.update((currentRating) => {
-            const createdRating= { isPublished: false, rating: ratingNumber, comment: comment, username: $user.username};
+            const createdRating = { isPublished: false, rating: ratingNumber, comment: comment, username: $user.username, isDeleted: false };
             console.log(createdRating);
             currentRating.push(createdRating);
             toastr.success("Thanks for your elaboration");
@@ -32,7 +32,7 @@
     
     <label for="comment">Feel free to elaborate:</label>
     <br>
-    <textarea  name="" id="" cols="30" rows="10" bind:value={comment}></textarea>
+    <textarea cols="30" rows="10" bind:value={comment}></textarea>
 </form>
 <button on:click={handleCreateRating}>Send Rating</button>
 

@@ -16,8 +16,13 @@
         
         $ratings.forEach(rating => console.log("ratings:", rating));
         $publishedRatings.forEach(rating => console.log("published rating:", rating));
-    
     }
+
+        function handleDeleteRating(rating) {
+            rating.isDeleted = true;
+            ratings.update( ratings => ratings.filter(rating => !rating.isDeleted));
+            $ratings.forEach(rating => console.log("ratings updated:", rating));
+        }    
 </script>
 
 <h4>All Ratings</h4>
@@ -33,6 +38,14 @@
             <b>Publish Rating:</b> 
             <input type="checkbox" bind:checked={rating.isPublished}> 
         </p>
+        <button on:click={handleDeleteRating.bind(null, rating)} class="delete-button">Delete rating</button>
     </div>
 {/each}
 <button on:click={handlePublishRating}>Publish Rating(s)</button>
+
+
+<style>
+    .delete-button {
+        background-color: brown;
+    }
+</style>
