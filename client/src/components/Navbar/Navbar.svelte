@@ -16,6 +16,7 @@
             {#if $user.role === 1}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <Link to="/admin-event">Publish event(s)</Link>
                 <Logout/>
             </nav>
             <!-- user = 2 -->

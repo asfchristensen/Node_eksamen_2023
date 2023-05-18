@@ -3,16 +3,28 @@ const router = Router();
 
 import db from "../database/connectionAtlas.js";
 
+router.get("/api/events", async (req, res) => {
+    const events = await db.collection("events").find().toArray();
+    if (!events) {
+        return res.status(400).send({ message: "error - failed to fetch events" });
+    } else {
+        return res.status(200).send({ data: events });
+    }
+});
+
 router.post("/api/events", async (req, res) => {
-    const { date, eventName, startTime, endTime, category, picURL, address } = req.body; 
-    console.log("body: ", req.body);
+    const event = req.body; 
     
-    //const eventToSave = {date: date, eventName: eventName, startTime: startTime, endTime: endTime, category: category, picURL: picURL, address: address };
     if (!req.body) {
-        res.status(400).send({ message: "error - invalid event" })
+        return res.status(400).send({ message: "error - invalid event" })
+    }
+
+    if (Array.isArray(req.body)) {
+        await db.collection("events").insertMany(req.body);
+        return res.status(200).send({ data: event, message: "many events created" });
     } else {
         await db.collection("events").insertOne(req.body);
-        res.status(200).send({ data: req.body, message: "event created" });
+        return res.status(200).send({ data: event, message: "one event created" });
     }
 });
 
