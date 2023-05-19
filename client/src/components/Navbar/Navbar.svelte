@@ -16,12 +16,14 @@
             {#if $user.role === 1}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <a href="/chat">Let's Taco 'Bout It</a>
                 <Logout/>
             </nav>
             <!-- user = 2 -->
             {:else if $user.role === 2}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <a href="/chat">Let's Taco 'Bout It</a>
                 <Logout/>
             </nav>
             {/if}

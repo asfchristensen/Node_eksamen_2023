@@ -7,6 +7,7 @@
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
     import NewsFeed from "./pages/NewsFeed/NewsFeed.svelte";
+    import ChatPage from "./pages/ChatPage/ChatPage.svelte";
 </script>
 
 <Router>
@@ -28,6 +29,10 @@
 
         <PrivateRoute path="/newsFeed">
             <NewsFeed/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/chat">
+            <ChatPage/>
         </PrivateRoute>
     </main>
 

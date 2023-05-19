@@ -27,6 +27,34 @@ app.use(session({
 }));
 
 
+import http from "http";
+const server = http.createServer(app);
+
+import { Server } from "socket.io";
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        //origin: ["localhost:3000", "localhost:5174"],
+        methods: ["*"] 
+    }
+});
+
+
+io.on("connection", (socket) => {
+    console.log("Connection made");   
+    socket.on("Let's Taco 'Bout It Room", (user) => {
+        console.log("User in Let's Taco 'Bout It Room:", user);
+        socket.join("Let's Taco 'Bout It Room");
+        socket.to("Let's Taco 'Bout It Room").emit("Who joined Let's Taco 'Bout It Room?", user);
+    });
+
+    socket.on("Let's Taco 'Bout It Room chatmessages", (messageData) => {
+        console.log("Data recieved?: ", messageData);
+        io.to("Let's Taco 'Bout It Room").emit("message", messageData)
+    });
+});
+
+
 import rateLimit from 'express-rate-limit'
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -60,8 +88,11 @@ function authChecker(req, res, next) {
 import authRouter from "./routes/authRouter.js";
 app.use(authRouter);
 
-import recipeRouter from "./routes/recipeRouter.js"
+import recipeRouter from "./routes/recipeRouter.js";
 app.use(recipeRouter);
+
+import chatRouter from "./routes/chatRouter.js";
+app.use(chatRouter);
 
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);
@@ -69,7 +100,7 @@ app.use(userRouter);
 
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, (error) => {
+server.listen(PORT, (error) => {
     if (error) {
         console.log(error);
     }
