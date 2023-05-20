@@ -9,4 +9,5 @@ router.get("/api/users", async (req, res) => {
     res.status(200).send({ data: allUsers });
 });
 
+
 export default router;
