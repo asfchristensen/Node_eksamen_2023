@@ -3,7 +3,7 @@
     import { onMount, onDestroy } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { user } from "../../stores/user";
-    import { userMessages } from "../../stores/messages";
+    import { userMessages, usersInChatroom } from "../../stores/chatroom";
     import io from "socket.io-client";
     import toastr from "toastr";
 
@@ -23,8 +23,29 @@
         userMessages.set(result.data);
     }
 
+    onDestroy( () => {
+        socket.emit("leave room", { data: $user.username });
+    })
+
+    socket.on("User left the room", (user) => {
+        toastr.error(user.data + " left room"); 
+        console.log("disconnect");
+    });
+
     // start besked
-    socket.emit("Let's Taco 'Bout It Room", { data: $user });
+    socket.emit("User joins room", { data: $user });
+
+    socket.on("User joined Room", (user) => {
+        console.log(user.data.username);
+        //toastr.success(user.data.username + " joined the room");
+        usersInChatroom.update(list => {
+            list.push({ username: user.data.username });
+            return list;
+        });
+
+        console.log("joined the room", user.data );
+        console.log("users in chatroom: ", $usersInChatroom.length);
+    });
 
     async function handleSendMessage() {
         const today = new Date();
@@ -79,5 +100,11 @@
 {#each $userMessages as userMessage}
     <p>{userMessage.sender} says: {userMessage.sentMessage}</p>
 {/each}
+
+<h1>Online users:</h1><br>
+{#each $usersInChatroom as user}
+    <p>{user.username}</p>
+{/each}
+
 
 <Chat/>
