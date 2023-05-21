@@ -28,17 +28,19 @@ router.post("/api/auth/forgot-password", async (req, res) => {
             // sletter hele dokumentet med den specifikke email
             console.log("Deleted the existing document with that email: ", emailExists);
             await db.collection("activation_codes").deleteOne({ email: email });
-        } else {
-            console.log("Created new document with the email and activation code");
-            await db.collection("activation_codes").insertOne({ email: email, code: activationCode });   
-        }
+
+        } 
+
+        console.log("Created new document with the email and activation code");
+        await db.collection("activation_codes").insertOne({ email: email, code: activationCode });   
+    
 
         try {
             sendSMS(activationCode, phoneNumber);
-            res.status(200).send({ data: "SMS sent" })
+            return res.status(200).send({ message: "SMS sent" });  //
         } catch (error) {
             console.error("Error sending SMS: ", error);
-            res.status(400).send({ message: "error sending SMS"});
+            return res.status(400).send({ message: "error sending SMS"});
         }
     } 
 });
@@ -46,8 +48,11 @@ router.post("/api/auth/forgot-password", async (req, res) => {
 router.post("/api/auth/update-password", async (req, res) => {
     const { activationCode, newPassword, confirmPassword } = req.body;
 
+    console.log("body update:", req.body);
+    console.log()
+
     const activationCodeExists = await db.collection("activation_codes").findOne({ code: activationCode });
-    console.log(activationCodeExists.email);
+    console.log("activation code found: ",activationCodeExists);
     
     if (!activationCodeExists || newPassword !== confirmPassword) {
         res.status(400).send({ message: "error - activation code not found or password mismatch" });
