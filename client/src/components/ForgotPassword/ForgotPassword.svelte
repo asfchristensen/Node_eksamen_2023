@@ -30,7 +30,7 @@
         }
 
         email = "laura@mail.dk";
-        phoneNumber = "24341740";
+        phoneNumber = "";
     }
 </script>
 
