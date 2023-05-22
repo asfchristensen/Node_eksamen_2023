@@ -19,7 +19,7 @@ router.post("/api/auth/login", async (req, res) => {
         // log in
         console.log("invalid user : ", userExist);
 
-        res.status(401).send({ message: 'invalid email or password' });
+        return res.status(401).send({ message: 'invalid email or password' });
 
     } else {
         // log in
@@ -29,14 +29,14 @@ router.post("/api/auth/login", async (req, res) => {
         const user = userExist[0]
         req.session.user = { username: user.username, email: user.email, role: user.role_id };
         console.log("session: ", req.session.user);
-        res.status(200).send({ data: req.session.user });
+        return res.status(200).send({ data: req.session.user });
     }
 });
 
 // logout
 router.get("/api/auth/logout", (req, res) => {
     req.session.destroy(() => {
-        res.send({message: "Logging out"});
+        return res.send({message: "Logging out"});
     }); 
 })
 
@@ -60,10 +60,10 @@ router.post("/api/auth/signup", async (req, res) => {
 
         db.collection("users").insertOne(newUser);
 
-        res.status(200).send({ data: sanitizedUsername });
+        return res.status(200).send({ data: sanitizedUsername });
     } else {
         console.log("Signup failed");
-        res.status(409).send({ message: "error" });
+        return  res.status(400).send({ message: "error" });
     }
 });
 

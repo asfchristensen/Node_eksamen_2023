@@ -26,7 +26,11 @@ a:hover {
 
 main {
   min-height: 100vh;
-  background-color: pink;
+  color: coral;
+  
+}
+.col-middle {
+  grid-column: 3 span; 
 }
 
 h1 {
@@ -39,11 +43,12 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
+  
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+
 
 button {
   border-radius: 8px;

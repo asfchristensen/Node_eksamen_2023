@@ -37,10 +37,10 @@ router.post("/api/auth/forgot-password", async (req, res) => {
 
         try {
             sendSMS(activationCode, phoneNumber);
-            return res.status(200).send({ message: "We sent you a SMS" , status: 200 });  
+            return res.status(200).send({ message: "SMS sent" });  //
         } catch (error) {
             console.error("Error sending SMS: ", error);
-            return res.status(400).send({ message: "error sending SMS", status: 400 });
+            return res.status(400).send({ message: "error sending SMS"});
         }
     } 
 });
@@ -55,14 +55,14 @@ router.post("/api/auth/update-password", async (req, res) => {
     console.log("activation code found: ",activationCodeExists);
     
     if (!activationCodeExists || newPassword !== confirmPassword) {
-        res.status(400).send({ message: "error - activation code not found or password mismatch", status: 400 });
+        res.status(400).send({ message: "error - activation code not found or password mismatch" });
     } else {
         const hashedNewPassword = await bcrypt.hash(newPassword, 12);
         console.log(hashedNewPassword); 
 
         await db.collection("activation_codes").deleteOne({ code: activationCode });
         await db.collection("users").updateOne({ email: activationCodeExists.email }, { $set: { password: hashedNewPassword }});
-        res.status(200).send({ message: "success - new password created", status: 200 });
+        res.send({ message: "success - new password created" });
     }
 });
 

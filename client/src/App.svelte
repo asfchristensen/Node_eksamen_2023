@@ -1,8 +1,8 @@
 <script>
     import { Router, Route } from "svelte-navigator";
     import PrivateRoute from "./components/Protectors/PrivateRoute.svelte";
-    import Signup from "./pages/Signup/Signup.svelte";
-    import Login from "./pages/Login/Login.svelte";
+    import Signup from "./pages/Auth/SignupPage.svelte";
+    import Login from "./pages/Auth/LoginPage.svelte";
     import Profile from "./pages/Profile/Profile.svelte";
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
@@ -13,6 +13,8 @@
     import AdminEvent from "./pages/AdminEvent/AdminEvent.svelte";
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
     import StatisticsPage from "./pages/Statistics/StatisticsPage.svelte";
+    import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage.svelte";
+    import UpdatePasswordPage from "./pages/Auth/UpdatePasswordPage.svelte";
 </script>
 
 <Router>
@@ -25,6 +27,8 @@
 
         <Route path="/login" component={Login}></Route>
         <Route path="/signup" component={Signup}></Route>
+        <Route path="/forgot-password" component={ForgotPasswordPage}></Route>
+        <Route path="/update-password" component={UpdatePasswordPage}></Route>
         <Route path="/home" component={Home}></Route>
         <Route path="/maps" component={GoogleMaps}></Route>
         <Route path="/admin-event" component={AdminEvent}></Route>
