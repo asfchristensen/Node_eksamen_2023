@@ -66,8 +66,15 @@ app.use(recipeRouter);
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);
 
+<<<<<<< HEAD
 import publishedRecipesRouter from "./routes/publishedRecipesRouter.js";
 app.use(publishedRecipesRouter);
+=======
+import eventRouter from "./routes/eventRouter.js";
+app.use(eventRouter);
+
+
+>>>>>>> googleMaps
 
 
 const PORT = process.env.PORT || 8080;
