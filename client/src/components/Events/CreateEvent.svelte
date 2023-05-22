@@ -14,6 +14,7 @@
 
         if ($eventsToPublish.length === 0) {
             eventsToPublish.set([event]);
+        
         } else {
             eventsToPublish.update((eventList) => {
             eventList.push(event);

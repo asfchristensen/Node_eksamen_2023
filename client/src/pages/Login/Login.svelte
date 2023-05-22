@@ -10,13 +10,8 @@
         "timeOut": "1200"
     }
 
-<<<<<<< HEAD
     let email = "bob@mail.dk";
     let password = "bob123";
-=======
-    let email = "admin@mail.dk";
-    let password = "admin123";
->>>>>>> googleMaps
 
     async function handleLogin() {
         const userCredentials = JSON.stringify({ email, password });

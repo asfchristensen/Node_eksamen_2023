@@ -7,13 +7,10 @@
     import Navbar from "./components/Navbar/Navbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
     import NewsFeed from "./pages/NewsFeed/NewsFeed.svelte";
-<<<<<<< HEAD
     import Admin from "./pages/Admin/Admin.svelte";
     import Home from "./pages/Home/Home.svelte";
-=======
     import GoogleMaps from "./components/Events/MapEvents.svelte";
     import AdminEvent from "./pages/AdminEvent/AdminEvent.svelte";
->>>>>>> googleMaps
 </script>
 
 <Router>
@@ -26,12 +23,9 @@
 
         <Route path="/login" component={Login}></Route>
         <Route path="/signup" component={Signup}></Route>
-<<<<<<< HEAD
         <Route path="/home" component={Home}></Route>
-=======
         <Route path="/maps" component={GoogleMaps}></Route>
         <Route path="/admin-event" component={AdminEvent}></Route>
->>>>>>> googleMaps
 
 
         <!-- Private routes -->
