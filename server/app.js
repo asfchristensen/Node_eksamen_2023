@@ -48,6 +48,19 @@ io.on("connection", (socket) => {
     
     socket.on("User joins room", (user) => {
         console.log("User connected in Let's Taco 'Bout It Room:", user);
+        for (const socketIDKey in chatUsers) {
+            console.log("key:", socketIDKey);
+    
+            const userInList = chatUsers[socketIDKey];
+            //console.log("user in list", userInList);
+            //console.log("user in list email", userInList.data.email);
+            //console.log("user email", user.data.email);
+           if (userInList.data.email === user.data.email){
+                delete chatUsers[socketIDKey];
+           }
+            
+        }
+
         chatUsers[socket.id] = user;
         socket.join("Let's Taco 'Bout It Room");
         io.to("Let's Taco 'Bout It Room").emit("User joined Room", user); 
@@ -109,6 +122,7 @@ import chatRouter from "./routes/chatRouter.js";
 app.use(chatRouter);
 
 import userRouter from "./routes/userRouter.js";
+import { log } from "console";
 app.use(userRouter);
 
 
