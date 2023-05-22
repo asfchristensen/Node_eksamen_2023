@@ -1,6 +1,6 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { user, mail, role } from "../../stores/user.js";
+    import { user } from "../../stores/user.js";
     import { navigate } from "svelte-navigator";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
@@ -10,8 +10,8 @@
         "timeOut": "1200"
     }
 
-    let email = "fie@mail.dk";
-    let password = "1234";
+    let email = "bob@mail.dk";
+    let password = "bob123";
 
     async function handleLogin() {
         const userCredentials = JSON.stringify({ email, password });

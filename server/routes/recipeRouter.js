@@ -21,7 +21,7 @@ router.get("/api/recipes/:mail", async (req, res) => {
 });
 
 router.patch("/api/recipes", async (req, res) => {
-    const { title, category, picURL, ingredients, procedure} = req.body; 
+    const { isPublished, title, category, picURL, ingredients, procedure} = req.body; 
     const sanitizedTitle = validator.escape(title);  
     const sanitizedCategory = validator.escape(category);  
     const sanitizedPicURL = picURL;  
@@ -30,15 +30,31 @@ router.patch("/api/recipes", async (req, res) => {
     
     console.log("body: ", req.body);
     
-    const sanitizedRecipe = { title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, ingredients: sanitizedIngredients, procedure: sanitizedProcedure};
+    const sanitizedRecipe = { isPublished: isPublished, title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, ingredients: sanitizedIngredients, procedure: sanitizedProcedure};
     
     if (!sanitizedRecipe) {
         res.status(400).send({ message: "invalid recipe" })
     } else {
-        await db.collection('users').updateOne({ email: req.session.user.email }, { $push: { recipes: sanitizedRecipe }});
+        await db.collection("users").updateOne({ email: req.session.user.email }, { $push: { recipes: sanitizedRecipe }});
         res.status(200).send({ data: sanitizedRecipe });
     }
-   
 });
+
+// ændre fra ...recipe til kun at være procedure og isPublished (HUSK frontend også!)
+router.patch("/api/recipes/published", async (req, res) => {
+    const { ...recipe } = req.body;  
+    console.log("update to publish ",req.body)   
+    
+    if (!{...recipe}) {
+        res.status(400).send({ message: "invalid recipe" })
+    } else {
+        await db.collection("users").updateOne(
+            { email: req.session.user.email, 'recipes.procedure': req.body.procedure }, 
+            { $set: { 'recipes.$.isPublished' : req.body.isPublished}}
+        );
+        res.status(200).send({ data: {...recipe} });
+    }
+});
+
 
 export default router;

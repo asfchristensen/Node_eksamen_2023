@@ -3,21 +3,23 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes } from "../../stores/user.js";
     import toastr from "toastr";
+    import MyLikes from "../../components/MyLikes/MyLikes.svelte";
+    import Rating from "../../components/Rating/Rating.svelte";
 
     console.log('recipes:', $recipes);
 
     onMount(async () => {
-       await getAllRecipes();
+       await handleGetAllRecipes();
+       console.log('recipes after onmount:', $recipes);
+
     });
 
-    async function getAllRecipes(){
+    async function handleGetAllRecipes(){
         const recipesURL = $BASE_URL + `/api/recipes/${$user.email}`;
         const response = await fetch(recipesURL);
-        console.log(response)
         const result = await response.json();
-        console.log(result)
-        recipes.set(result.data); 
-        console.log(typeof $recipes);
+        console.log("From get all recipes:", result.data);
+        recipes.set(result.data);
     }
 
     const categories = [
@@ -39,7 +41,7 @@
     let placeholder = "Category";
 
     async function handleCreateRecipe() {
-        const recipeInfo = JSON.stringify({ title, category, picURL, ingredients, procedure });
+        const recipeInfo = JSON.stringify({ isPublished: false, title, category, picURL, ingredients, procedure });
         console.log("object to send: ", recipeInfo);
         const response = await fetch($BASE_URL + "/api/recipes", {
             method: "PATCH",
@@ -54,11 +56,9 @@
         console.log(result); 
 
         if (response.ok) { 
-            toastr.success(`Recipe uploaded, good job ${$user}`);
+            toastr.success(`Recipe uploaded, good job ${$user.username}`);
             setTimeout(() => {
-                getAllRecipes();
-                console.log(response);
-                console.log(result);
+                handleGetAllRecipes();
             }, 1000)
         } else {
             toastr.error("Failed to create recipe");
@@ -71,11 +71,58 @@
         procedure = "";
     }
 
-    function publishPost(recipe) {
-        alert('You published this post - nice!' + recipe.procedure)
+    async function handlePublishRecipe(recipe) {
+        console.log("Handle publish recipes", recipe);
+        recipe.isPublished = true;
+        
+        const recipeToPublish = { author: $user.email, ...recipe };
+        const recipeToJSON = JSON.stringify(recipeToPublish);
+
+        // sætter recipen til published collection
+        const response = await fetch($BASE_URL + "/api/publishedRecipes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: recipeToJSON,
+            credentials: "include"
+        });
+
+        if (response.ok) {
+            // opdaterer samme recipe i useren 
+            const recipeInfo = JSON.stringify({ ...recipe });
+            const res = await fetch($BASE_URL + "/api/recipes/published", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: recipeInfo,
+            credentials: "include"
+        });
+
+        if (res.ok) {
+            console.log("Changes isPublished to true in user Laura", res.ok);
+            const updateRecipes = $recipes.map((r) => {
+                if (r.procedure === recipe.procedure) {
+                    console.log("Recipe changed to true", recipe);
+                    return recipe;
+                }
+                return r;
+            });
+            $recipes = updateRecipes;
+            $recipes.forEach(r => console.log("Is published in foreach:", r.isPublished))
+        } else {
+            console.log("error - not changed anything");
+        }
     }
+}
+
 
 </script>
+<Rating/>
+<MyLikes/>
+
+<hr>
 
 <h2>Profile</h2>
 <h5>Welcome to your profile page <span class="user">{$user.username}</span></h5>
@@ -104,34 +151,25 @@
     </form>
 </div>
 
-
 <div class="recipes">
     <h1>Her skal der være opskrifter</h1>
-    {#if $recipes === null}
+    {#if $recipes === null || $recipes === undefined}
         <h4>Add your recipes here...</h4>
     {:else}
         {#each $recipes as recipe}
             <img src="{recipe.picURL}" alt="image of food"/>
             <p>{recipe.title}</p>
             <p>{recipe.procedure}</p><br>
-            <button on:click={publishPost.bind(null, recipe)}>Publish</button>
+            {#if !recipe.isPublished}
+            <button on:click={handlePublishRecipe.bind(null, recipe)}>Publish</button>
+            {:else}
+            <button disabled>Published</button>
+            {/if}
         {/each}
     {/if}
 </div>
 
-<!--
-<div class="form-signup">
-    <form on:submit|preventDefault={handleSignup}>
-        <input type="text" placeholder="username" name="username" bind:value={username} required><br><br>
 
-        <input type="password" placeholder="password" name="password" bind:value={password} required><br><br>
-
-        <input type="email" placeholder="email" name="email" bind:value={email} required><br><br>
-
-        <button type="submit">Sign up</button>
-    </form>
-</div>
--->
 
 <style>
     .user {

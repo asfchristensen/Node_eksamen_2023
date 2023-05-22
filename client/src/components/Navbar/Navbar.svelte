@@ -15,13 +15,14 @@
             {#if $user}
             {#if $user.role === 1}
             <nav>
-                <Link to="/profile">Profile</Link>
+                <Link to="/admin">Read ratings</Link>
                 <Logout/>
             </nav>
             <!-- user = 2 -->
             {:else if $user.role === 2}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <Link to="/newsFeed">News feed</Link>
                 <Logout/>
             </nav>
             {/if}
@@ -29,6 +30,7 @@
             {#if !$user}
                 <Link to="/signup">Sign up</Link>
                 <Link to="/login">Log in</Link>
+                <Link to="/home">Home</Link>
             {/if}
         </div>
         <div class="nav-user">
