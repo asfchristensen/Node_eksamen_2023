@@ -27,6 +27,61 @@ app.use(session({
 }));
 
 
+import http from "http";
+const server = http.createServer(app);
+
+import { Server } from "socket.io";
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        //origin: ["localhost:3000", "localhost:5174"],
+        methods: ["*"] 
+    }
+});
+
+const chatUsers = {};
+
+io.on("connection", (socket) => {
+    console.log("Connection made"); 
+
+    // CHAT
+    
+    socket.on("User joins room", (user) => {
+        console.log("User connected in Let's Taco 'Bout It Room:", user);
+        for (const socketIDKey in chatUsers) {
+            console.log("key:", socketIDKey);
+    
+            const userInList = chatUsers[socketIDKey];
+            //console.log("user in list", userInList);
+            //console.log("user in list email", userInList.data.email);
+            //console.log("user email", user.data.email);
+           if (userInList.data.email === user.data.email){
+                delete chatUsers[socketIDKey];
+           }
+            
+        }
+
+        chatUsers[socket.id] = user;
+        socket.join("Let's Taco 'Bout It Room");
+        io.to("Let's Taco 'Bout It Room").emit("User joined Room", user); 
+        io.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers); 
+    });
+
+    socket.on("Let's Taco 'Bout It Room chatmessages", (messageData) => {
+        console.log("Data recieved?: ", messageData);
+        io.to("Let's Taco 'Bout It Room").emit("message", messageData);
+    });
+
+    socket.on("leave room", (user) => {
+        console.log("A user disconnected:", user);
+        socket.leave("Let's Taco 'Bout It Room");
+        socket.to("Let's Taco 'Bout It Room").emit("User left the room", user);
+        delete chatUsers[socket.id];
+        io.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers);
+    });
+});
+
+
 import rateLimit from 'express-rate-limit'
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -60,10 +115,14 @@ function authChecker(req, res, next) {
 import authRouter from "./routes/authRouter.js";
 app.use(authRouter);
 
-import recipeRouter from "./routes/recipeRouter.js"
+import recipeRouter from "./routes/recipeRouter.js";
 app.use(recipeRouter);
 
+import chatRouter from "./routes/chatRouter.js";
+app.use(chatRouter);
+
 import userRouter from "./routes/userRouter.js";
+import { log } from "console";
 app.use(userRouter);
 
 import publishedRecipesRouter from "./routes/publishedRecipesRouter.js";
@@ -79,7 +138,7 @@ app.use(forgotPasswordRouter);
 
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, (error) => {
+server.listen(PORT, (error) => {
     if (error) {
         console.log(error);
     }

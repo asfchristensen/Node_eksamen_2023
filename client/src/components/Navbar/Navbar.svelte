@@ -18,6 +18,8 @@
                 <Link to="/admin">Read ratings</Link>
                 <Link to="/profile">Profile</Link>
                 <Link to="/admin-event">Publish event(s)</Link>
+                <Link to="/statistic">Stats</Link>
+                <a href="/chat">Let's Taco 'Bout It</a>
                 <Logout/>
             </nav>
             <!-- user = 2 -->
@@ -25,6 +27,7 @@
             <nav>
                 <Link to="/profile">Profile</Link>
                 <Link to="/newsFeed">News feed</Link>
+                <a href="/chat">Let's Taco 'Bout It</a>
                 <Logout/>
             </nav>
             {/if}

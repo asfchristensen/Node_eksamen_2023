@@ -34,8 +34,7 @@
             console.log(JSON.stringify(result.data))
             localStorage.setItem("user",JSON.stringify(result.data));
             user.set(result.data);
-           
-        
+                    
             toastr.success(`You've logged in successfully, welcome back ${$user}`);
             setTimeout(() => {
                 navigate("/newsFeed", { replace: true });

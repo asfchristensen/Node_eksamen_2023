@@ -11,6 +11,8 @@
     import Home from "./pages/Home/Home.svelte";
     import GoogleMaps from "./components/Events/MapEvents.svelte";
     import AdminEvent from "./pages/AdminEvent/AdminEvent.svelte";
+    import ChatPage from "./pages/ChatPage/ChatPage.svelte";
+    import StatisticsPage from "./pages/Statistics/StatisticsPage.svelte";
 </script>
 
 <Router>
@@ -32,6 +34,10 @@
         <PrivateRoute path="/admin">
             <Admin/>
         </PrivateRoute>
+        <PrivateRoute path="/statistic">
+            <StatisticsPage/>
+        </PrivateRoute>
+
         <!-- for all -->
         <PrivateRoute path="/profile">
             <Profile/>
@@ -39,9 +45,11 @@
 
         <PrivateRoute path="/newsFeed">
             <NewsFeed/>
+        </PrivateRoute> 
+
+        <PrivateRoute path="/chat">
+            <ChatPage/>
         </PrivateRoute>
-
-
     </main>
 
 </Router>

@@ -10,10 +10,10 @@ router.post("/api/auth/login", async (req, res) => {
     const { password, email } = req.body;
     const sanitizedPassword = validator.escape(password);
     const sanitizedEmail = validator.escape(email);
-    console.log("req.body: ", req.body);
+    //console.log("req.body: ", req.body);
     
     const userExist = await db.collection("users").find({ email: sanitizedEmail }).toArray();
-    console.log("User exist: ", userExist);
+    //console.log("User exist: ", userExist);
 
     if (userExist.length === 0 || !(await bcrypt.compare(sanitizedPassword, userExist[0].password))) {
         // log in
