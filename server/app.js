@@ -73,6 +73,9 @@ import eventRouter from "./routes/eventRouter.js";
 app.use(eventRouter);
 
 
+import forgotPasswordRouter from "./routes/forgotPasswordRouter.js";
+app.use(forgotPasswordRouter);
+
 
 
 const PORT = process.env.PORT || 8080;

@@ -4,6 +4,8 @@
     import { navigate } from "svelte-navigator";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
+    import ForgotPassword from "../../components/ForgotPassword/ForgotPassword.svelte";
+    import UpdatePassword from "../../components/UpdatePassword/UpdatePassword.svelte";
 
     toastr.options = {
         "positionClass": "toast-top-center",
@@ -60,6 +62,10 @@
         <button type="submit">Log in</button>
     </form><br><br>
 </div>
+
+<ForgotPassword/>
+<UpdatePassword/>
+
 
 <style>
     .form-login {
