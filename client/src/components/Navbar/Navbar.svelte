@@ -16,6 +16,7 @@
             {#if $user.role === 1}
             <nav>
                 <Link to="/profile">Profile</Link>
+                <Link to="/statistic">Stats</Link>
                 <a href="/chat">Let's Taco 'Bout It</a>
                 <Logout/>
             </nav>

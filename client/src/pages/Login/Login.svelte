@@ -1,6 +1,6 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { user, mail, role } from "../../stores/user.js";
+    import { user } from "../../stores/user.js";
     import { navigate } from "svelte-navigator";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
@@ -32,8 +32,7 @@
             console.log(JSON.stringify(result.data))
             localStorage.setItem("user",JSON.stringify(result.data));
             user.set(result.data);
-           
-        
+                    
             toastr.success(`You've logged in successfully, welcome back ${$user}`);
             setTimeout(() => {
                 navigate("/newsFeed", { replace: true });

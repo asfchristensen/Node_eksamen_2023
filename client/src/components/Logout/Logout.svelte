@@ -1,6 +1,6 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain";
-    import { user, role, mail, recipes } from "../../stores/user.js";
+    import { user, recipes } from "../../stores/user.js";
     import { Link } from "svelte-navigator";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
@@ -16,8 +16,6 @@
         const data = await response.json();
 
         $user = null;
-        $role = null;
-        $mail = null;
         $recipes = null;
 
         if (data.message) {

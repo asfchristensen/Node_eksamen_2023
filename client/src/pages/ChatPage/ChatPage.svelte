@@ -10,10 +10,12 @@
     let message = "";
     let socket = io($BASE_URL);
     let messageFromUser = null;
+    let onlineUsers = null;
 
 
     onMount( async () => {
-        await handleGetAllMessages();   
+        await handleGetAllMessages(); 
+        
     });
 
     async function handleGetAllMessages() {
@@ -24,26 +26,30 @@
     }
 
     onDestroy( () => {
-        socket.emit("leave room", { data: $user.username });
+        socket.emit("leave room", { user: $user });
     })
 
-    socket.on("User left the room", (user) => {
-        toastr.error(user.data + " left room"); 
+    socket.on("User left the room", (data) => {
+        console.log("Data: ", data);
+        console.log("User object: ", data.user.username);
+        toastr.error(data.user.username + " left room");
         console.log("disconnect");
     });
 
     // start besked
     socket.emit("User joins room", { data: $user });
 
-    socket.on("User joined Room", (user) => {
-        console.log(user.data.username);
-        //toastr.success(user.data.username + " joined the room");
-        usersInChatroom.update(list => {
-            list.push({ username: user.data.username });
-            return list;
-        });
+    socket.on("chatUsers", (users) => {
+        console.log("chatUsers", users); //[socket.id].data.username);
+        $usersInChatroom = Object.values(users).filter(Boolean);
+        console.log("Lenght of users in chatroom array: ", $usersInChatroom.length);
+    })
 
-        console.log("joined the room", user.data );
+    socket.on("User joined Room", (user) => {
+        console.log("User who joined: ", user.data.username);
+        toastr.success(user.data.username + " joined the room");
+   
+        console.log("joined the room", user.data.username );
         console.log("users in chatroom: ", $usersInChatroom.length);
     });
 
@@ -103,7 +109,7 @@
 
 <h1>Online users:</h1><br>
 {#each $usersInChatroom as user}
-    <p>{user.username}</p>
+    <p>{user.data.username}</p>
 {/each}
 
 

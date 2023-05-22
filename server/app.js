@@ -39,27 +39,33 @@ const io = new Server(server, {
     }
 });
 
+const chatUsers = {};
 
 io.on("connection", (socket) => {
     console.log("Connection made"); 
+
+    // CHAT
     
     socket.on("User joins room", (user) => {
         console.log("User connected in Let's Taco 'Bout It Room:", user);
+        chatUsers[socket.id] = user;
         socket.join("Let's Taco 'Bout It Room");
         io.to("Let's Taco 'Bout It Room").emit("User joined Room", user); 
+        io.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers); 
     });
 
     socket.on("Let's Taco 'Bout It Room chatmessages", (messageData) => {
         console.log("Data recieved?: ", messageData);
-        io.to("Let's Taco 'Bout It Room").emit("message", messageData)
+        io.to("Let's Taco 'Bout It Room").emit("message", messageData);
     });
 
     socket.on("leave room", (user) => {
         console.log("A user disconnected:", user);
         socket.leave("Let's Taco 'Bout It Room");
         socket.to("Let's Taco 'Bout It Room").emit("User left the room", user);
+        delete chatUsers[socket.id];
+        io.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers);
     });
-
 });
 
 

@@ -8,6 +8,7 @@
     import Footer from "./components/Footer/Footer.svelte";
     import NewsFeed from "./pages/NewsFeed/NewsFeed.svelte";
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
+    import StatisticsPage from "./pages/Statistics/StatisticsPage.svelte";
 </script>
 
 <Router>
@@ -21,6 +22,10 @@
         <Route path="/signup" component={Signup}></Route>
 
         <!-- Private routes -->
+
+        <PrivateRoute path="/statistic">
+            <StatisticsPage/>
+        </PrivateRoute>
 
         <!-- for all -->
         <PrivateRoute path="/profile">
