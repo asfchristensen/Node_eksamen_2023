@@ -112,8 +112,14 @@ function authChecker(req, res, next) {
 //app.use("/api/auth/...", authChecker);
 
 
-import authRouter from "./routes/authRouter.js";
+import authRouter from "./routes/auth/authRouter.js";
 app.use(authRouter);
+
+import forgotPasswordRouter from "./routes/auth/forgotPasswordRouter.js";
+app.use(forgotPasswordRouter);
+
+import signupRouter from "./routes/auth/signupRouter.js";
+app.use(signupRouter);
 
 import recipeRouter from "./routes/recipeRouter.js";
 app.use(recipeRouter);
@@ -122,7 +128,6 @@ import chatRouter from "./routes/chatRouter.js";
 app.use(chatRouter);
 
 import userRouter from "./routes/userRouter.js";
-import { log } from "console";
 app.use(userRouter);
 
 import publishedRecipesRouter from "./routes/publishedRecipesRouter.js";
@@ -132,8 +137,6 @@ import eventRouter from "./routes/eventRouter.js";
 app.use(eventRouter);
 
 
-import forgotPasswordRouter from "./routes/forgotPasswordRouter.js";
-app.use(forgotPasswordRouter);
 
 
 

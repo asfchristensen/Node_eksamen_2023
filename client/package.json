@@ -16,6 +16,7 @@
   "dependencies": {
     "@picocss/pico": "^1.5.10",
     "socket.io-client": "^4.6.1",
+    "svelte-loading-spinners": "^0.3.4",
     "svelte-navigator": "^3.2.2",
     "toastr": "^2.1.4"
   }

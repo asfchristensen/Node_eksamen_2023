@@ -1,7 +1,7 @@
 <script>
     import "@picocss/pico";
     import LoginForm from "../../components/Auth/LoginForm.svelte";
-
+    
 </script>
 
 <div class="grid">

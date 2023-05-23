@@ -4,6 +4,7 @@
     import { publishedRecipes } from "../../stores/publishedRecipes.js";
     import { recipes, user } from "../../stores/user.js";
     import SearchBar from "../../components/SearchBar/SearchBar.svelte";
+    import Sidebar from "../../components/Navbars/Sidebar.svelte";
 
     // importer component med special navbar også .. 
     onMount(async () => {
@@ -160,49 +161,55 @@
     
 </script>
 
-<h1>News Feed</h1>
-<SearchBar/>
+<div class="grid">
+    <div class="col-left">
+        <Sidebar/>
+    </div>
+    <div class="col-middle">
+        <h2>News Feed</h2>
 
-<div class="recipes">
-    <h1>Her er der opskrifter</h1>
-    {#each $publishedRecipes as recipe}
-        <a id="{recipe._id.toLowerCase()}"></a> 
-        <p>{recipe.author}</p>
-        <img src="{recipe.picURL}" alt="image of food"/>
-        <p>{recipe.title}</p>
-        <p>{recipe.procedure}</p><br>
-        
-        {#if handleHasLikedButton(recipe)}
-            <button on:click={handleDislike.bind(null, recipe)} class="liked">Liked </button>
-        {:else}
-            <button on:click={handleLike.bind(null, recipe)}>Like recipe</button>
-        {/if}
-        <button on:click={handleToggleComments.bind(null, recipe)}>Comment</button>
-        <div>
-            {#if recipe.comments !== undefined && showComments[recipe._id]}
-                <div>
-                    {#each recipe.comments as comment}                 
+        {#each $publishedRecipes as recipe}
+            <p>{recipe.author}</p>
+            <img src="{recipe.picURL}" alt="image of food"/>
+            <p>{recipe.title}</p>
+            <p>{recipe.procedure}</p><br>
+            
+            {#if handleHasLikedButton(recipe)}
+                <button on:click={handleDislike.bind(null, recipe)} class="liked">Liked </button>
+            {:else}
+                <button on:click={handleLike.bind(null, recipe)}>Like recipe</button>
+            {/if}
+            <button on:click={handleToggleComments.bind(null, recipe)}>Comment</button>
+            <div>
+                {#if recipe.comments !== undefined && showComments[recipe._id]}
+                    <div>
+                        {#each recipe.comments as comment}                 
+                            <div>
+                                <p>From: {comment.email}</p>
+                                <p>{comment.comment}</p>
+                            </div>
+                        {/each}
+    
                         <div>
-                            <p>From: {comment.email}</p>
-                            <p>{comment.comment}</p>
+                            <textarea placeholder="write comment"cols="30" rows="1" bind:value={commentInput}></textarea>
+                            <button on:click={hanndleCreateComment.bind(null, recipe)}>Add comment</button>
                         </div>
-                    {/each}
-
+                    </div>
+                {:else if recipe.comments === undefined && showComments[recipe._id]}
                     <div>
                         <textarea placeholder="write comment"cols="30" rows="1" bind:value={commentInput}></textarea>
                         <button on:click={hanndleCreateComment.bind(null, recipe)}>Add comment</button>
                     </div>
-                </div>
-            {:else if recipe.comments === undefined && showComments[recipe._id]}
-                <div>
-                    <textarea placeholder="write comment"cols="30" rows="1" bind:value={commentInput}></textarea>
-                    <button on:click={hanndleCreateComment.bind(null, recipe)}>Add comment</button>
-                </div>
-            {:else}
-                <div></div>
-            {/if} 
-        </div>
-    {/each}
+                {:else}
+                    <div></div>
+                {/if} 
+            </div>
+        {/each}
+    </div>
+
+    <div class="col-right">
+        <SearchBar/>
+    </div>
 </div>
 
 <style>

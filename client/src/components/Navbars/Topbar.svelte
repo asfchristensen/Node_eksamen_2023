@@ -1,17 +1,65 @@
 <script>
+    import "@picocss/pico";
     import { user } from "../../stores/user.js";
     import { Link } from "svelte-navigator";
     import Logout from "../Logout/Logout.svelte";
 
-    console.log($user)
-
 </script>
 
+<nav class="grid">
+    <div class="left">
+        {#if $user}
+            <Link to="/newsfeed">
+                <img src="../icons/home.png" alt="home icon in navbar">
+            </Link>
+            <p>User: {$user.username}</p>
+        {:else}
+            <p><Link to="/frontpage">Frontpage</Link></p>
+        {/if}
+    </div>
+    <div class="middle">
+        <h3><strong>My Food Universe</strong></h3>
+    </div>
+    <div class="right">
+        {#if $user}
+        <p><Logout/></p>
+        {:else}
+        <p><Link to="/login">Login</Link></p>
+        {/if}
+    </div>
+</nav>
 
+
+<style>
+    .grid {
+        padding: 1em 1em 0em 0em;
+        border-bottom: 0.1em solid black;
+    }
+
+    .left {
+        grid-column: 1 span;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .middle { grid-column: 3 span; }
+
+    .right { 
+        grid-column: 1 span; 
+    }
+
+    img {
+        height: 2em;
+        width: 2em;
+    }
+
+    p { margin-top: 0.5em; }
+</style>
+
+<!-- 
 <header>
     <div class="navbar">
         <div class="nav-link">
-            <!-- admin = 1 -->
             {#if $user}
             {#if $user.role === 1}
             <nav>
@@ -22,7 +70,6 @@
                 <a href="/chat">Let's Taco 'Bout It</a>
                 <Logout/>
             </nav>
-            <!-- user = 2 -->
             {:else if $user.role === 2}
             <nav>
                 <Link to="/profile">Profile</Link>
@@ -34,7 +81,6 @@
             {/if}
             {#if !$user}
                 <Link to="/maps">Google MAPS</Link> 
-                <Link to="/signup">Sign up</Link>
                 <Link to="/login">Log in</Link>
                 <Link to="/home">Home</Link>
             {/if}
@@ -85,4 +131,4 @@
         font-weight: bold;
         color: rgb(209, 76, 232);
     }
-</style>
+</style> -->

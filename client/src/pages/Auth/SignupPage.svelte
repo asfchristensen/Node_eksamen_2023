@@ -8,7 +8,7 @@
     <div class="col-left"></div>
 
     <div class="col-middle">
-        <h2>Signup</h2>
+        <h2>Sign up</h2>
         <SignupForm/>
     </div>
 

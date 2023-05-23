@@ -91,7 +91,6 @@ router.patch("/api/publishedRecipes/comment", async (req, res) => {
     const chosenRecipe = await db.collection("published_recipes").findOne({ _id: new ObjectId(id) });
     console.log("chosen ",chosenRecipe);
    
-   
     const commentedRecipe = await db.collection("published_recipes").updateOne({ _id: new ObjectId(id) }, { $push: { comments: { email: email, comment: comment} }});
     console.log("status for creating comment to recipe", commentedRecipe);
 
@@ -100,7 +99,6 @@ router.patch("/api/publishedRecipes/comment", async (req, res) => {
     } else {
         return res.status(400).send({ message: "error - unable to dislike published recipe" });
     }
-       
 });
 
 export default router;
