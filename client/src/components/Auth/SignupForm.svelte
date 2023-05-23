@@ -4,6 +4,7 @@
     import { post } from "../../api/api";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
+    import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.svelte";
     
     toastr.options = {
         "positionClass": "toast-top-center",
@@ -12,19 +13,28 @@
 
     let username = "";
     let password = "";
+    let confirmedPassword = "";
     let email = "";
+    let passwordsMatch;
+    let signupOK = false;
+
+    function handleCheckPasswords() {
+        passwordsMatch = false;
+        passwordsMatch = password !== confirmedPassword;
+    }
 
     async function handleSignup() {
-        const userToJSON = JSON.stringify({ username, password, email });
+        const userToJSON = JSON.stringify({ username, password, confirmedPassword, email });
         const url = $BASE_URL + "/api/auth/signup";
 
         const result = await post(url, userToJSON);
 
         if (result.data === username) {
             toastr.success(`User successfully created. Welcome ${result.data}`);
+            signupOK = true;
             setTimeout(() => {
-                navigate("/login", { replace: true });
-            }, 1500)
+                navigate("/login", {replace: true});
+            }, 2500)
         } else if (result.message === "error") {
             toastr.error("Account already exists");
         } else {
@@ -33,14 +43,20 @@
 
         username = "";
         password = "";
+        confirmedPassword = "";
         email = "";
     }
 </script>
 
+{#if signupOK}
+    <LoadingSpinner/>
+{/if}
+
 <form on:submit|preventDefault={handleSignup}>
-    <input type="text" placeholder="username" name="username" bind:value={username} required>
-    <input type="password" placeholder="password" name="password" bind:value={password} required>
-    <input type="email" placeholder="email" name="email" bind:value={email} required>
+    <input type="text" placeholder="Username" name="username" bind:value={username} required>
+    <input type="password" placeholder="Password" name="password" bind:value={password} required>
+    <input type="password" placeholder="Confirm password" name="confirmedPassword" bind:value={confirmedPassword} on:input={handleCheckPasswords} aria-invalid={passwordsMatch} required>
+    <input type="email" placeholder="Email" name="email" bind:value={email} required>
     <button type="submit">Sign up</button>
 </form>
 

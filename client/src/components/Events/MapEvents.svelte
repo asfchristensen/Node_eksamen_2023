@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   
   import { onMount } from "svelte";
   import { BASE_URL } from "../../stores/urlDomain.js";
@@ -146,4 +146,4 @@ function addEventMarkers(map) {
       height: 100px;
       width: 100px;
     }
-</style>
+</style> -->

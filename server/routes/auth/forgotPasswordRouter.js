@@ -19,14 +19,15 @@ router.post("/api/auth/forgot-password", async (req, res) => {
         return res.status(400).send({ message: "error - email not found" });
     } else {
         const activationCode = Math.floor(Math.random() * 1_000_000);
-    
+        const expirationTime = Date.now() + 60 * 1000; //24 * 60 * 60 * 1000;
+
         const emailExists = await db.collection("activation_codes").findOne({ email: email });
 
         if (emailExists) {
             await db.collection("activation_codes").deleteOne({ email: email });
         } 
 
-        await db.collection("activation_codes").insertOne({ email: email, code: activationCode });   
+        await db.collection("activation_codes").insertOne({ email: email, code: activationCode, expirationDate: new Date(expirationTime) });   
     
         try {
             sendSMS(activationCode, phoneNumber);
@@ -40,14 +41,10 @@ router.post("/api/auth/forgot-password", async (req, res) => {
 router.post("/api/auth/update-password", async (req, res) => {
     const { activationCode, newPassword, confirmPassword } = req.body;
 
-    console.log("body update:", req.body);
-    console.log()
-
     const activationCodeExists = await db.collection("activation_codes").findOne({ code: activationCode });
-    console.log("activation code found: ",activationCodeExists);
     
-    if (!activationCodeExists || newPassword !== confirmPassword) {
-        return res.status(400).send({ message: "error - activation code not found or password mismatch", status: 400 });
+    if (!activationCodeExists || activationCodeExists.expirationDate < new Date() || newPassword !== confirmPassword) {
+        return res.status(400).send({ message: "error - activation code not found, expired or password mismatch", status: 400 });
     } else {
         const hashedNewPassword = await bcrypt.hash(newPassword, 12);
         console.log(hashedNewPassword); 
