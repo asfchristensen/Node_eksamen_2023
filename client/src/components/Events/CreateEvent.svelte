@@ -1,5 +1,5 @@
 <script>
-    import { eventsToPublish } from "../../stores/events";
+    import { eventsToPublish } from "../../stores/events.js";
 
     let eventName = "";
     let category = "";

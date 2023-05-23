@@ -1,8 +1,8 @@
 <script>
   
-  import { onMount } from 'svelte';
-  import { BASE_URL } from '../../stores/urlDomain';
-  import { eventsDB } from '../../stores/events';
+  import { onMount } from "svelte";
+  import { BASE_URL } from "../../stores/urlDomain.js";
+  import { eventsDB } from "../../stores/events.js";
 
   let lat = null;
   let lng = null;
@@ -64,7 +64,6 @@
     lng = null;
     initializeMap();
   } 
-  
 }
 
 function addEventMarkers(map) {

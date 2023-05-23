@@ -1,6 +1,6 @@
 <script>
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { eventsToPublish } from "../../stores/events";
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { eventsToPublish } from "../../stores/events.js";
 
   
     async function handlePublishEvents() {
