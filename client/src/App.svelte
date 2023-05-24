@@ -15,7 +15,7 @@
     import EventsPage from "./pages/EventsPage/EventsPage.svelte";
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
     import SettingsPage from "./pages/SettingsPage/SettingsPage.svelte";
-    import RapportPage from "./pages/RapportPage/RapportPage.svelte";
+    import ReportPage from "./pages/ReportPage/ReportPage.svelte";
     import PublishEventPage from "./pages/PublishEventPage/PublishEventPage.svelte";
     import RatingPage from "./pages/RatingPage/RatingPage.svelte";
 </script>
@@ -37,43 +37,43 @@
         <Route path="/maps" component={GoogleMaps}></Route>
 
 
-        <!-- Private routes -->
-    
-        <PrivateRoute path="/rapports">
-            <RapportPage/>
+        <!-- for admin only -->
+        <PrivateRoute path="/reports" role={1}>
+            <ReportPage/>
         </PrivateRoute>
 
-        <PrivateRoute path="/publish-events">
+        <PrivateRoute path="/publish-events" role={1}>
             <PublishEventPage/>
         </PrivateRoute>
 
-        <PrivateRoute path="/rating">
-           <RatingPage/>
+        <PrivateRoute path="/rating" role={1}>
+            <RatingPage/>
+        </PrivateRoute>
+
+        <!-- for user -->
+        <PrivateRoute path="/profile" role={2}>
+            <ProfilePage/>
+        </PrivateRoute> 
+
+        <PrivateRoute path="/feedback" role={2}>
+            <FeedbackPage/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/events" role={2}>
+            <EventsPage/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/settings" role={2}>
+            <SettingsPage/>
         </PrivateRoute>
 
         <!-- for all -->
-        <PrivateRoute path="/profile">
-            <ProfilePage/>
-        </PrivateRoute>
-
-        <PrivateRoute path="/newsfeed">
-            <NewsfeedPage/>
-        </PrivateRoute> 
-
         <PrivateRoute path="/chat">
             <ChatPage/>
         </PrivateRoute>
 
-        <PrivateRoute path="/feedback">
-            <FeedbackPage/>
-        </PrivateRoute>
-
-        <PrivateRoute path="/events">
-            <EventsPage/>
-        </PrivateRoute>
-
-        <PrivateRoute path="/settings">
-            <SettingsPage/>
+        <PrivateRoute path="/newsfeed">
+            <NewsfeedPage/>
         </PrivateRoute>
 
 

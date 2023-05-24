@@ -103,13 +103,13 @@ app.use("/api/auth/login", loginLimiter);
 
 function authChecker(req, res, next) {
     console.log("In authChecker...");
-    if (!req.session.username) {
+    if (!req.session.user.email) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
     }
     next();
 };
 
-//app.use("/api/auth/...", authChecker);
+//app.use("/api/auth/", authChecker)
 
 
 import authRouter from "./routes/auth/authRouter.js";

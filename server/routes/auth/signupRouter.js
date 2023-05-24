@@ -4,6 +4,7 @@ const router = Router();
 import db from "../../database/connectionAtlas.js";
 import bcrypt from "bcrypt";
 import validator from "validator";
+import { sendConfirmationMail } from "../../util/nodemailer.js";
 
 router.post("/api/auth/signup", async (req, res) => {
     const { username, password, confirmedPassword, email } = req.body;
@@ -21,6 +22,8 @@ router.post("/api/auth/signup", async (req, res) => {
         const newUser = { username: sanitizedUsername, email: sanitizedEmail, password: hashedPassword, role_id: userRole };
 
         db.collection("users").insertOne(newUser);
+
+        sendConfirmationMail(username, email).catch(console.error);
 
         return res.status(200).send({ data: sanitizedUsername });
     } else {

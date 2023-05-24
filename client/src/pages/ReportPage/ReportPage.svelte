@@ -11,8 +11,8 @@
     </div>
 
     <div class="col-middle">
-        <h2>Rapport page</h2>
-        rapport
+        <h2>Report page</h2>
+        Reports .... 
     </div>
 
     <div class="col-right">

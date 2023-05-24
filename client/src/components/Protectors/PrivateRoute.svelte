@@ -1,16 +1,17 @@
 <script>
     import { Route } from "svelte-navigator";
     import PrivateRouteGuard from "./PrivateRouteGuard.svelte";
-
-    let navigate;
-    let location;
-
+    import { user } from "../../stores/user.js";
+    
+    export let role = 0;
     export let path;
+
 </script>
 
-<!-- The path prop {path} is used to render the protected component if the user is authenticated -->
 <Route {path}>
-    <PrivateRouteGuard {navigate} {location}>
-        <slot/>
+    <PrivateRouteGuard>
+        {#if role === $user.role || role === 0 }
+            <slot/> 
+        {/if}
     </PrivateRouteGuard>
 </Route>

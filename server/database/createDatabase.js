@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import db from "./connectionAtlas.js";
 import bcrypt from "bcrypt";
 
@@ -11,18 +14,17 @@ if (isDeleteMode) {
 }
 
 if (isDeleteMode) {
-    const adminPlainPassword = "admin123";
+    const adminPlainPassword = process.env.ADMIN_PASSWORD;
+    const bobPlainPassword = process.env.BOB_PASSWORD;
+    const alicePlainPassword = process.env.ALICE_PASSWORD;
+
     const adminHashedPassword = await bcrypt.hash(adminPlainPassword, 12);
-
-    const bobPlainPassword = "bob123";
     const bobHashedPassword = await bcrypt.hash(bobPlainPassword, 12);
-
-    const alicePlainPassword = "alice123";
     const aliceHashedPassword = await bcrypt.hash(alicePlainPassword, 12);
 
     await db.collection("users").insertMany([
         { 
-            username: "admin", 
+            username: "Admin", 
             email: "admin@mail.dk", 
             password: adminHashedPassword, 
             role_id: 1,
@@ -34,7 +36,7 @@ if (isDeleteMode) {
             role_id: 2,
             recipes: [
                 { 
-                    isPublished: true,
+                    isPublic: true,
                     title: "Rucola pesto", 
                     category: "Italian", 
                     picURL: "https://www.valdemarsro.dk/wp-content/2018/01/rucolapesto.jpg", 
@@ -42,7 +44,7 @@ if (isDeleteMode) {
                     procedure: "Op i en blender - hak, hak, hak.." 
                 },
                 { 
-                    isPublished: true,
+                    isPublic: true,
                     title: "Hot dog", 
                     category: "Nordic kitchen ", 
                     picURL: "https://helios-i.mashable.com/imagery/articles/001D2uXLBncMj8L2MxtRNd0/hero-image.fill.size_1200x900.v1611608312.jpg", 
@@ -50,7 +52,7 @@ if (isDeleteMode) {
                     procedure: "Byg den op som lego: først brød, så læg pølsen i revnen, smør den med valgt dressing og top af med topping" 
                 },
                 { 
-                    isPublished: false,
+                    isPublic: false,
                     title: "Svampe Bob firkant kage", 
                     category: "Baking", 
                     picURL: "https://chelsweets.com/wp-content/uploads/2019/07/sb-sliced--683x1024.jpg", 
@@ -68,7 +70,7 @@ if (isDeleteMode) {
         }
     ]);
 
-    await db.collection("published_recipes").insertMany([
+    await db.collection("public_recipes").insertMany([
         { 
             author: "bob@mail.dk", 
             title: "Rucola pesto", 
@@ -93,21 +95,8 @@ if (isDeleteMode) {
             picURL: "", 
             ingredients: "", 
             procedure: "", 
-        },
-        { 
-            author: "", 
-            title: "", 
-            category: "", 
-            picURL: "", 
-            ingredients: "", 
-            procedure: "", 
         },*/
     ]);
+
+
 }
-
-// recipe
-const recipeOne = { title: "pasta med hjemmelavet pesto", ingredients: "frisk pasta, din yndlings pesto"};
-const recipetwo = { title: "sommer salat", ingredients: "grønt med grønt og en dress"};
-const recipeThree = { title: "kylling med BBQ", ingredients: "en kyllling"};
-
-db.collection("users").updateOne({email: "user@mail.dk"}, {$push: {recipes: { recipeOne, recipetwo } } } )
