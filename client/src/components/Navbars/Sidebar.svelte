@@ -33,10 +33,10 @@
     <aside>
         <nav>
             <div>
-                <Link to="/rating">PUBLISH RATINGS</Link>
+                <Link to="/rating">RATINGS</Link>
             </div>
             <div>
-                <Link to="/publish-events">PUBLISH EVENTS</Link>
+                <Link to="/public-events">EVENTS</Link>
             </div>
             <div>
                 <Link to="/newsfeed">NEWSFEED</Link>

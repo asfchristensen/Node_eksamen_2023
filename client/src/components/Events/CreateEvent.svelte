@@ -1,11 +1,13 @@
 <script>
-    import { eventsToPublish } from "../../stores/events.js";
+    import toastr from "toastr";
+    import { post } from "../../api/api.js";
+    import { BASE_URL } from "../../stores/urlDomain.js";
     import { Link } from "svelte-navigator";
 
     let isClicked = false;
 
     console.log("before clicked: ", isClicked);
-    function handleModal () {
+    function handleModal() {
         isClicked = !isClicked;
         console.log("after cliked: ",isClicked);
     }
@@ -19,20 +21,30 @@
     let address = "";
 
     async function handleCreateEvent() {
-        const event = { isPublished: false, eventName, category, date, startTime, endTime, picURL, address };
+        const url = $BASE_URL + "/api/user/events";
+        const event = { isPublic: false, eventName, category, date, startTime, endTime, picURL, address };
+        const eventToJSON = JSON.stringify(event);
 
-        if ($eventsToPublish.length === 0) {
-            eventsToPublish.set([event]);
-        
-        } else {
-            eventsToPublish.update((eventList) => {
-            eventList.push(event);
-            return eventList;
-        });
+        const result = await post(url, eventToJSON);
+        console.log("Result: ", result.data);
+
+        if (result.status === 200) {
+            toastr.success("Created event successfully");
+
         }
 
-        console.log("Event added to store: ")
-        $eventsToPublish.forEach( e => console.log(e));
+        /*if ($eventsToPublic.length === 0) {
+            eventsToPublic.set([event]);
+        
+        } else {
+            eventsToPublic.update((eventList) => {
+            eventList.push(event);
+            return eventList;
+        });*/
+        
+
+        /*console.log("Event added to store: ")
+        $eventsToPublic.forEach( e => console.log(e));*/
         
         eventName = "";
         category = "";
@@ -42,13 +54,14 @@
         picURL = "";
         address = "";
 
-        handleModal ()
+        handleModal();
     }
+    
 </script>
 
 
 <p>Share events here</p>
-<button on:click={handleModal}> Create Event</button>
+<button on:click={handleModal}>Create Event</button>
 
 {#if isClicked}
     <dialog open>

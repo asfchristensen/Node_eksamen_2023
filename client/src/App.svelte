@@ -16,8 +16,8 @@
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
     import SettingsPage from "./pages/SettingsPage/SettingsPage.svelte";
     import ReportPage from "./pages/ReportPage/ReportPage.svelte";
-    import PublishEventPage from "./pages/PublishEventPage/PublishEventPage.svelte";
     import RatingPage from "./pages/RatingPage/RatingPage.svelte";
+    import PublicEventPage from "./pages/PublicEventPage/PublicEventPage.svelte";
 </script>
 
 <Router>
@@ -42,8 +42,8 @@
             <ReportPage/>
         </PrivateRoute>
 
-        <PrivateRoute path="/publish-events" role={1}>
-            <PublishEventPage/>
+        <PrivateRoute path="/public-events" role={1}>
+            <PublicEventPage/>
         </PrivateRoute>
 
         <PrivateRoute path="/rating" role={1}>

@@ -72,6 +72,7 @@ if (isDeleteMode) {
 
     await db.collection("public_recipes").insertMany([
         { 
+            isPublic: true,
             author: "bob@mail.dk", 
             title: "Rucola pesto", 
             category: "Italian", 
@@ -80,6 +81,7 @@ if (isDeleteMode) {
             procedure: "Op i en blender - hak, hak, hak..",
         },
         { 
+            isPublic: true,
             author: "bob@mail.dk", 
             title: "Hot dog", 
             category: "Nordic kitchen ", 

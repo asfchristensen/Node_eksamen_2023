@@ -1,5 +1,5 @@
 <script>
-    import PublishEvents from "../../components/Events/PublishEvents.svelte";
+    import PublicEvents from "../../components/Events/PublicEvents.svelte";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../components/UserCounter/UserCounter.svelte";
 
@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-middle">
-       <PublishEvents/>
+       <PublicEvents/>
     </div>
 
     <div class="col-right">

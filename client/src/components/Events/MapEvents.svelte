@@ -1,11 +1,11 @@
 <h2>All Events and A Map with events</h2>
 
-<!--
 <script>
   
   import { onMount } from "svelte";
   import { BASE_URL } from "../../stores/urlDomain.js";
-  import { eventsDB } from "../../stores/events.js";
+  import { publicEvents } from "../../stores/events.js";
+  import { getWithCredentials } from "../../api/api.js";
 
   let lat = null;
   let lng = null;
@@ -15,15 +15,14 @@
   let eventMarkers = [];
 
   onMount(async () => {
-    await handleGetAllEvents();
+    await handleGetAllPublicEvents();
     loadGoogleMaps();
   });
 
-  async function handleGetAllEvents() {
-    // Brug API get() function 
-    const response = await fetch($BASE_URL + "/api/events");
-    const result = await response.json();
-    eventsDB.set(result.data);
+  async function handleGetAllPublicEvents() {
+    const url = $BASE_URL + "/api/all/events/public";
+    const result = await getWithCredentials(url);
+    publicEvents.set(result.data);
     console.log(result.data);
     return result.data;
   }
@@ -71,7 +70,7 @@
 }
 
 function addEventMarkers(map) {
-  eventMarkers = $eventsDB.map(event => {
+  eventMarkers = $publicEvents.map(event => {
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: event.address }, (results, status) => {
       if (status === 'OK') {
@@ -126,7 +125,7 @@ function addEventMarkers(map) {
 
 <h2>Upcoming Events</h2>
 <div>
-  {#each $eventsDB as event}
+  {#each $publicEvents as event}
     <p>{event.date}</p>
     <p>{event.eventName}</p>
     <p>{event.startTime} : {event.endTime}</p>
@@ -154,4 +153,4 @@ function addEventMarkers(map) {
       height: 100px;
       width: 100px;
     }
-</style> -->
+</style> 

@@ -1,32 +1,28 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js"; 
-    import { publishedRecipes } from "../../stores/publishedRecipes.js";
+    import { publicRecipes } from "../../stores/publicRecipes.js";
     import LikeButton from "./LikeButton.svelte";
     import Comment from "./Comment.svelte";
     import SeeRecipeButton from "./SeeRecipeButton.svelte";
-    import { get } from "../../api/api.js";
+    import { getWithCredentials } from "../../api/api.js";
 
-    // importer component med special navbar også .. 
     onMount(async () => {
-        await handleGetPublishedRecipes();
+        await handleGetPublicRecipes();
     });
 
-    async function handleGetPublishedRecipes() {
-        const url = $BASE_URL + "/api/publishedRecipes";
-        const result = await get(url);
+    async function handleGetPublicRecipes() {
+        const url = $BASE_URL + "/api/all/publicRecipes";
+        const result = await getWithCredentials(url);
+        console.log("result.data: ", result);
         result.data.reverse();
-        publishedRecipes.set(result.data); 
+        publicRecipes.set(result.data); 
     } 
-
-    function handleAnchorClick(event) {
-        event.preventDefault(); // Prevent the default behavior of the anchor tag
-    }
 
 </script>
 
 <h2>Newsfeed</h2>
-{#each $publishedRecipes as publicRecipe}
+{#each $publicRecipes as publicRecipe}
 
     <article id="{publicRecipe._id.toLowerCase()}">
         <h4>{publicRecipe.title}</h4>

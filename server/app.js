@@ -101,15 +101,33 @@ app.use(apiLimiter);
 app.use("/api/auth/login", loginLimiter);
 
 
-function authChecker(req, res, next) {
-    console.log("In authChecker...");
-    if (!req.session.user.email) {
+function allChecker(req, res, next) {
+    console.log("In all checker...");
+    if (!req.session.user) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
     }
     next();
-};
+}
 
-//app.use("/api/auth/", authChecker)
+function userChecker(req, res, next) {
+    console.log("In user checker...");
+    if (!req.session.user || req.session.user.role !== 2) {
+        return res.status(400).send({ message: "You are not authorized to see this page" });
+    }
+    next();
+}
+
+function adminChecker(req, res, next) {
+    console.log("In admin checker...");
+    if (!req.session.user || req.session.user.role !== 1) {
+        return res.status(400).send({ message: "You are not authorized to see this page" });
+    }
+    next();
+}
+
+app.use("/api/all", allChecker);
+app.use("/api/user", userChecker);
+app.use("/api/admin", adminChecker);
 
 
 import authRouter from "./routes/auth/authRouter.js";
@@ -130,8 +148,8 @@ app.use(chatRouter);
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);
 
-import publishedRecipesRouter from "./routes/publishedRecipesRouter.js";
-app.use(publishedRecipesRouter);
+import publicRecipesRouter from "./routes/publicRecipesRouter.js";
+app.use(publicRecipesRouter);
 
 import eventRouter from "./routes/eventRouter.js";
 app.use(eventRouter);
