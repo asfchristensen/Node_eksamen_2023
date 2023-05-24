@@ -2,23 +2,19 @@
     import { BASE_URL } from "../../stores/urlDomain";
     import { user, recipes } from "../../stores/user.js";
     import { Link } from "svelte-navigator";
+    import { get } from "../../api/api";
     import toastr from "toastr";
-    import 'toastr/build/toastr.css';
+    
 
     
     async function handleLogout(){
-        const logoutURL = $BASE_URL + "/api/auth/logout";
-
-        const response = await fetch(logoutURL, {
-            credentials: "include"
-        });
-
-        const data = await response.json();
+        const url = $BASE_URL + "/api/auth/logout";
+        const result = await get(url);
 
         $user = null;
         $recipes = null;
 
-        if (data.message) {
+        if (result.status === 200) {
             toastr.info("See you!");
             localStorage.removeItem("user")
             

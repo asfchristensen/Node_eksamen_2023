@@ -1,5 +1,14 @@
 <script>
     import { eventsToPublish } from "../../stores/events.js";
+    import { Link } from "svelte-navigator";
+
+    let isClicked = false;
+
+    console.log("before clicked: ", isClicked);
+    function handleModal () {
+        isClicked = !isClicked;
+        console.log("after cliked: ",isClicked);
+    }
 
     let eventName = "";
     let category = "";
@@ -32,16 +41,32 @@
         endTime = "";
         picURL = "";
         address = "";
+
+        handleModal ()
     }
 </script>
 
-<form on:submit|preventDefault={handleCreateEvent}>
-    <input type="text" bind:value={eventName} placeholder="name">
-   <input type="text" bind:value={category} placeholder="category">
-   <input type="date" bind:value={date}>
-   <input type="time" bind:value={startTime}>
-   <input type="time" bind:value={endTime}>
-   <input type="url" bind:value={picURL} placeholder="picURL">
-   <input type="text" bind:value={address} placeholder="address">
-   <button type="submit">Create event </button>
- </form>
+
+<p>Share events here</p>
+<button on:click={handleModal}> Create Event</button>
+
+{#if isClicked}
+    <dialog open>
+        <article>
+            <header><Link to="/events" class="close" on:click={handleModal}></Link>
+            <h4>Create Event</h4>
+            <form on:submit|preventDefault={handleCreateEvent}>
+                <input type="text" bind:value={eventName} placeholder="Event name">
+                <input type="text" bind:value={category} placeholder="Category">
+                <input type="date" bind:value={date}>
+                <input type="time" bind:value={startTime}>
+                <input type="time" bind:value={endTime}>
+                <input type="url" bind:value={picURL} placeholder="Picture URL">
+                <input type="text" bind:value={address} placeholder="Address">
+                <button type="submit">Create event</button>
+            </form>
+        </article>
+  </dialog>
+{/if}
+
+

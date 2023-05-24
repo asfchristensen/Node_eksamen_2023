@@ -1,30 +1,27 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { eventsToPublish } from "../../stores/events.js";
+    import { post } from "../../api/api.js";
+    import toastr from "toastr";
 
   
     async function handlePublishEvents() {
+        const url = $BASE_URL + "/api/events";
         const eventToPublish = $eventsToPublish.filter( event => event.isPublished === true );
         console.log(eventToPublish.length);
 
         const eventToJSON = JSON.stringify(eventToPublish);
-        console.log("As JSON: ", eventToJSON);
-        const response = await fetch($BASE_URL + "/api/events", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: eventToJSON,
-        credentials: "include"
-        });
 
-        const result = await response.json();
+        const result = await post(url, eventToJSON);
         console.log(result.data);
 
-        if (response.ok){
-        console.log("success");
+
+        if (result.status === 200 ){
+            toastr.success("Success - Event is now published");
+            console.log("success");
         } else {
-        console.log("error");
+            toastr.success("error - creating evennt");
+            console.log("error");
         }
 
         eventsToPublish.update( events => events.filter( event => !event.isPublished ));

@@ -2,6 +2,7 @@
     // exportere denne for at vi kan tage imod den værdi, som searchbar kan give os. (searchbar skal have en variablet den kan putte værdien (label) ind i )
     export let label;
     export let recipe_id;
+
 </script>
 
 

@@ -1,9 +1,11 @@
 <script>
+
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
-    import MapEvents from "../../components/Events/MapEvents.svelte";
-    import CreateEvent from "../../components/Events/CreateEvent.svelte";
-   
+    import Recipe from "../../components/Recipe/Recipe.svelte";
+    
 </script>
+
+
 
 
 <div class="grid">
@@ -12,9 +14,10 @@
     </div>
 
     <div class="col-middle">
-        <MapEvents/>
+        <Recipe/>
     </div>
-    <div class="col-right">
-        <CreateEvent/>
+
+    <div>
+
     </div>
 </div>

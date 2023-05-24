@@ -1,32 +1,26 @@
 <script>
-    import { publishedRecipes } from "../../stores/publishedRecipes";
+    import { publishedRecipes } from "../../stores/publishedRecipes.js";
     import MenuItems from "./MenuItems.svelte";
 
+    export let searchSubject;
     let showMenu = false;
     
-    /*
-    function toggleMenu () {
-        console.log("toggle Menu", showMenu);
-        showMenu = !showMenu;
-    }
-    */
- 
-   
+    
     let filteredItems = [];
     let userSearchInput = "";
     $:{console.log("filtered items:", filteredItems)}
 
     function handleFilter (){
-        filteredItems = $publishedRecipes.filter( item => item.title.toLowerCase().includes(userSearchInput.toLowerCase()));
+        filteredItems = $publishedRecipes.filter( item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
     }
-
 
 </script>
 
 
 <div class="dropdown">
 
-    <button on:click={() => showMenu = !showMenu}>Dropdown</button>
+
+    <button on:click={() => showMenu = !showMenu}>{searchSubject}</button>
     <div class:show={showMenu} class="dropdown-content">
         <input type="text" placeholder="Search... " id="userSearchInput" bind:value={userSearchInput} on:keyup={handleFilter}>
 
@@ -36,13 +30,16 @@
             {/each}
         {:else}
             {#each $publishedRecipes as item}
-                <MenuItems recipe_id={item._id} label={item.title}/>
+               <MenuItems recipe_id={item._id} label={item.title}/>
+           
             {/each}
         {/if}
 
     </div>
 
+
 </div>
+
 
 
 

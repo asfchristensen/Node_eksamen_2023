@@ -1,8 +1,6 @@
 <script>
-
-    import Chat from "../../components/Chat/Chat.svelte";
-    import OnlineUsers from "../../components/Chat/OnlineUsers.svelte";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
+    import Rating from "../../components/Rating/Rating.svelte";
 
 </script>
 
@@ -13,11 +11,7 @@
     </div>
 
     <div class="col-middle">
-        <Chat/>
+        <Rating/>
     </div>
-
-    <div class="col-right">
-        <OnlineUsers/>
-    </div>
+    <div class="col-right"></div>
 </div>
-

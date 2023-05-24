@@ -23,7 +23,7 @@ router.post("/api/auth/login", async (req, res) => {
 
 router.get("/api/auth/logout", (req, res) => {
     req.session.destroy(() => {
-        return res.send({message: "Logging out"});
+        return res.status(200).send({ message: "Logging out", status: 200 });
     }); 
 })
 

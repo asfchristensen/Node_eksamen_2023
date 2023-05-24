@@ -33,7 +33,7 @@
             toastr.success(`You've logged in successfully, welcome back ${$user.username}`);
             loginOK = true;
             setTimeout(() => {
-                navigate("/newsFeed", {replace: true});
+                navigate("/newsfeed", {replace: true});
             }, 2500);
         }
         email = "";

@@ -3,8 +3,8 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes } from "../../stores/user.js";
     import toastr from "toastr";
-    import MyLikes from "../../components/MyLikes/MyLikes.svelte";
-    import Rating from "../../components/Rating/Rating.svelte";
+    import MyLikes from "../MyLikes/MyLikes.svelte";
+    import { get } from "../../api/api.js";
 
     console.log('recipes:', $recipes);
 
@@ -15,9 +15,8 @@
     });
 
     async function handleGetAllRecipes(){
-        const recipesURL = $BASE_URL + `/api/recipes/${$user.email}`;
-        const response = await fetch(recipesURL);
-        const result = await response.json();
+        const url = $BASE_URL + `/api/recipes/${$user.email}`;
+        const result = await get(url);
         console.log("From get all recipes:", result.data);
         recipes.set(result.data);
     }
@@ -119,7 +118,8 @@
 
 
 </script>
-<Rating/>
+
+
 <MyLikes/>
 
 <hr>

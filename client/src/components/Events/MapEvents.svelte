@@ -1,4 +1,7 @@
-<!-- <script>
+<h2>All Events and A Map with events</h2>
+
+<!--
+<script>
   
   import { onMount } from "svelte";
   import { BASE_URL } from "../../stores/urlDomain.js";
@@ -17,6 +20,7 @@
   });
 
   async function handleGetAllEvents() {
+    // Brug API get() function 
     const response = await fetch($BASE_URL + "/api/events");
     const result = await response.json();
     eventsDB.set(result.data);
@@ -120,16 +124,7 @@ function addEventMarkers(map) {
  
 </script>
 
-<button on:click={toggleShareLocation}>
-  {#if shareLocation}
-    <span>Location shared</span>
-  {:else}
-    <span>Share location</span>
-  {/if}
-</button>
-
-<div id="map" style="height: 400px;"></div>
-
+<h2>Upcoming Events</h2>
 <div>
   {#each $eventsDB as event}
     <p>{event.date}</p>
@@ -140,6 +135,19 @@ function addEventMarkers(map) {
     <img src="{event.picURL}" alt="pic">  
 {/each}
 </div>
+
+
+<button on:click={toggleShareLocation}>
+  {#if shareLocation}
+    <span>Location shared</span>
+  {:else}
+    <span>Share location</span>
+  {/if}
+</button>
+
+<div id="map" style="height: 400px;"></div>
+
+
  
 <style>
     img {

@@ -34,6 +34,7 @@
     .grid {
         padding: 1em 1em 0em 0em;
         border-bottom: 0.1em solid black;
+        margin-bottom: 2em;
     }
 
     .left {

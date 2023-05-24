@@ -1,8 +1,7 @@
 <script>
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
-    import MapEvents from "../../components/Events/MapEvents.svelte";
-    import CreateEvent from "../../components/Events/CreateEvent.svelte";
-   
+    import UserCounter from "../../components/UserCounter/UserCounter.svelte";
+
 </script>
 
 
@@ -12,9 +11,11 @@
     </div>
 
     <div class="col-middle">
-        <MapEvents/>
+        <h2>Rapport page</h2>
+        rapport
     </div>
+
     <div class="col-right">
-        <CreateEvent/>
+        <UserCounter/>
     </div>
 </div>

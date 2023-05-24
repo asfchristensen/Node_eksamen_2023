@@ -2,19 +2,29 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { allUsers } from "../../stores/user";
+    import { get } from "../../api/api";
 
     onMount( async () => {
         await handleGetAllUsers();
     })
 
     async function handleGetAllUsers() {
-        const response = await fetch($BASE_URL + "/api/users");
-        const result = await response.json();
+        const url = $BASE_URL + "/api/users";
+        const result = await get(url);
         console.log("Result: ", result.data);
         allUsers.set(result.data);
     }
 
 </script>
 
-<h1>How many have joined the universe?</h1>
-<p>{$allUsers.length}</p>
+<div>
+    <p id="header">How many have joined the universe?</p>
+    <p id="user-amount"><strong>{$allUsers.length}</strong></p>
+
+</div>
+
+<style>
+    #header {
+        border-bottom: 0.1em solid rgba(0, 0, 0, 0.223);
+    }
+</style>
