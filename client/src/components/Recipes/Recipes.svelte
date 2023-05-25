@@ -41,7 +41,7 @@
 
     async function handleCreateRecipe() {
         const url = $BASE_URL + "/api/user/recipes";
-        const recipeToJSON = JSON.stringify({ isPublic: false, title, category, picURL, ingredients, procedure });
+        const recipeToJSON = JSON.stringify({ isPublic: false, title, category, picURL, ingredients, procedure, isDeleted: false });
         console.log("object to send: ", recipeToJSON);
         const result = await patch(url, recipeToJSON);
     

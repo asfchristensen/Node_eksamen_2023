@@ -1,11 +1,13 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js"; 
+    import { user } from "../../stores/user.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
-    import LikeButton from "./LikeButton.svelte";
-    import Comment from "./Comment.svelte";
-    import SeeRecipeButton from "./SeeRecipeButton.svelte";
     import { getWithCredentials } from "../../api/api.js";
+    import LikeButton from "../Newsfeed/LikeButton.svelte";
+    import CommentButton from "../Newsfeed/CommentButton.svelte";
+    import ModalRecipeButton from "../Newsfeed/ModalRecipeButton.svelte";
+    import DeleteButton from "../Newsfeed/DeleteButton.svelte";
 
     onMount(async () => {
         await handleGetPublicRecipes();
@@ -23,16 +25,21 @@
 
 <h2>Newsfeed</h2>
 {#each $publicRecipes as publicRecipe}
-
     <article id="{publicRecipe._id.toLowerCase()}">
         <h4>{publicRecipe.title}</h4>
         <img src="{publicRecipe.picURL}" alt="image of food"/>
-        <footer>
-            <LikeButton recipe={publicRecipe}/>
-            <SeeRecipeButton recipe={publicRecipe}/> 
-            <Comment recipe={publicRecipe}/>
-        </footer>
-       
+        {#if $user.role === 2}
+            <footer>
+                <LikeButton recipe={publicRecipe}/>
+                <ModalRecipeButton recipeToShow={publicRecipe}/> 
+                <CommentButton recipe={publicRecipe}/>
+            </footer>
+        {:else if $user.role === 1}
+            <footer>
+                <ModalRecipeButton recipeToShow={publicRecipe}/> 
+                <DeleteButton recipeToDelete={publicRecipe}/>
+            </footer>
+        {/if}
     </article>
 
 {/each} 

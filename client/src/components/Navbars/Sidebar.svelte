@@ -13,6 +13,9 @@
     <aside>
         <nav>
             <div>
+                <Link to="/newsfeed">NEWSFEED</Link>
+            </div>
+            <div>
                 <Link to="/profile">PROFILE</Link>
             </div>
             <div>
@@ -22,7 +25,7 @@
                 <Link to="/chat">LET'S TACO 'BOUT IT</Link>
             </div>
             <div>
-                <Link to="/events">EVENTS</Link>
+                <Link to="/events">SEE EVENTS</Link>
             </div>
             <div>
                 <Link to="/feedback">FEEDBACK</Link>
@@ -33,19 +36,22 @@
     <aside>
         <nav>
             <div>
+                <Link to="/newsfeed">NEWSFEED</Link>
+            </div>
+            <div>
                 <Link to="/rating">RATINGS</Link>
             </div>
             <div>
-                <Link to="/public-events">EVENTS</Link>
+                <Link to="/approve-events">APPROVE EVENTS</Link>
             </div>
             <div>
-                <Link to="/newsfeed">NEWSFEED</Link>
+                <Link to="/events">SEE EVENTS</Link>
             </div>
             <div>
                 <Link to="/chat">LET'S TACO 'BOUT IT</Link>
             </div>
             <div>
-                <Link to="/reports">REPORTS</Link>
+                <Link to="/admin-feedback">RECIEVED FEEDBACK</Link>
             </div>
         </nav>
     </aside>
@@ -54,7 +60,6 @@
 
     </aside>
 {/if}
-
 
 
 <style>

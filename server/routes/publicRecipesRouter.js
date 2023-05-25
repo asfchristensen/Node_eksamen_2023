@@ -97,4 +97,15 @@ router.patch("/api/user/publicRecipes/comment", async (req, res) => {
     }
 });
 
+router.delete("/api/admin/publicRecipes", async (req, res) => {
+    const recipeToDelete = req.body;
+    
+    if (!recipeToDelete) {
+         return res.status(400).send({ message: "error - failed to delete public recipe", status: 400 })
+    } else {
+        await db.collection("public_recipes").deleteOne({ _id: new ObjectId(recipeToDelete._id) });
+        return res.status(200).send({ message: "Public recipe deleted successfully", status: 200 }); 
+    }
+});
+
 export default router;

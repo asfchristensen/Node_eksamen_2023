@@ -1,11 +1,13 @@
 <h2>All Events and A Map with events</h2>
 
 <script>
-  
+
   import { onMount } from "svelte";
   import { BASE_URL } from "../../stores/urlDomain.js";
   import { publicEvents } from "../../stores/events.js";
   import { getWithCredentials } from "../../api/api.js";
+  import { user } from "../../stores/user.js";
+  import DeleteButton from "../Events/DeleteButton.svelte";
 
   let lat = null;
   let lng = null;
@@ -119,7 +121,8 @@ function addEventMarkers(map) {
 
     // Add event markers to the map
     addEventMarkers(map);
-}  
+  } 
+  
  
 </script>
 
@@ -132,7 +135,11 @@ function addEventMarkers(map) {
     <p>{event.category} </p>
     <p>{event.address} </p>
     <img src="{event.picURL}" alt="pic">  
-{/each}
+
+    {#if $user.role === 1}
+      <DeleteButton eventToDelete={event}/>
+    {/if}
+  {/each}
 </div>
 
 

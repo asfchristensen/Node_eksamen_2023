@@ -39,7 +39,7 @@ export async function patch(url, data) {
     return response;
 }
 
-export async function del(url, data) {
+export async function remove(url, data) {
     const response = await fetch(url, {
         method: "DELETE",
         headers: {

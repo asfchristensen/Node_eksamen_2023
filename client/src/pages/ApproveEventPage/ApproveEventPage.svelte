@@ -1,21 +1,19 @@
 <script>
+    import MakePublicEvents from "../../components/Events/MakePublicEvents.svelte";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../components/UserCounter/UserCounter.svelte";
 
 </script>
-
-
 <div class="grid">
     <div class="col-left">
         <Sidebar/>
     </div>
 
     <div class="col-middle">
-        <h2>Report page</h2>
-        Reports .... 
+       <MakePublicEvents/>
     </div>
 
     <div class="col-right">
-        <UserCounter/>
+       <UserCounter/>
     </div>
 </div>

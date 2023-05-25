@@ -154,8 +154,11 @@ app.use(publicRecipesRouter);
 import eventRouter from "./routes/eventRouter.js";
 app.use(eventRouter);
 
+import ratingRouter from "./routes/ratingRouter.js";
+app.use(ratingRouter);
 
-
+import feedbackRouter from "./routes/feedbackRouter.js";
+app.use(feedbackRouter);
 
 
 const PORT = process.env.PORT || 8080;

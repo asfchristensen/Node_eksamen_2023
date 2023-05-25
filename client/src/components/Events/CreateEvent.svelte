@@ -22,7 +22,7 @@
 
     async function handleCreateEvent() {
         const url = $BASE_URL + "/api/user/events";
-        const event = { isPublic: false, eventName, category, date, startTime, endTime, picURL, address };
+        const event = { isPublic: false, eventName, category, date, startTime, endTime, picURL, address, isDeleted: false };
         const eventToJSON = JSON.stringify(event);
 
         const result = await post(url, eventToJSON);
@@ -30,21 +30,9 @@
 
         if (result.status === 200) {
             toastr.success("Created event successfully");
-
-        }
-
-        /*if ($eventsToPublic.length === 0) {
-            eventsToPublic.set([event]);
-        
         } else {
-            eventsToPublic.update((eventList) => {
-            eventList.push(event);
-            return eventList;
-        });*/
-        
-
-        /*console.log("Event added to store: ")
-        $eventsToPublic.forEach( e => console.log(e));*/
+            toastr.error("Failed to create event");
+        }
         
         eventName = "";
         category = "";

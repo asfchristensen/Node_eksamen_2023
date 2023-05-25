@@ -5,7 +5,7 @@
     import Login from "./pages/Auth/LoginPage.svelte";
     import Topbar from "./components/Navbars/Topbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
-    import GoogleMaps from "./components/Events/MapEvents.svelte";
+    import GoogleMaps from "./components/Events/DisplayEvents.svelte";
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
     import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage.svelte";
     import UpdatePasswordPage from "./pages/Auth/UpdatePasswordPage.svelte";
@@ -15,9 +15,9 @@
     import EventsPage from "./pages/EventsPage/EventsPage.svelte";
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
     import SettingsPage from "./pages/SettingsPage/SettingsPage.svelte";
-    import ReportPage from "./pages/ReportPage/ReportPage.svelte";
-    import RatingPage from "./pages/RatingPage/RatingPage.svelte";
-    import PublicEventPage from "./pages/PublicEventPage/PublicEventPage.svelte";
+    import ApproveEventPage from "./pages/ApproveEventPage/ApproveEventPage.svelte";
+    import RatingsPage from "./pages/RatingsPage/RatingsPage.svelte";
+    import AdminFeedbackPage from "./pages/AdminFeedbackPage/AdminFeedbackPage.svelte";
 </script>
 
 <Router>
@@ -38,16 +38,16 @@
 
 
         <!-- for admin only -->
-        <PrivateRoute path="/reports" role={1}>
-            <ReportPage/>
+        <PrivateRoute path="/admin-feedback" role={1}>
+            <AdminFeedbackPage/>
         </PrivateRoute>
 
-        <PrivateRoute path="/public-events" role={1}>
-            <PublicEventPage/>
+        <PrivateRoute path="/approve-events" role={1}>
+            <ApproveEventPage/>
         </PrivateRoute>
 
         <PrivateRoute path="/rating" role={1}>
-            <RatingPage/>
+            <RatingsPage/>
         </PrivateRoute>
 
         <!-- for user -->
@@ -59,10 +59,6 @@
             <FeedbackPage/>
         </PrivateRoute>
 
-        <PrivateRoute path="/events" role={2}>
-            <EventsPage/>
-        </PrivateRoute>
-
         <PrivateRoute path="/settings" role={2}>
             <SettingsPage/>
         </PrivateRoute>
@@ -70,6 +66,10 @@
         <!-- for all -->
         <PrivateRoute path="/chat">
             <ChatPage/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/events">
+            <EventsPage/>
         </PrivateRoute>
 
         <PrivateRoute path="/newsfeed">

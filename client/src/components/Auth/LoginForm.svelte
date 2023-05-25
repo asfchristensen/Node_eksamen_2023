@@ -30,7 +30,6 @@
         } else {
             localStorage.setItem("user",JSON.stringify(result.data));
             user.set(result.data);
-            toastr.success(`You've logged in successfully, welcome back ${$user.username}`);
             loginOK = true;
             setTimeout(() => {
                 navigate("/newsfeed", {replace: true});

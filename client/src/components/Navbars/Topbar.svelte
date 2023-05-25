@@ -9,12 +9,14 @@
 <nav class="grid">
     <div class="left">
         {#if $user}
-            <Link to="/newsfeed">
+            <Link to="/">
                 <img src="../icons/home.png" alt="home icon in navbar">
             </Link>
             <p>User: {$user.username}</p>
         {:else}
-            <p><Link to="/frontpage">Frontpage</Link></p>
+            <Link to="/">
+                <img src="../icons/home.png" alt="home icon in navbar">
+            </Link>
         {/if}
     </div>
     <div class="middle">

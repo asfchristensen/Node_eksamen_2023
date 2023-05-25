@@ -1,7 +1,6 @@
 <script>
-
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
-    import Recipe from "../../components/Recipe/Recipe.svelte";
+    import Recipes from "../../components/Recipes/Recipes.svelte";
     
 </script>
 
@@ -14,10 +13,18 @@
     </div>
 
     <div class="col-middle">
-        <Recipe/>
+        <Recipes/>
     </div>
 
-    <div>
+    <div class="col-right">
+        <!-- Profilbillede
+            Brugernavn 
+            Medlem siden -->
+        
+        <!-- CREATE RECIPE knap (modal)-->
+        <!-- CREATE video/music knap (modal)-->
+        <!-- See Feedback fra admin-->
+
 
     </div>
 </div>

@@ -1,6 +1,7 @@
 <script>
+    import CreateFeedback from "../../components/Feedback/CreateFeedback.svelte";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
-    import Rating from "../../components/Rating/Rating.svelte";
+    import CreateRating from "../../components/Ratings/CreateRating.svelte";
 
 </script>
 
@@ -11,7 +12,8 @@
     </div>
 
     <div class="col-middle">
-        <Rating/>
+        <CreateRating/>
+        <CreateFeedback/>
     </div>
     <div class="col-right"></div>
 </div>
