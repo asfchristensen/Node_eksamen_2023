@@ -4,7 +4,7 @@
     import { user, recipes } from "../../stores/user.js";
     import toastr from "toastr";
     import MyLikes from "../MyLikes/MyLikes.svelte";
-    import { get } from "../../api/api.js";
+    import { getWithCredentials, patch, post } from "../../api/api.js";
 
     console.log('recipes:', $recipes);
 
@@ -15,9 +15,9 @@
     });
 
     async function handleGetAllRecipes(){
-        const url = $BASE_URL + `/api/recipes/${$user.email}`;
-        const result = await get(url);
-        console.log("From get all recipes:", result.data);
+        const url = $BASE_URL + "/api/user/recipes";
+        const result = await getWithCredentials(url);
+        console.log("From get all recipes:", result);
         recipes.set(result.data);
     }
 
@@ -40,24 +40,15 @@
     let placeholder = "Category";
 
     async function handleCreateRecipe() {
-        const recipeInfo = JSON.stringify({ isPublished: false, title, category, picURL, ingredients, procedure });
-        console.log("object to send: ", recipeInfo);
-        const response = await fetch($BASE_URL + "/api/recipes", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: recipeInfo,
-            credentials: "include"
-        });
+        const url = $BASE_URL + "/api/user/recipes";
+        const recipeToJSON = JSON.stringify({ isPublic: false, title, category, picURL, ingredients, procedure });
+        console.log("object to send: ", recipeToJSON);
+        const result = await patch(url, recipeToJSON);
     
-        const result = await response.json(); 
-        console.log(result); 
-
-        if (response.ok) { 
-            toastr.success(`Recipe uploaded, good job ${$user.username}`);
-            setTimeout(() => {
-                handleGetAllRecipes();
+        if (result.status === 200) { 
+            toastr.success("Recipe created");
+            setTimeout(async () => {
+                await handleGetAllRecipes();
             }, 1000)
         } else {
             toastr.error("Failed to create recipe");
@@ -70,53 +61,38 @@
         procedure = "";
     }
 
-    async function handlePublishRecipe(recipe) {
-        console.log("Handle publish recipes", recipe);
-        recipe.isPublished = true;
+    async function handleMakePublicRecipe(recipe) {
+        const url = $BASE_URL + "/api/user/publicRecipes";
+        console.log("Handle public recipes", recipe);
+        recipe.isPublic = true;
         
-        const recipeToPublish = { author: $user.email, ...recipe };
-        const recipeToJSON = JSON.stringify(recipeToPublish);
+        const recipeToPublic = { author: $user.email, ...recipe };
+        const recipeToJSON = JSON.stringify(recipeToPublic);
 
-        // sætter recipen til published collection
-        const response = await fetch($BASE_URL + "/api/publishedRecipes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: recipeToJSON,
-            credentials: "include"
-        });
+        const result = await post(url, recipeToJSON);
 
-        if (response.ok) {
-            // opdaterer samme recipe i useren 
+        if (result.status === 200) {
+            const url = $BASE_URL + "/api/user/recipes/make-public";
             const recipeInfo = JSON.stringify({ ...recipe });
-            const res = await fetch($BASE_URL + "/api/recipes/published", {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: recipeInfo,
-                credentials: "include"
-            });
-
-            if (res.ok) {
-                console.log("Changes isPublished to true in user Laura", res.ok);
-                const updateRecipes = $recipes.map((r) => {
-                    if (r.procedure === recipe.procedure) {
+            const res = await patch(url, recipeInfo);
+        
+            if (res.status === 200 ) {
+                console.log("Changes isPublic to true", res.ok);
+                const updateRecipes = $recipes.map((recipeInStore) => {
+                    if (recipeInStore.procedure === recipe.procedure) {
                         console.log("Recipe changed to true", recipe);
                         return recipe;
                     }
-                    return r;
+                    return recipeInStore;
                 });
                 $recipes = updateRecipes;
-                $recipes.forEach(r => console.log("Is published in foreach:", r.isPublished))
+                $recipes.forEach(recipeInStore => console.log("Is public in foreach:", recipeInStore.isPublic))
             } else {
                 console.log("error - not changed anything");
             }
-        }
+        };    
     }
 </script>
-
 
 <MyLikes/>
 
@@ -158,10 +134,10 @@
             <img src="{recipe.picURL}" alt="image of food"/>
             <p>{recipe.title}</p>
             <p>{recipe.procedure}</p><br>
-            {#if !recipe.isPublished}
-            <button on:click={handlePublishRecipe.bind(null, recipe)}>Publish</button>
+            {#if !recipe.isPublic}
+            <button on:click={handleMakePublicRecipe.bind(null, recipe)}>Make public</button>
             {:else}
-            <button disabled>Published</button>
+            <button disabled>Is public</button>
             {/if}
         {/each}
     {/if}

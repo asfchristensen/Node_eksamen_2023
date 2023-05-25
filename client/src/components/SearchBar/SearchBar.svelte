@@ -1,5 +1,5 @@
 <script>
-    import { publishedRecipes } from "../../stores/publishedRecipes.js";
+    import { publicRecipes } from "../../stores/publicRecipes.js";
     import MenuItems from "./MenuItems.svelte";
 
     export let searchSubject;
@@ -11,7 +11,7 @@
     $:{console.log("filtered items:", filteredItems)}
 
     function handleFilter (){
-        filteredItems = $publishedRecipes.filter( item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
+        filteredItems = $publicRecipes.filter( item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
     }
 
 </script>
@@ -29,7 +29,7 @@
                 <MenuItems recipe_id={item._id} label={item.title}/>
             {/each}
         {:else}
-            {#each $publishedRecipes as item}
+            {#each $publicRecipes as item}
                <MenuItems recipe_id={item._id} label={item.title}/>
            
             {/each}

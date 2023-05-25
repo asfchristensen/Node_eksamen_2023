@@ -1,7 +1,7 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js"; 
     import { user } from "../../stores/user.js";
-    import { publishedRecipes } from "../../stores/publishedRecipes.js";
+    import { publicRecipes } from "../../stores/publicRecipes.js";
     import { patch } from "../../api/api.js";
     export let recipe;
 
@@ -11,7 +11,7 @@
     }
 
     async function handleLike(recipe) {
-        const url = $BASE_URL + "/api/publishedRecipes/likes";
+        const url = $BASE_URL + "/api/user/publicRecipes/likes";
         const email = $user.email;
         const id = recipe._id;
 
@@ -26,13 +26,13 @@
         const response = await patch(url, likedRecipeToJSON);
     
         if (response.ok) { 
-            const likedRecipes = $publishedRecipes.map((r) => {
+            const likedRecipes = $publicRecipes.map((r) => {
                 if (r.procedure === recipe.procedure) {
                     return recipe;
                 }
                 return r;
             });
-            $publishedRecipes = likedRecipes;
+            $publicRecipes = likedRecipes;
         } else {
             console.log("Failed to like recipe");
         }
@@ -40,7 +40,7 @@
 
     async function handleDislike(recipe) {
         console.log("Dislike function");
-        const url = $BASE_URL + "/api/publishedRecipes/dislike";
+        const url = $BASE_URL + "/api/user/publicRecipes/dislike";
         const email = $user.email;
         const id = recipe._id;
 
@@ -52,14 +52,14 @@
 
         await patch(url, dislikedRecipeToJSON);
 
-        const updatePublishedRecipes = $publishedRecipes.map((r) => {
+        const updatePublicRecipes = $publicRecipes.map((r) => {
             if (r.procedure === recipe.procedure) {
                 return recipe;
             }
             return r;
         });
 
-        $publishedRecipes = updatePublishedRecipes;
+        $publicRecipes = updatePublicRecipes;
     }
 
 </script>

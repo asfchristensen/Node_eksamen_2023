@@ -5,54 +5,47 @@ import db from "../database/connectionAtlas.js"
 import validator from "validator";
 
 
-router.get("/api/recipes/:mail", async (req, res) => {
-    const { mail } = req.params;
-    //console.log(mail);
-    const user = await db.collection("users").findOne({ email: mail }); 
-    //console.log(user);
+router.get("/api/user/recipes", async (req, res) => {
+    const user = await db.collection("users").findOne({ email: req.session.user.email }); 
 
     if (!user) {
-        //console.log("No user with email");
-        res.status(400).send({ message: "No user found with that email" });
+        return res.status(400).send({ message: "error - no user found with that email", status: 400 });
     } else {
         const recipes = user.recipes;
-        res.status(200).send({ data: recipes });
+        return res.status(200).send({ data: recipes, status: 200 });
     } 
 });
 
-router.patch("/api/recipes", async (req, res) => {
-    const { isPublished, title, category, picURL, ingredients, procedure} = req.body; 
+router.patch("/api/user/recipes", async (req, res) => {
+    const { isPublic, title, category, picURL, ingredients, procedure} = req.body; 
     const sanitizedTitle = validator.escape(title);  
     const sanitizedCategory = validator.escape(category);  
     const sanitizedPicURL = picURL;  
     const sanitizedIngredients = validator.escape(ingredients);  
     const sanitizedProcedure = validator.escape(procedure);  
-    
-    //console.log("body: ", req.body);
-    
-    const sanitizedRecipe = { isPublished: isPublished, title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, ingredients: sanitizedIngredients, procedure: sanitizedProcedure};
+        
+    const sanitizedRecipe = { isPublic: isPublic, title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, ingredients: sanitizedIngredients, procedure: sanitizedProcedure};
     
     if (!sanitizedRecipe) {
-        res.status(400).send({ message: "invalid recipe" })
+        return res.status(400).send({ message: "error - invalid recipe", status: 400 })
     } else {
         await db.collection("users").updateOne({ email: req.session.user.email }, { $push: { recipes: sanitizedRecipe }});
-        res.status(200).send({ data: sanitizedRecipe });
+        return res.status(200).send({ data: sanitizedRecipe, status: 200 });
     }
 });
 
-// ændre fra ...recipe til kun at være procedure og isPublished (HUSK frontend også!)
-router.patch("/api/recipes/published", async (req, res) => {
-    const { ...recipe } = req.body;  
-    console.log("update to publish ",req.body)   
+router.patch("/api/user/recipes/make-public", async (req, res) => {
+    const recipeToPublic = req.body;  
+    console.log("update to public ",req.body)   
     
-    if (!{...recipe}) {
-        res.status(400).send({ message: "invalid recipe" })
+    if (!recipeToPublic) {
+        return res.status(400).send({ message: "error - unables to make recipe public", status: 400 })
     } else {
         await db.collection("users").updateOne(
-            { email: req.session.user.email, 'recipes.procedure': req.body.procedure }, 
-            { $set: { 'recipes.$.isPublished' : req.body.isPublished}}
+            { email: req.session.user.email, "recipes.procedure": recipeToPublic.procedure }, 
+            { $set: { "recipes.$.isPublic" : recipeToPublic.isPublic }}
         );
-        res.status(200).send({ data: {...recipe} });
+        return res.status(200).send({ data: recipeToPublic, status: 200 });
     }
 });
 

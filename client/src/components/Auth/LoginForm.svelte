@@ -13,8 +13,8 @@
         "timeOut": "1200"
     }
 
-    let email = "bob@mail.dk";
-    let password = "bob123";
+    let email = "admin@mail.dk";
+    let password = "admin123";
     let loginOK = false;
 
     async function handleLogin() {

@@ -13,4 +13,6 @@
     }
 </script>
 
-<slot/>
+{#if $user}
+    <slot/>
+{/if}

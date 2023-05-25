@@ -13,7 +13,6 @@ router.post("/api/auth/forgot-password", async (req, res) => {
     const { email, phoneNumber } = req.body;
 
     const userExists = await db.collection("users").findOne({ email: email });
-    console.log("Found user: ", userExists);
 
     if (!userExists) {
         return res.status(400).send({ message: "error - email not found" });
@@ -47,10 +46,10 @@ router.post("/api/auth/update-password", async (req, res) => {
         return res.status(400).send({ message: "error - activation code not found, expired or password mismatch", status: 400 });
     } else {
         const hashedNewPassword = await bcrypt.hash(newPassword, 12);
-        console.log(hashedNewPassword); 
 
         await db.collection("activation_codes").deleteOne({ code: activationCode });
         await db.collection("users").updateOne({ email: activationCodeExists.email }, { $set: { password: hashedNewPassword }});
+        
         return res.status(200).send({ message: "success - new password created", status: 200 });
     }
 });
