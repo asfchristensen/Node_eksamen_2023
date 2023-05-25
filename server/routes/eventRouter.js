@@ -4,7 +4,7 @@ const router = Router();
 import db from "../database/connectionAtlas.js";
 
 import { ObjectId } from "mongodb";
-// alle true + false
+// alle true + false - SKAL SLETTES 
 router.get("/api/all/events", async (req, res) => {
     const events = await db.collection("events").find().toArray();
 
@@ -26,12 +26,12 @@ router.get("/api/all/events/public", async (req, res) => {
 });
 
 router.get("/api/admin/events/not-public", async (req, res) => {
-    const events = await db.collection("events").find({ isPublic: false }).toArray();
+    const notPublicEvents = await db.collection("events").find({ isPublic: false }).toArray();
 
-    if (events.length === 0) {
+    if (notPublicEvents.length === 0) {
         return res.status(400).send({ message: "error - failed to fetch events", status: 400 });
     } else {
-        return res.status(200).send({ data: events, status: 200 });
+        return res.status(200).send({ data: notPublicEvents, status: 200 });
     }
 });
 
@@ -88,15 +88,12 @@ router.delete("/api/admin/events", async (req, res) => {
     console.log("event to delete: ", eventToDelete);
     console.log("id:", eventToDelete._id);
 
-    console.log("! værdi:", !eventToDelete);
     if (!eventToDelete) {
-
         return res.status(400).send({ message: "error - failed to delete event", status: 400 });
+    } else {
+        await db.collection("events").deleteOne({_id: new ObjectId(eventToDelete._id)});
+        return res.status(200).send({ message: "Event deleted successfully", status: 200 });
     }
-
-    const deleter = await db.collection("events").deleteOne({_id: new ObjectId(eventToDelete._id)});
-    console.log(deleter);
-    return res.status(200).send({ message: "Event deleted successfully", status: 200 });
 });
 
 export default router;

@@ -1,11 +1,25 @@
 <script>
-    import DisplayPublishRatings from "../../components/Rating/DisplayPublishRatings.svelte";
+    import { user } from "../../stores/user.js";
+    import DisplayPublicRatings from "../../components/Ratings/DisplayPublicRatings.svelte";
+    import Sidebar from "../../components/Navbars/Sidebar.svelte";
 
-    
 </script>
-<h1>Home Page</h1>
 
-<!-- Karusel med billeder af opskrifter-->
+<div class="grid">
+    <div class="col-left">
+        {#if $user}
+            <Sidebar/>
+        {/if}
+    </div>
+    <div class="col-middle">
+        <!-- Karusel med billeder af opskrifter-->
 
-<!-- Vis Published Ratings -->
-<DisplayPublishRatings/>
+        <!-- Fortælle om os sektion -->
+
+        <DisplayPublicRatings/>    
+    </div>
+    <div class="col-right">
+
+    </div>
+</div>
+

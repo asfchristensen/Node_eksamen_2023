@@ -1,10 +1,11 @@
 <script>
+    import { user } from "../../stores/user";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
-    import MapEvents from "../../components/Events/MapEvents.svelte";
     import CreateEvent from "../../components/Events/CreateEvent.svelte";
+    import UserCounter from "../../components/UserCounter/UserCounter.svelte";
+    import DisplayEvents from "../../components/Events/DisplayEvents.svelte";
    
 </script>
-
 
 <div class="grid">
     <div class="col-left">
@@ -12,9 +13,13 @@
     </div>
 
     <div class="col-middle">
-        <MapEvents/>
+        <DisplayEvents/>
     </div>
     <div class="col-right">
-        <CreateEvent/>
+        {#if $user.role === 2}
+            <CreateEvent/>
+        {:else if $user.role === 1}
+            <UserCounter/>
+        {/if}
     </div>
 </div>
