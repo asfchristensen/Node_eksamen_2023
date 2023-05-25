@@ -50,7 +50,6 @@
         console.log("result delete:", result);
 
 
-
         eventsToPublic.update(events => events.filter(event => 
         event.eventName !== eventToDelete.eventName && event.date !== eventToDelete.date
         ));
