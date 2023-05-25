@@ -91,32 +91,30 @@
             // opdaterer samme recipe i useren 
             const recipeInfo = JSON.stringify({ ...recipe });
             const res = await fetch($BASE_URL + "/api/recipes/published", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: recipeInfo,
-            credentials: "include"
-        });
-
-        if (res.ok) {
-            console.log("Changes isPublished to true in user Laura", res.ok);
-            const updateRecipes = $recipes.map((r) => {
-                if (r.procedure === recipe.procedure) {
-                    console.log("Recipe changed to true", recipe);
-                    return recipe;
-                }
-                return r;
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: recipeInfo,
+                credentials: "include"
             });
-            $recipes = updateRecipes;
-            $recipes.forEach(r => console.log("Is published in foreach:", r.isPublished))
-        } else {
-            console.log("error - not changed anything");
+
+            if (res.ok) {
+                console.log("Changes isPublished to true in user Laura", res.ok);
+                const updateRecipes = $recipes.map((r) => {
+                    if (r.procedure === recipe.procedure) {
+                        console.log("Recipe changed to true", recipe);
+                        return recipe;
+                    }
+                    return r;
+                });
+                $recipes = updateRecipes;
+                $recipes.forEach(r => console.log("Is published in foreach:", r.isPublished))
+            } else {
+                console.log("error - not changed anything");
+            }
         }
     }
-}
-
-
 </script>
 
 

@@ -30,15 +30,17 @@
         <!-- Public routes -->
 
         <Route path="/login" component={Login}></Route>
+        <!--
         <Route path="/signup" component={Signup}></Route>
         <Route path="/forgot-password" component={ForgotPasswordPage}></Route>
         <Route path="/update-password" component={UpdatePasswordPage}></Route>
         <Route path="/" component={FrontPage}></Route>
         <Route path="/maps" component={GoogleMaps}></Route>
+        -->
+        
 
 
-        <!-- Private routes -->
-    
+        <!-- Private routes: Admin -->
         <PrivateRoute path="/rapports">
             <RapportPage/>
         </PrivateRoute>
@@ -51,32 +53,39 @@
            <RatingPage/>
         </PrivateRoute>
 
-        <!-- for all -->
+        <!-- Private routes: Users -->
         <PrivateRoute path="/profile">
             <ProfilePage/>
-        </PrivateRoute>
-
-        <PrivateRoute path="/newsfeed">
-            <NewsfeedPage/>
-        </PrivateRoute> 
-
-        <PrivateRoute path="/chat">
-            <ChatPage/>
-        </PrivateRoute>
-
-        <PrivateRoute path="/feedback">
-            <FeedbackPage/>
-        </PrivateRoute>
-
-        <PrivateRoute path="/events">
-            <EventsPage/>
         </PrivateRoute>
 
         <PrivateRoute path="/settings">
             <SettingsPage/>
         </PrivateRoute>
 
+        <PrivateRoute path="/feedback">
+            <FeedbackPage/>
+        </PrivateRoute>
+        
+        <PrivateRoute path="/events">
+            <EventsPage/>
+        </PrivateRoute>
 
+
+        <!-- for all -->
+
+        <PrivateRoute path="/chat">
+            <ChatPage/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/newsfeed">
+            <NewsfeedPage/>
+        </PrivateRoute> 
+
+        
+
+        
+
+        
     </main>
 
 </Router>
