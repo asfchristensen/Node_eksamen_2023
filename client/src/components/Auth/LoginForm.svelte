@@ -1,4 +1,5 @@
 <script>
+    import "@picocss/pico";
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user } from "../../stores/user.js";
     import { navigate, Link } from "svelte-navigator";
@@ -6,19 +7,17 @@
     import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.svelte";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
-    import "@picocss/pico";
 
     toastr.options = {
-        "positionClass": "toast-top-center",
+        "positionClass": "toast-top-right",
         "timeOut": "1200"
     }
 
-    let email = "admin@mail.dk";
-    let password = "admin123";
+    let email = "bob@mail.dk";
+    let password = "bob123";
     let loginOK = false;
 
     async function handleLogin() {
-        
         const userToJSON = JSON.stringify({ email, password });
         const url = $BASE_URL + "/api/auth/login";
    

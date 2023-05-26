@@ -34,6 +34,8 @@ if (isDeleteMode) {
             email: "bob@mail.dk", 
             password: bobHashedPassword, 
             role_id: 2,
+            profilePicture: "../profilePictures/default.png",
+            memberSince: 2023,
             recipes: [
                 { 
                     isPublic: true,
@@ -66,6 +68,8 @@ if (isDeleteMode) {
             email: "alice@mail.dk", 
             password: aliceHashedPassword, 
             role_id: 2,
+            profilePicture: "../profilePictures/default.png",
+            memberSince: 2023,
             recipes: [] 
         }
     ]);

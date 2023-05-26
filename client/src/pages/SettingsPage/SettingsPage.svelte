@@ -1,5 +1,6 @@
 <script>
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
+    import UserSettings from "../../components/UserSettings/UserSettings.svelte";
 
 
 </script>
@@ -10,8 +11,7 @@
     </div>
 
     <div class="col-middle">
-        Her skal component sættes ind med settings
-        PT ingen komponenter
+        <UserSettings/>
     </div>
 
     <div class="col-right"></div>

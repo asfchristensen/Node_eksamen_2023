@@ -15,6 +15,18 @@ router.get("/api/admin/feedback", async (req, res) => {
     }
 });
 
+router.get("/api/user/feedback", async (req, res) => {
+    const usersEmail = req.session.user.email;
+    const answeredFeedback = await db.collection("feedback").find({ userEmail: usersEmail, isAnswered: true }).toArray();
+    console.log("answered feedback list", answeredFeedback);
+    
+    if (answeredFeedback.length === 0) {
+        return res.status(400).send({ message: "error - no answers found", status: 400 });
+    } else {
+        return res.status(200).send({ data: answeredFeedback, message: "found answers to feedback(s)", status: 200 });
+    }
+});
+
 router.post("/api/user/feedback", async (req, res) => {
     const feedback = req.body; 
     
