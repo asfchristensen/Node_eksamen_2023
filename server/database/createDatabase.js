@@ -28,14 +28,14 @@ if (isDeleteMode) {
             email: "admin@mail.dk", 
             password: adminHashedPassword, 
             role_id: 1,
-            picURL: "server/assets/default-profile-pic.png"
         }, 
         { 
             username: "Bob", 
             email: "bob@mail.dk", 
             password: bobHashedPassword, 
             role_id: 2,
-            picURL: "server/assets/default-profile-pic.png",
+            profilePicture: "../profilePictures/default.png",
+            memberSince: 2023,
             recipes: [
                 { 
                     isPublic: true,
@@ -68,7 +68,8 @@ if (isDeleteMode) {
             email: "alice@mail.dk", 
             password: aliceHashedPassword, 
             role_id: 2,
-            picURL:"picture",
+            profilePicture: "../profilePictures/default.png",
+            memberSince: 2023,
             recipes: [] 
         }
     ]);
