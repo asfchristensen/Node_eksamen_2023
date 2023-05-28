@@ -15,17 +15,20 @@ router.get("/api/admin/users", async (req, res) => {
     }
 });
 
-// til profileinfo : 
-router.get("/api/user/users", async (req, res) => {
+router.get("/api/user/users/email", async (req, res) => {
     const userEmail = req.session.user.email
-    const user = await db.collection("users").findOne({ email: userEmail });
 
-    const profileInfo = { profilePicture: user.profilePicture, memberSince: user.memberSince };
-    console.log("user profile:", profileInfo);
-    return res.status(200).send({ data: profileInfo, status: 200 });
+    if (!userEmail) {
+        return res.status(400).send({ message: "error - no user with that email", status: 400 });
+    } else {
+        const user = await db.collection("users").findOne({ email: userEmail });
+
+        const profileInfo = { profilePicture: user.profilePicture, memberSince: user.memberSince };
+        return res.status(200).send({ data: profileInfo, status: 200 });
+    }
 });
 
-router.patch("/api/user/users", async (req, res) => {
+router.patch("/api/user/users/email", async (req, res) => {
     const userToUpdate = req.body;
     const userEmail = req.session.user.email;
 

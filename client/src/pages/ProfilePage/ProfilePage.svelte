@@ -1,6 +1,4 @@
 <script>
-        import "@picocss/pico";
-
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes, answeredFeedback } from "../../stores/userGlobals.js";
@@ -8,9 +6,9 @@
     import { Link } from "svelte-navigator";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import CreateRecipe from "../../components/Recipes/CreateRecipe.svelte";
-    import UserInfo from "../../components/UserInfo/UserInfo.svelte";
-    import MyLikes from "../../components/MyLikes/MyLikes.svelte";
     import DisplayRecipes from "../../components/Recipes/DisplayRecipes.svelte";
+    import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.svelte";
+    import MyLikes from "../../components/MyLikes/MyLikes.svelte";
 
     let isClicked = false;
 
@@ -20,7 +18,6 @@
     });
 
     async function handleGetAllRecipes(){
-        console.log(1);
         const url = $BASE_URL + "/api/user/recipes";
         const result = await get(url);
         console.log("From get all recipes:", result);
@@ -45,23 +42,13 @@
     <div class="col-left">
         <Sidebar/>
     </div>
-
     <div class="col-middle">
         <h2>{$user.username}'s profile</h2>
-        <!-- My Recipes  (sneak peak )-->
         <DisplayRecipes onGetAllRecipes={handleGetAllRecipes}/>
-        <!-- Knap: My see all recipes - hen til en page -->
-        <!-- My likes  (sneak peak )-->
         <MyLikes onGetAllRecipes={handleGetAllRecipes}/>
-        <!-- Knap: My see all recipes - hen til en page-->
-    </div>
-
+        </div>
     <div class="col-right">
-         <!-- Profilbillede
-            Brugernavn 
-            Medlem siden -->
-        <UserInfo/>
-        <!-- CREATE RECIPE knap (modal)-->
+        <ProfileInfo/>
         <CreateRecipe onGetAllRecipes={handleGetAllRecipes}/>
         <!-- CREATE video/music knap (modal)-->
         <a href="#inbox" data-tooltip="Read feedback answers">

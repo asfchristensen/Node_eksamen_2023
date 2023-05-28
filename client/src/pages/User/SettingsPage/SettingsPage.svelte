@@ -1,12 +1,13 @@
 <script>
     import { BASE_URL } from "../../../stores/urlDomain.js";
-    import { user } from "../../../stores/userGlobals.js"; 
+    import { profileInfo, user } from "../../../stores/userGlobals.js"; 
     import { profilePics } from "../../../stores/hardcodedData.js";
-    import { patch, remove } from "../../../api/api.js";
+    import { get, patch, remove } from "../../../api/api.js";
     import { navigate } from "svelte-navigator";
     import { Confirm } from "svelte-confirm";
     import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
+    import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
 
     let username = "";
     let password = "";
@@ -19,13 +20,12 @@
     let deleteMatch;
 
     async function handleUpdateUser() {
-        const url = $BASE_URL + "/api/user/users";
+        const url = $BASE_URL + "/api/user/users/email";
         const usernameToUpdate = { username };
         const usernameToJSON = JSON.stringify(usernameToUpdate);
         console.log("username data: ", usernameToJSON);
 
         const result = await patch(url, usernameToJSON);
-        console.log(result);
 
         if (result.status === 200) {
             toastr.success("Username updated");
@@ -37,13 +37,11 @@
     }
 
     async function handleUpdatePassword() {
-        const url = $BASE_URL + "/api/user/users";
+        const url = $BASE_URL + "/api/user/users/email";
         const passwordToUpdate = { password, newPassword, confirmNewPassword };
         const passwordToJSON = JSON.stringify(passwordToUpdate);
-        console.log("PW data: ", passwordToJSON);
 
         const result = await patch(url, passwordToJSON);
-        console.log(result);
 
         if (result.status === 200) {
             toastr.success("Password updated");
@@ -57,41 +55,31 @@
     }
 
     function handleCheckPasswords() {
-        if (newPassword) {
-            updateMatch = false;
-            updateMatch = newPassword !== confirmNewPassword 
-        } 
-
-        if (deletePassword) {
-            deleteMatch = false;
-            deleteMatch = deletePassword !== confirmDeletePassword 
-        }     
+        updateMatch = newPassword !== confirmNewPassword;
+        deleteMatch = deletePassword !== confirmDeletePassword;    
     }
 
-    async function handleUpdateProfilePic(picture){
-        const url = $BASE_URL + "/api/user/users";
+    async function handleUpdateProfilePic(picture) {
+        const url = $BASE_URL + "/api/user/users/email";
         const pictureToUpdate = { profilePicture: picture.img };
         const pictureToJSON = JSON.stringify(pictureToUpdate);
-        console.log("username data: ", pictureToUpdate);
 
         const result = await patch(url, pictureToJSON);
-        console.log(result);
 
         if (result.status === 200) {
             toastr.success("Profile picture updated");
+            await handleGetUser();
         } else {
             toastr.error("Failed to update profile picture");
         }
     }
 
-    async function handleDeleteProfile(){
+    async function handleDeleteProfile() {
         const url = $BASE_URL + "/api/both/users/email";
         const profileToDelete = { email, deletePassword, confirmDeletePassword };
         const profileToJSON = JSON.stringify(profileToDelete);
-        console.log("profile 2 delete: ", profileToJSON);
 
         const result = await remove(url,profileToJSON);
-        console.log("del profile result;", result);
 
         if (result.status === 200) {
             toastr.success("Profile deleted");
@@ -107,6 +95,12 @@
         confirmDeletePassword = "";
     }
 
+    async function handleGetUser() {
+        const url = $BASE_URL + "/api/user/users/email";
+        const result = await get(url);
+        profileInfo.set(result.data);
+        return result.data;
+    }
 </script>
 
 <div class="grid">
@@ -145,7 +139,7 @@
             <div class="summary-content">
             {#each $profilePics as picture }
                 <ul>
-                    <button id="avatarPic" on:click={handleUpdateProfilePic.bind(null, picture)}> 
+                    <button id="profilePic" on:click={handleUpdateProfilePic.bind(null, picture)}> 
                         <img src="{picture.img}" alt="picture">
                     </button>
                 </ul> 
@@ -169,7 +163,9 @@
             </div>
         </details>
     </div>
-    <div class="col-right"></div>
+    <div class="col-right">
+        <UserInfo/>
+    </div>
 </div>
 
 <style>
@@ -189,12 +185,12 @@
         width: 4em;
     }
 
-    #avatarPic {
+    #profilePic {
         background-color: white;
         border-color: white;
     }
 
-    #avatarPic:hover {
+    #profilePic:hover {
         background-color: white;
         border-color: #1095c1;
     }

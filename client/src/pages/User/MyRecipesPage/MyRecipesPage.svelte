@@ -5,7 +5,7 @@
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import DeleteButton from "../../../components/Recipes/DeleteButton.svelte";
     import MakePublicButton from "../../../components/Recipes/MakePublicButton.svelte";
-    import UserInfo from "../../../components/UserInfo/UserInfo.svelte";
+    import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
     import { BASE_URL } from "../../../stores/urlDomain";
     import { recipes } from "../../../stores/userGlobals";
 
@@ -42,7 +42,7 @@
                             <button id="button" class="contrast" disabled>Is public</button>
                         {/if}
                         <div id="button">
-                            <ModalRecipeButton buttonTitle="Read" recipeToShow={recipe} path="/my-recipes" onGetAllRecipes={handleGetAllRecipes}/>
+                            <ModalRecipeButton canUpdate={true} buttonTitle="Read" recipeToShow={recipe} path="/my-recipes" onGetAllRecipes={handleGetAllRecipes}/>
                         </div>
                         <div id="button">
                             <DeleteButton recipeToDelete={recipe}/>

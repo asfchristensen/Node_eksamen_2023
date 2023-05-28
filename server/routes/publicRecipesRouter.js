@@ -8,7 +8,7 @@ import db from "../database/connectionAtlas.js";
 router.get("/api/both/publicRecipes", async (req, res) => {
     const publicRecipes = await db.collection("public_recipes").find().toArray();
 
-    if(publicRecipes.length === 0) {
+    if (publicRecipes.length === 0) {
         return res.status(400).send({ message: "error - unable to find recipes", status: 400 });
     } else {
         return res.status(200).send({ data: publicRecipes, status: 200 });

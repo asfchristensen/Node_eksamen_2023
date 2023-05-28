@@ -27,7 +27,7 @@
             
             <div class="buttons">
                 <div id="button">
-                    <ModalRecipeButton buttonTitle="Read" recipeToShow={liked} path="/profile" onGetAllRecipes={onGetAllRecipes}/>
+                    <ModalRecipeButton canUpdate={false} buttonTitle="Read" recipeToShow={liked} path="/profile" onGetAllRecipes={onGetAllRecipes}/>
                 </div>
             </div>
         </article>

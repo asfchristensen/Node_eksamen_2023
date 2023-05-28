@@ -1,20 +1,18 @@
 <script>
-    import "@picocss/pico";
+    import { user } from "../../stores/userGlobals";
     import { Link } from "svelte-navigator";
     import UpdateRecipe from "../Recipes/UpdateRecipe.svelte";
-    import { user } from "../../stores/userGlobals";
 
     export let buttonTitle;
     export let recipeToShow;
     export let path;
     export let onGetAllRecipes;
-    
+    export let canUpdate;
+
     let isClicked = false;
 
-    console.log("before clicked: ", isClicked);
     function handleModal () {
         isClicked = !isClicked;
-        console.log("after cliked: ",isClicked);
     }
 
 </script>
@@ -37,9 +35,8 @@
                 <span><strong>Procedure</strong></span>
                 <span>{recipeToShow.procedure}</span>
             </div>
-            {#if path === "/profile" && recipeToShow.author === $user.email}
-                <!-- UPDATE PRIVATE RECIPE-->
-                <UpdateRecipe recipeToUpdate={recipeToShow} onGetAllRecipes={onGetAllRecipes}/>   
+            {#if canUpdate}
+                <UpdateRecipe recipeToUpdate={recipeToShow} onGetAllRecipes={onGetAllRecipes}/> 
             {/if}
         </article>
         

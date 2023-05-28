@@ -1,17 +1,16 @@
 <script>
     import { onMount } from "svelte";
-    import { get } from "../../api/api";
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { user, profileInfo } from "../../stores/userGlobals";
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { get } from "../../api/api.js";
+    import { user, profileInfo } from "../../stores/userGlobals.js";
 
-    onMount( async () => {
+    onMount(async () => {
         await handleGetUser();
     });
 
     async function handleGetUser() {
-        const url = $BASE_URL + "/api/user/users";
+        const url = $BASE_URL + "/api/user/users/email";
         const result = await get(url);
-        console.log(result.data);
         profileInfo.set(result.data);
         return result.data;
     }
@@ -20,19 +19,16 @@
 
 {#if $profileInfo}
     <div>
-        <img src={$profileInfo.profilePicture} alt="profilepic">   
+        <img src={$profileInfo.profilePicture} alt="profilePicture">   
         <h6>{$user.username}</h6>
         <p>Member since: {$profileInfo.memberSince}</p>
-        
     </div>
 {:else}
     <div></div>
 {/if}
 
 <style>
-    h6 {
-        margin-top: 1em;
-    }
+    h6 { margin-top: 1em; }
 </style>
 
 

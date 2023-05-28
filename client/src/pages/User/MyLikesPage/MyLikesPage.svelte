@@ -4,10 +4,9 @@
     import { user, recipes } from "../../../stores/userGlobals";
     import { publicRecipes } from "../../../stores/publicRecipes.js";
     import { get } from "../../../api/api";
-
     import ModalRecipeButton from "../../../components/ModalRecipeButton/ModalRecipeButton.svelte";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import UserInfo from "../../../components/UserInfo/UserInfo.svelte";
+    import ProfileInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
     import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
 
     onMount(async () => {
@@ -15,10 +14,8 @@
     });
 
     async function handleGetAllRecipes(){
-        console.log(1);
         const url = $BASE_URL + "/api/user/recipes";
         const result = await get(url);
-        console.log("From get all recipes:", result);
         recipes.set(result.data);
     }
 
@@ -26,15 +23,10 @@
 
 </script>
 
-
-    
 <div class="grid">
     <div class="col-left">
         <Sidebar/>
     </div>
-
-
-
     <div class="col-middle">
         <h2>All my likes</h2>
         <div class="recipes">
@@ -44,7 +36,7 @@
                     <img src="{liked.picURL}" alt="image of food"/>
                      <p>Author: {liked.author}</p>
                     <div class="buttons">
-                        <ModalRecipeButton buttonTitle="Read" recipeToShow={liked} path="/profile" onGetAllRecipes={handleGetAllRecipes}/>
+                        <ModalRecipeButton canUpdate={false} buttonTitle="Read" recipeToShow={liked} path="/profile" onGetAllRecipes={handleGetAllRecipes}/>
                     </div>
                 </article>
             {/each}
@@ -53,7 +45,7 @@
 
 
     <div class="col-right">
-        <UserInfo/>
+        <ProfileInfo/>
         <GoBackButton path="/profile"/>
     </div>
 </div>
