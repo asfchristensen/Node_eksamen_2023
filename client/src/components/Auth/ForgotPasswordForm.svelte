@@ -21,7 +21,7 @@
             setTimeout(() => {
                 navigate("/update-password", {replace: true});
                 smsOK = false; 
-            }, 3000);
+            }, 5000);
         } else {
             toastr.error(result.message);
         }

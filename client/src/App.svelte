@@ -19,7 +19,7 @@
     import AllMyRecipesPage from "./pages/User/AllMyRecipesPage/AllMyRecipesPage.svelte";
     import AllMyLikesPage from "./pages/User/AllMyLikesPage/AllMyLikesPage.svelte";
     import ApproveEventsPage from "./pages/Admin/ApproveEventsPage/ApproveEventsPage.svelte";
-    import BackToTop from "./components/Buttons/BackToTopButton.svelte";
+    import BackToTop from "./components/Templates/Buttons/BackToTopButton.svelte";
    
 </script>
 
