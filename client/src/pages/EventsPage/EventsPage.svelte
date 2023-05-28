@@ -8,7 +8,7 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { publicEvents } from "../../stores/events";
-    import { getWithCredentials } from "../../api/api";
+    import { get } from "../../api/api";
    
     onMount(async () => {
         await handleGetAllPublicEvents();
@@ -16,7 +16,7 @@
 
     async function handleGetAllPublicEvents() {
         const url = $BASE_URL + "/api/all/events/public";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
 
         publicEvents.set(result.data);
         console.log(result.data);

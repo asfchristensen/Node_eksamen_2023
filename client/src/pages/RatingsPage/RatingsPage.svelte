@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { ratingsToPublic } from "../../stores/ratings";
-    import { getWithCredentials } from "../../api/api";
+    import { get } from "../../api/api";
 
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import MakePublicRatings from "../../components/Ratings/MakePublicRatings.svelte";
@@ -14,7 +14,7 @@
 
     async function handleGetAllNotPublicRatings() {
         const url = $BASE_URL + "/api/admin/ratings/not-public";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log(result.data);
         ratingsToPublic.set(result.data);
         return result.data;

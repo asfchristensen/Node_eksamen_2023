@@ -2,7 +2,7 @@
     import { user } from "../../stores/user.js";
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { getWithCredentials } from "../../api/api.js";
+    import { get } from "../../api/api.js";
     import { publicRatings } from "../../stores/ratings.js";
 
     import { pictures } from "../../stores/frontpage.js";
@@ -18,7 +18,7 @@
 
     async function handleGetAllPublicRatings() {
         const url = $BASE_URL + "/api/ratings/public";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log(result.data);
         publicRatings.set(result.data);
         return result.data;

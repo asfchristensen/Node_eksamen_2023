@@ -1,17 +1,11 @@
 <script>
-    import "@picocss/pico";
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user } from "../../stores/user.js";
     import { navigate, Link } from "svelte-navigator";
     import { post } from "../../api/api.js";
-    import toastr from "toastr";
-    import 'toastr/build/toastr.css';
     import LoadingButton from "../LoadingButton/LoadingButton.svelte";
 
-    toastr.options = {
-        "positionClass": "toast-top-right",
-        "timeOut": "1200"
-    }
+    import toastr from "toastr";
 
     let email = "bob@mail.dk";
     let password = "bob123";

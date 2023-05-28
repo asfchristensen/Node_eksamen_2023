@@ -1,18 +1,23 @@
 <script>
-    import { getWithCredentials } from "../../../api/api";
-    import ModalRecipeButton from "../../../components/ModalRecipeButton/ModalRecipeButton.svelte";
-    import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import UserInfo from "../../../components/UserInfo/UserInfo.svelte";
+    import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain";
     import { user, recipes } from "../../../stores/user";
     import { publicRecipes } from "../../../stores/publicRecipes.js";
-    import LikeButton from "../../../components/Newsfeed/LikeButton.svelte";
-    import GoBackButton from "../../../components/Buttons/GoBackButton.svelte";
+    import { get } from "../../../api/api";
+
+    import ModalRecipeButton from "../../../components/ModalRecipeButton/ModalRecipeButton.svelte";
+    import Sidebar from "../../../components/Navbars/Sidebar.svelte";
+    import UserInfo from "../../../components/UserInfo/UserInfo.svelte";
+    import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
+
+    onMount(async () => {
+        await handleGetAllRecipes();
+    });
 
     async function handleGetAllRecipes(){
         console.log(1);
         const url = $BASE_URL + "/api/user/recipes";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("From get all recipes:", result);
         recipes.set(result.data);
     }

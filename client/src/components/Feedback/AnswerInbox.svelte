@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { Link } from "svelte-navigator";
-    import { getWithCredentials } from "../../api/api";
+    import { get } from "../../api/api";
     import { BASE_URL } from "../../stores/urlDomain";
     import { answeredFeedback, feedbackStore } from "../../stores/feedback";
 
@@ -17,8 +17,8 @@
     }
 
     async function handleGetAllAnsweredFeedback() {
-        const url = $BASE_URL + "/api/user/feedback";
-        const result = await getWithCredentials(url);
+        const url = $BASE_URL + "/api/user/feedback/email";
+        const result = await get(url);
         //console.log(result.data);
         answeredFeedback.set(result.data)
 

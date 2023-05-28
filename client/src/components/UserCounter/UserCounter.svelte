@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { allUsers } from "../../stores/user";
-    import { getWithCredentials } from "../../api/api";
+    import { get } from "../../api/api";
 
     console.log("Længden på alle users: ", $allUsers.length);
 
@@ -12,7 +12,7 @@
 
     async function handleGetAllUsers() {
         const url = $BASE_URL + "/api/admin/users";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("Result: ", result.data);
         allUsers.set(result.data);
     }

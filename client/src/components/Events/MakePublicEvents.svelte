@@ -9,7 +9,7 @@
 <!-- <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { eventsToPublic } from "../../stores/events.js";
-    import { getWithCredentials, patch } from "../../api/api.js";
+    import { get, patch } from "../../api/api.js";
     import { onMount } from "svelte";
     import toastr from "toastr";
     import DeleteButton from "../Events/DeleteButton.svelte";
@@ -20,7 +20,7 @@
 
     async function handleGetAllNotPublicEvents(){
         const url = $BASE_URL + "/api/admin/events/not-public";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("Non public events", result.data);
         eventsToPublic.set(result.data);
         return result.data;

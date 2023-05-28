@@ -1,33 +1,33 @@
-<script>
+<!-- <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user } from "../../stores/user.js";
     import { post } from "../../api/api.js";
     import toastr from "toastr";
  
-    let ratingNumber = 0;
-    let comment = "";
+    // let ratingNumber = 0;
+    // let comment = "";
 
-    async function handleCreateRating() {
-        const url = $BASE_URL + "/api/user/ratings";
-        const rating = { isPublic: false, rating: ratingNumber, comment: comment, username: $user.username, isDeleted: false };
-        const ratingToJSON = JSON.stringify(rating);
+    // async function handleCreateRating() {
+    //     const url = $BASE_URL + "/api/user/ratings";
+    //     const rating = { isPublic: false, rating: ratingNumber, comment: comment, username: $user.username, isDeleted: false };
+    //     const ratingToJSON = JSON.stringify(rating);
 
-        const result = await post(url, ratingToJSON);
-        console.log(result);
+    //     const result = await post(url, ratingToJSON);
+    //     console.log(result);
 
-        if (result.status === 200) {
-            toastr.success("Thanks for your rating");
-        } else {
-            toastr.error("Failed to upload your rating");
-        }
+    //     if (result.status === 200) {
+    //         toastr.success("Thanks for your rating");
+    //     } else {
+    //         toastr.error("Failed to upload your rating");
+    //     }
 
-        ratingNumber = 0;
-        comment = "";
-    }
+    //     ratingNumber = 0;
+    //     comment = "";
+    // }
 
-</script>
+</script> -->
 
-<article>
+<!-- <article>
     <h4>Rate our application</h4>
 
     <form>
@@ -41,9 +41,9 @@
     </form>
 </article>
 
-<hr>
+<hr> -->
 
-<style>
+<!-- <style>
     article {
         display: inline-block;
         width: 90%;     
@@ -78,6 +78,6 @@
         vertical-align: middle;
         margin-bottom: 8%;
     }
-</style>
+</style> -->
 
 

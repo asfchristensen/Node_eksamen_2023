@@ -1,11 +1,11 @@
-<script>
+<!-- <script>
     import "@picocss/pico";
     import { feedbackStore } from "../../stores/feedback.js";
     import ModalFeedbackButton from "../Feedback/ModalFeedbackButton.svelte";
   
-</script>
+</script> -->
 
-<h3>Feedback from users:</h3>
+<!-- <h3>Feedback from users:</h3>
 <table role="grid">
     <thead>
         <tr>
@@ -23,4 +23,4 @@
             </tr>
         {/each} 
     </tbody>
-</table>
+</table> -->

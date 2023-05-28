@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import toastr from "toastr";
     import { post } from "../../api/api";
     import { BASE_URL } from "../../stores/urlDomain";
@@ -23,9 +23,9 @@
         subject = "";
         feedback = "";
     }
-</script>
+</script> -->
 
-<article>
+<!-- <article>
     <h4>Anything on your mind?</h4>
 
     <div class="info-text">
@@ -56,6 +56,4 @@
     .info-text span {
         color: rgb(108, 134, 143);
     }
-
-
-</style>
+</style> -->

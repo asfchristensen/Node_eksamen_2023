@@ -1,6 +1,6 @@
 <script>
-    import { getWithCredentials } from "../../../api/api";
-    import GoBackButton from "../../../components/Buttons/GoBackButton.svelte";
+    import { get } from "../../../api/api";
+    import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
     import ModalRecipeButton from "../../../components/ModalRecipeButton/ModalRecipeButton.svelte";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import DeleteButton from "../../../components/Recipes/DeleteButton.svelte";
@@ -11,7 +11,7 @@
 
     async function handleGetAllRecipes(){
         const url = $BASE_URL + "/api/user/recipes";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("From get all recipes:", result);
         recipes.set(result.data);
     }

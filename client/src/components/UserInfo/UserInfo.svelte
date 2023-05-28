@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { getWithCredentials } from "../../api/api";
+    import { get } from "../../api/api";
     import { BASE_URL } from "../../stores/urlDomain";
     import { user, profileInfo } from "../../stores/user";
 
@@ -10,7 +10,7 @@
 
     async function handleGetUser() {
         const url = $BASE_URL + "/api/user/users";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log(result.data);
         profileInfo.set(result.data);
         return result.data;

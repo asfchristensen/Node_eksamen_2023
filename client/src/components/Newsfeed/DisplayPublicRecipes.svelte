@@ -3,7 +3,7 @@
     import { BASE_URL } from "../../stores/urlDomain.js"; 
     import { user } from "../../stores/user.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
-    import { getWithCredentials } from "../../api/api.js";
+    import { get } from "../../api/api.js";
     import LikeButton from "../Newsfeed/LikeButton.svelte";
     import CommentButton from "../Newsfeed/CommentButton.svelte";
     import ModalRecipeButton from "../ModalRecipeButton/ModalRecipeButton.svelte";
@@ -15,7 +15,7 @@
 
     async function handleGetPublicRecipes() {
         const url = $BASE_URL + "/api/all/publicRecipes";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("result.data: ", result);
         result.data.reverse();
         publicRecipes.set(result.data); 

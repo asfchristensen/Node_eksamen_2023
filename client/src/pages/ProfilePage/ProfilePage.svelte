@@ -6,7 +6,7 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes } from "../../stores/user.js";
-    import { getWithCredentials } from "../../api/api.js";
+    import { get } from "../../api/api.js";
     import MyLikes from "../../components/MyLikes/MyLikes.svelte";
     import DisplayRecipes from "../../components/Recipes/DisplayRecipes.svelte";
 
@@ -19,7 +19,7 @@
     async function handleGetAllRecipes(){
         console.log(1);
         const url = $BASE_URL + "/api/user/recipes";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("From get all recipes:", result);
         recipes.set(result.data);
     }

@@ -1,4 +1,5 @@
 <script>
+    import "@picocss/pico";
     import { Router, Route } from "svelte-navigator";
     import PrivateRoute from "./components/Protectors/PrivateRoute.svelte";
     import Signup from "./pages/Auth/SignupPage.svelte";
@@ -9,18 +10,25 @@
     import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage.svelte";
     import UpdatePasswordPage from "./pages/Auth/UpdatePasswordPage.svelte";
     import FrontPage from "./pages/FrontPage/FrontPage.svelte";
-    import FeedbackPage from "./pages/FeedbackPage/FeedbackPage.svelte";
+    import FeedbackPage from "./pages/User/FeedbackPage/FeedbackPage.svelte";
     import ProfilePage from "./pages/ProfilePage/ProfilePage.svelte";
     import EventsPage from "./pages/EventsPage/EventsPage.svelte";
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
     import SettingsPage from "./pages/SettingsPage/SettingsPage.svelte";
     import RatingsPage from "./pages/RatingsPage/RatingsPage.svelte";
-    import AdminFeedbackPage from "./pages/AdminFeedbackPage/AdminFeedbackPage.svelte";
-    import AllMyRecipesPage from "./pages/User/AllMyRecipesPage/AllMyRecipesPage.svelte";
-    import AllMyLikesPage from "./pages/User/AllMyLikesPage/AllMyLikesPage.svelte";
+    import AdminFeedbackPage from "./pages/Admin/RecievedFeedbackPage/RecievedFeedbackPage.svelte";
+    import AllMyRecipesPage from "./pages/User/MyRecipesPage/MyRecipesPage.svelte";
+    import AllMyLikesPage from "./pages/User/MyLikesPage/MyLikesPage.svelte";
     import ApproveEventsPage from "./pages/Admin/ApproveEventsPage/ApproveEventsPage.svelte";
     import BackToTop from "./components/Templates/Buttons/BackToTopButton.svelte";
-   
+    import toastr from "toastr";
+    import 'toastr/build/toastr.css';
+
+    toastr.options = {
+        "positionClass": "toast-middle-top",
+        "timeOut": "1200"
+    }
+
 </script>
 
 <Router>
@@ -88,4 +96,5 @@
 <BackToTop/>
 
 <Footer/>
+
 

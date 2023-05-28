@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { getWithCredentials, patch } from "../../../api/api";
+    import { get, patch } from "../../../api/api";
 
 
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
@@ -20,7 +20,7 @@
 
     async function handleGetAllNotPublicEvents(){
         const url = $BASE_URL + "/api/admin/events/not-public";
-        const result = await getWithCredentials(url);
+        const result = await get(url);
         console.log("Non public events", result.data);
         eventsToPublic.set(result.data);
         return result.data;
