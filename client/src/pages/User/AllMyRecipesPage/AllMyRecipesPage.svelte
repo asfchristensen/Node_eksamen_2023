@@ -1,5 +1,6 @@
 <script>
     import { getWithCredentials } from "../../../api/api";
+    import GoBackButton from "../../../components/Buttons/GoBackButton.svelte";
     import ModalRecipeButton from "../../../components/ModalRecipeButton/ModalRecipeButton.svelte";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import DeleteButton from "../../../components/Recipes/DeleteButton.svelte";
@@ -55,6 +56,8 @@
 
     <div class="col-right">
         <UserInfo/>
+        <GoBackButton path="/profile"/>
+
     </div>
 </div>
 

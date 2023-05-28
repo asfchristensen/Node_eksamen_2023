@@ -7,6 +7,7 @@
     import { user, recipes } from "../../../stores/user";
     import { publicRecipes } from "../../../stores/publicRecipes.js";
     import LikeButton from "../../../components/Newsfeed/LikeButton.svelte";
+    import GoBackButton from "../../../components/Buttons/GoBackButton.svelte";
 
     async function handleGetAllRecipes(){
         console.log(1);
@@ -48,6 +49,7 @@
 
     <div class="col-right">
         <UserInfo/>
+        <GoBackButton path="/profile"/>
     </div>
 </div>
 
