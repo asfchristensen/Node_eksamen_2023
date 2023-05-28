@@ -1,7 +1,7 @@
 <script>  
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { post } from "../../../api/api.js";
-    import { user } from "../../../stores/user.js";
+    import { user } from "../../../stores/userGlobals.js";
 
     import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";

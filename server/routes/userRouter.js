@@ -27,74 +27,55 @@ router.get("/api/user/users", async (req, res) => {
 
 router.patch("/api/user/users", async (req, res) => {
     const userToUpdate = req.body;
-    console.log(userToUpdate);
     const userEmail = req.session.user.email;
-    console.log(userEmail);
-    console.log(userToUpdate.username);
 
     if (!userToUpdate) {
         return res.status(400).send({ message: "error - no user updated", status: 400 });
     }
     
     if (userToUpdate.username) {
-        const updatedUser = await db.collection("users").updateOne({ email: userEmail }, {$set: {username: userToUpdate.username}});
-        console.log("updated user: ",updatedUser);
+        const updatedUser = await db.collection("users").updateOne({ email: userEmail }, { $set: { username: userToUpdate.username }});
         return res.status(200).send({ data: updatedUser, status: 200 });
     } 
 
     if (userToUpdate.password && userToUpdate.newPassword === userToUpdate.confirmNewPassword) {
-        console.log("første if");
         const userExists = await db.collection("users").findOne({ email: userEmail });
-        console.log(userExists.email);
         const oldPasswordIsVerified = await bcrypt.compare(userToUpdate.password, userExists.password); 
-        console.log(oldPasswordIsVerified);
         
         if (oldPasswordIsVerified) {
-            console.log("næste if");
             const hashedNewPassword = await bcrypt.hash(userToUpdate.newPassword, 12);
             const passwordToUpdate = await db.collection("users").updateOne({ email: userEmail }, { $set: { password: hashedNewPassword }});
             return res.status(200).send({ data: passwordToUpdate, message: "password updated", status: 200 });
         }
     } 
 
-    //console.log(userToUpdate.profilePicture)
-    console.log(userToUpdate.profilePicture)
     if (userToUpdate.profilePicture) {
-        
-        const updatedUser = await db.collection("users").updateOne({ email: userEmail }, {$set: { profilePicture: userToUpdate.profilePicture}});
-        console.log("updated user: ",updatedUser);
+        const updatedUser = await db.collection("users").updateOne({ email: userEmail }, { $set: { profilePicture: userToUpdate.profilePicture }});
         return res.status(200).send({ data: updatedUser, status: 200 });
-    
     }
     
     return res.status(400).send({ message: "error - no user updated", status: 400 }); 
-    
-    
 });
 
-router.delete("/api/all/users", async (req, res) => {
+router.delete("/api/both/users/email", async (req, res) => {
     const userToDelete = req.body;
-    console.log("user to delete: ",userToDelete);
 
     if (!userToDelete) {
         return res.status(400).send({ message: "error - no user deleted", status: 400 });
     } 
     
     if (userToDelete.deletePassword === userToDelete.confirmDeletePassword) {
-        console.log("inde");
-        //find user 
         const userExists = await db.collection("users").findOne({ email:  userToDelete.email });
 
-        //sammenlign password
         const passwordMatch = await bcrypt.compare(userToDelete.deletePassword, userExists.password); 
-        console.log(passwordMatch);
 
-        if (passwordMatch) {
+        if (!passwordMatch) {
+            return res.status(400).send({ message: "failed to delete user", status: 400 });
+        } else {
             const userDeleted = await db.collection("users").deleteOne({ email: userToDelete.email });
-            console.log("deleted:", userDeleted);
             return res.status(200).send({ data: userDeleted, message: "user deleted", status: 200 });
         }
-    
+
     } else {
         return res.status(400).send({ message: "error - no user deleted", status: 400 });
     }

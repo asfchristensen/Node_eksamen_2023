@@ -1,14 +1,13 @@
-<script>
+<!-- <script>
     import "@picocss/pico";
     import { publicRatings } from "../../stores/ratings.js";
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     import Carousel from "svelte-carousel";
-    import DeleteButton from "../Ratings/DeleteButton.svelte";
+    import DeleteButton from "../Templates/Buttons/DeleteButton.svelte";
 
     export let ratingsToShow = 3;
     export let ratingsOnScroll = 1;
     export let ratingsList = [];
-    console.log("to show: ", ratingsToShow);
 
 </script>
 
@@ -41,7 +40,7 @@
         width: 80%;
     }
 
-    .rating { height: 80%; }
+    .stars { height: 80%; }
 
     img {
         height: 10%;
@@ -53,4 +52,4 @@
     
 </style>
 
-
+ -->

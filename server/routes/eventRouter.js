@@ -5,17 +5,17 @@ import db from "../database/connectionAtlas.js";
 
 import { ObjectId } from "mongodb";
 // alle true + false - SKAL SLETTES 
-router.get("/api/all/events", async (req, res) => {
-    const events = await db.collection("events").find().toArray();
+// router.get("/api/all/events", async (req, res) => {
+//     const events = await db.collection("events").find().toArray();
 
-    if (events.length === 0) {
-        return res.status(400).send({ message: "error - failed to fetch events", status: 400 });
-    } else {
-        return res.status(200).send({ data: events, status: 200 });
-    }
-});
+//     if (events.length === 0) {
+//         return res.status(400).send({ message: "error - failed to fetch events", status: 400 });
+//     } else {
+//         return res.status(200).send({ data: events, status: 200 });
+//     }
+// });
 
-router.get("/api/all/events/public", async (req, res) => {
+router.get("/api/both/events/public", async (req, res) => {
     const publicEvents = await db.collection("events").find({ isPublic: true }).toArray();
 
     if (publicEvents.length === 0) {

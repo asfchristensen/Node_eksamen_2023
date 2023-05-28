@@ -2,7 +2,7 @@
     import "@picocss/pico";
     import { Link } from "svelte-navigator";
     import UpdateRecipe from "../Recipes/UpdateRecipe.svelte";
-    import { user } from "../../stores/user";
+    import { user } from "../../stores/userGlobals";
 
     export let buttonTitle;
     export let recipeToShow;

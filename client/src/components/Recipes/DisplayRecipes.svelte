@@ -1,6 +1,6 @@
 <script>
     import { Link } from "svelte-navigator";
-    import { recipes } from "../../stores/user.js";
+    import { recipes } from "../../stores/userGlobals.js";
     import ModalRecipeButton from "../ModalRecipeButton/ModalRecipeButton.svelte";
     import DeleteButton from "./DeleteButton.svelte";
     import MakePublicButton from "./MakePublicButton.svelte";

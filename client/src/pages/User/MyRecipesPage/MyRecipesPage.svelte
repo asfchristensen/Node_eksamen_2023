@@ -7,7 +7,7 @@
     import MakePublicButton from "../../../components/Recipes/MakePublicButton.svelte";
     import UserInfo from "../../../components/UserInfo/UserInfo.svelte";
     import { BASE_URL } from "../../../stores/urlDomain";
-    import { recipes } from "../../../stores/user";
+    import { recipes } from "../../../stores/userGlobals";
 
     async function handleGetAllRecipes(){
         const url = $BASE_URL + "/api/user/recipes";

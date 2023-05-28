@@ -1,35 +1,26 @@
-<script>
+<!-- <script>
     import { onMount } from "svelte";
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { get } from "../../api/api.js";
+    import { answeredFeedback } from "../../stores/userGlobals.js";
     import { Link } from "svelte-navigator";
-    import { get } from "../../api/api";
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { answeredFeedback, feedbackStore } from "../../stores/feedback";
 
     onMount( async () => {
         await handleGetAllAnsweredFeedback();
     })
 
     let isClicked = false;
-    console.log("before clicked: ", isClicked);
     function handleModal () {
         isClicked = !isClicked;
-        console.log("after cliked: ",isClicked);
     }
 
     async function handleGetAllAnsweredFeedback() {
         const url = $BASE_URL + "/api/user/feedback/email";
         const result = await get(url);
-        //console.log(result.data);
-        answeredFeedback.set(result.data)
-
-
-      // $answeredFeedback.forEach(feedback => console.log(feedback));
+        answeredFeedback.set(result.data);
         return result;
     }
-
 </script>
-
-
 
 <img src="../icons/inbox.png" alt="inbox" on:click={handleModal}>
 
@@ -42,7 +33,6 @@
             </header>
             {#if $answeredFeedback === undefined}
                 <summary>Your feedback hasn't been answered yet</summary>
-                 
             {:else}
                 {#each $answeredFeedback as feedback }
                     <details>
@@ -50,12 +40,9 @@
                         {#each feedback.answer as answer}
                             <p>{answer}</p>
                         {/each}
-                        
                     </details>
                 {/each}
-               
             {/if}
-
         </article>
     </dialog>
 {/if}
@@ -69,4 +56,4 @@
     article {
         width: 50em;
     }
-</style>
+</style> -->

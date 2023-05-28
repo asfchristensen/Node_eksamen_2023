@@ -1,7 +1,7 @@
 <script>
     import { Route } from "svelte-navigator";
     import PrivateRouteGuard from "./PrivateRouteGuard.svelte";
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     
     export let role = 0;
     export let path;

@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 
 import db from "../database/connectionAtlas.js";
 
-router.get("/api/all/publicRecipes", async (req, res) => {
+router.get("/api/both/publicRecipes", async (req, res) => {
     const publicRecipes = await db.collection("public_recipes").find().toArray();
 
     if(publicRecipes.length === 0) {

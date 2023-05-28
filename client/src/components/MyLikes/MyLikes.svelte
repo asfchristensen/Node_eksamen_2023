@@ -1,7 +1,7 @@
 <script>
     import { Link } from "svelte-navigator";
     import { publicRecipes } from "../../stores/publicRecipes.js";
-    import { user } from "../../stores/user.js"
+    import { user } from "../../stores/userGlobals.js"
     import ModalRecipeButton from "../ModalRecipeButton/ModalRecipeButton.svelte";
 
     export let onGetAllRecipes;

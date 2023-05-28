@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain.js";
-    import { feedbackStore } from "../../../stores/feedback.js";
+    import { feedbackStore } from "../../../stores/adminGlobals.js";
     import { get, patch } from "../../../api/api.js";
     import { Link } from "svelte-navigator";
     import toastr from "toastr";
@@ -59,9 +59,8 @@
     </div>
 
     <div class="col-middle">
-        <h2>Recieved feedback page</h2>
+        <h2>Feedback from users</h2>
         
-        <h4>Feedback from users</h4>
         <table role="grid">
             <thead>
                 <tr>
@@ -98,12 +97,13 @@
         <article>
             <header>
                 <Link to="/admin-feedback" class="close" on:click={handleModal}></Link>
-                <h3>{feedbackToRead.subject}</h3>
+                <h4>{feedbackToRead.subject}</h4>
             </header>
             <div>
-                <span><strong>From:</strong> {feedbackToRead.username}, ({feedbackToRead.userEmail})</span>
+                <span><strong>FROM:</strong></span><br><br>
+                <span>{feedbackToRead.username} ({feedbackToRead.userEmail})</span><br>
                 <hr>
-                <span><strong>Message:</strong></span><br>
+                <span><strong>MESSAGE:</strong></span><br><br>
                 <span>{feedbackToRead.feedback}</span>
             </div>
             <footer>
@@ -123,6 +123,14 @@
 {/if}
 
 <style>
+    article {
+        width: 80%;
+    }
+
+    header h4 {
+        margin-bottom: 0.1em;
+    }
+
     #isAnswered {
         background-color: green;
     }

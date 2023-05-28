@@ -19,7 +19,14 @@ router.post("/api/auth/signup", async (req, res) => {
         const hashedPassword = await bcrypt.hash(sanitizedPassword, 12);
         const userRole = 2;
 
-        const newUser = { username: sanitizedUsername, email: sanitizedEmail, password: hashedPassword, role_id: userRole, memberSince: memberSince  };
+        const newUser = { 
+            username: sanitizedUsername, 
+            email: sanitizedEmail, 
+            password: hashedPassword, 
+            role_id: userRole, 
+            profilePicture: "../profilePictures/default.png", 
+            memberSince: memberSince  
+        };
 
         db.collection("users").insertOne(newUser);
 

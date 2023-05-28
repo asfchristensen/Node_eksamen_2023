@@ -6,7 +6,7 @@ import db from "../database/connectionAtlas.js";
 import { ObjectId } from "mongodb";
 
 
-router.get("/api/ratings/public", async (req, res) => {
+router.get("/api/all/ratings/public", async (req, res) => {
     const publicRatings = await db.collection("ratings").find({ isPublic: true }).toArray();
 
     if (publicRatings.length === 0) {

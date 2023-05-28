@@ -16,3 +16,11 @@ export const profilePics = readable([
     { id: 3, img: "../profilePictures/chef.png" },
     { id: 3, img: "../profilePictures/christmas.png" }
 ]);
+
+export const frontpagePics = readable([
+    { picURL: "../pictures/appetizer.jpg" },
+    { picURL: "../pictures/lunch.jpg" },
+    { picURL: "../pictures/dinner.jpg" },
+    { picURL: "../pictures/sweets.jpg" },
+    { picURL: "../pictures/breakfast.jpg" }
+]);

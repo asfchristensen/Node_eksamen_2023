@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { get } from "../../api/api";
     import { BASE_URL } from "../../stores/urlDomain";
-    import { user, profileInfo } from "../../stores/user";
+    import { user, profileInfo } from "../../stores/userGlobals";
 
     onMount( async () => {
         await handleGetUser();

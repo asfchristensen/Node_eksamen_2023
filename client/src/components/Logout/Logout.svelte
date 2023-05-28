@@ -1,11 +1,9 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain";
-    import { user, recipes } from "../../stores/user.js";
+    import { user, recipes } from "../../stores/userGlobals.js";
     import { Link } from "svelte-navigator";
     import { get } from "../../api/api";
     import toastr from "toastr";
-    
-
     
     async function handleLogout(){
         const url = $BASE_URL + "/api/auth/logout";

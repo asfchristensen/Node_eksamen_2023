@@ -2,7 +2,7 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { patch } from "../../api/api.js";
     import toastr from "toastr";
-    import { recipes } from "../../stores/user.js";
+    import { recipes } from "../../stores/userGlobals.js";
 
     export let recipeToDelete;
 

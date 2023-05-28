@@ -33,7 +33,7 @@ const server = http.createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: "*", // SKAL KIGGES PÅ!!!!!
         methods: ["*"] 
     }
 });
@@ -51,13 +51,9 @@ io.on("connection", (socket) => {
             console.log("key:", socketIDKey);
     
             const userInList = chatUsers[socketIDKey];
-            //console.log("user in list", userInList);
-            //console.log("user in list email", userInList.data.email);
-            //console.log("user email", user.data.email);
-           if (userInList.data.email === user.data.email){
-                delete chatUsers[socketIDKey];
-           }
-            
+            if (userInList.data.email === user.data.email){
+                    delete chatUsers[socketIDKey];
+            }   
         }
 
         chatUsers[socket.id] = user;
@@ -100,7 +96,7 @@ app.use(apiLimiter);
 app.use("/api/auth/login", loginLimiter);
 
 
-function allChecker(req, res, next) {
+function bothChecker(req, res, next) {
     console.log("In all checker...");
     if (!req.session.user) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
@@ -124,7 +120,7 @@ function adminChecker(req, res, next) {
     next();
 }
 
-app.use("/api/all", allChecker);
+app.use("/api/both", bothChecker);
 app.use("/api/user", userChecker);
 app.use("/api/admin", adminChecker);
 

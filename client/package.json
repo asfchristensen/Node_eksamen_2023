@@ -18,6 +18,7 @@
     "ogp-parser": "^0.7.1",
     "socket.io-client": "^4.6.1",
     "svelte-carousel": "^1.0.25",
+    "svelte-confirm": "^0.0.0",
     "svelte-loading-spinners": "^0.3.4",
     "svelte-navigator": "^3.2.2",
     "toastr": "^2.1.4"

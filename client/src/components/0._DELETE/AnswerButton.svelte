@@ -1,5 +1,5 @@
-<script>
-    import CreateAnswer from "../Feedback/CreateAnswer.svelte";
+<!--<script>
+    import CreateAnswer from "../0._DELETE/CreateAnswer.svelte";
 
     export let feedbackToAnswer;
     export let onCloseModal;
@@ -12,7 +12,7 @@
 
     // }
 </script>
-<!-- {#if isAnswered }
+ {#if isAnswered }
     <CreateAnswer feedbackToAnswer={feedbackToAnswer} onCloseModal={onCloseModal}/>
 {/if}
 

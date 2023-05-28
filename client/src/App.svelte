@@ -14,9 +14,9 @@
     import ProfilePage from "./pages/ProfilePage/ProfilePage.svelte";
     import EventsPage from "./pages/EventsPage/EventsPage.svelte";
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
-    import SettingsPage from "./pages/SettingsPage/SettingsPage.svelte";
-    import RatingsPage from "./pages/RatingsPage/RatingsPage.svelte";
-    import AdminFeedbackPage from "./pages/Admin/RecievedFeedbackPage/RecievedFeedbackPage.svelte";
+    import SettingsPage from "./pages/User/SettingsPage/SettingsPage.svelte";
+    import RatingsPage from "./pages/Admin/RecievedRatingsPage/RecievedRatingsPage.svelte";
+    import RecievedFeedbackPage from "./pages/Admin/RecievedFeedbackPage/RecievedFeedbackPage.svelte";
     import AllMyRecipesPage from "./pages/User/MyRecipesPage/MyRecipesPage.svelte";
     import AllMyLikesPage from "./pages/User/MyLikesPage/MyLikesPage.svelte";
     import ApproveEventsPage from "./pages/Admin/ApproveEventsPage/ApproveEventsPage.svelte";
@@ -46,7 +46,7 @@
 
         <!-- for admin only -->
         <PrivateRoute path="/admin-feedback" role={1}>
-            <AdminFeedbackPage/>
+            <RecievedFeedbackPage/>
         </PrivateRoute>
 
         <PrivateRoute path="/approve-events" role={1}>

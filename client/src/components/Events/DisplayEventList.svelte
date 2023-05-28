@@ -1,6 +1,6 @@
 <script>
     import { publicEvents } from "../../stores/events.js";
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     import DeleteButton from "./DeleteButton.svelte";
 
 </script>

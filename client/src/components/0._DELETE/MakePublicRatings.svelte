@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { ratingsToPublic } from "../../stores/ratings.js";
     import { patch } from "../../api/api.js";
@@ -7,21 +7,20 @@
     import ModalRatingButton from "./ModalRatingButton.svelte";
     
 
-    async function handleMakePublicRating() {
-        const url = $BASE_URL + "/api/admin/ratings";
-        const ratingToPublic = $ratingsToPublic.filter( rating => rating.isPublic === true );
-        const ratingToJSON = JSON.stringify(ratingToPublic);
+    // async function handleMakePublicRating() {
+    //     const url = $BASE_URL + "/api/admin/ratings";
+    //     const ratingToPublic = $ratingsToPublic.filter(rating => rating.isPublic === true);
+    //     const ratingToJSON = JSON.stringify(ratingToPublic);
 
-        const result = await patch(url, ratingToJSON);
+    //     const result = await patch(url, ratingToJSON);
 
-        if (result.status === 200) {
-            toastr.success("success - rating is now public");
-        } else {
-            toastr.error("error - making rating public")
-        }
-
-        ratingsToPublic.update(ratings => ratings.filter( rating => !rating.isPublic ));
-    }
+    //     if (result.status === 200) {
+    //         toastr.success("Rating(s) is now public");
+    //         ratingsToPublic.update(ratings => ratings.filter( rating => !rating.isPublic));
+    //     } else {
+    //         toastr.error("Failed to make rating(s) public")
+    //     }
+    // }
 </script>
 
 {#if $ratingsToPublic !== undefined}
@@ -55,4 +54,4 @@
 
 <style>
     p { color: rgb(108, 134, 143); }
-</style>
+</style> -->

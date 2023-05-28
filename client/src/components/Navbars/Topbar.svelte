@@ -1,6 +1,6 @@
 <script>
     import "@picocss/pico";
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     import { Link } from "svelte-navigator";
     import Logout from "../Logout/Logout.svelte";
 

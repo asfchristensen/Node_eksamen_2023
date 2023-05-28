@@ -1,7 +1,7 @@
 <script>
     import "@picocss/pico";
     import { Link } from "svelte-navigator";
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     
 </script>
 

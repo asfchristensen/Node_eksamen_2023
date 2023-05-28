@@ -1,6 +1,6 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js"; 
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { patch } from "../../api/api.js";
     export let recipe;

@@ -1,5 +1,5 @@
 <script>
-    import { user } from "../../stores/user";
+    import { user } from "../../stores/userGlobals";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import CreateEvent from "../../components/Events/CreateEvent.svelte";
     import UserCounter from "../../components/UserCounter/UserCounter.svelte";
@@ -15,7 +15,7 @@
     });
 
     async function handleGetAllPublicEvents() {
-        const url = $BASE_URL + "/api/all/events/public";
+        const url = $BASE_URL + "/api/both/events/public";
         const result = await get(url);
 
         publicEvents.set(result.data);

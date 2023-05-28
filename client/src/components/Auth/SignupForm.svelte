@@ -3,7 +3,6 @@
     import { navigate } from "svelte-navigator";
     import { post } from "../../api/api";
     import toastr from "toastr";
-    import 'toastr/build/toastr.css';
     import LoadingButton from "../LoadingButton/LoadingButton.svelte";
     
     toastr.options = {
@@ -25,7 +24,7 @@
 
     async function handleSignup() {
         const picture = "../profilePictures/default.png";
-        const userToJSON = JSON.stringify({ username, password, confirmedPassword, email, profilePicture: picture, memberSince: new Date().getFullYear() });
+        const userToJSON = JSON.stringify({ username, password, confirmedPassword, email, memberSince: new Date().getFullYear() });
         console.log("Date now: ", Date.now());
         const url = $BASE_URL + "/api/auth/signup";
 

@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js"; 
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { get } from "../../api/api.js";
     import LikeButton from "../Newsfeed/LikeButton.svelte";
@@ -14,7 +14,7 @@
     });
 
     async function handleGetPublicRecipes() {
-        const url = $BASE_URL + "/api/all/publicRecipes";
+        const url = $BASE_URL + "/api/both/publicRecipes";
         const result = await get(url);
         console.log("result.data: ", result);
         result.data.reverse();

@@ -2,7 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { get } from "../../api/api.js"
-    import { user } from "../../stores/user";
+    import { user } from "../../stores/userGlobals";
     import { userMessages, usersInChatroom } from "../../stores/chatroom.js";
     import io from "socket.io-client";
     import toastr from "toastr";

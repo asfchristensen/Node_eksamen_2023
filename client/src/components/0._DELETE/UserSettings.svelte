@@ -1,8 +1,6 @@
-<script>
+<!-- <script>
     import toastr from "toastr";
     import { patch, remove } from "../../api/api.js";
-  
-
 
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { profilePics } from "../../stores/hardcodedData.js";
@@ -16,15 +14,6 @@
     let confirmDeletePassword = "";
     let updateMatch;
     let deleteMatch;
-/*
-    const profilePics = [
-        { id: 1, img: "../profilePictures/default.png" },
-        { id: 2, img: "../profilePictures/alien.png" },
-        { id: 3, img: "../profilePictures/cheese.png" },
-        { id: 3, img: "../profilePictures/chef.png" },
-        { id: 3, img: "../profilePictures/christmas.png" }
-    ];
-    */
 
     async function handleUpdateUser() {
         const url = $BASE_URL + "/api/user/users";
@@ -65,7 +54,7 @@
     }
 
     async function handleDeleteProfile(){
-        const url = $BASE_URL + "/api/all/users";
+        const url = $BASE_URL + "/api/both/users";
         const profileToDelete = { email, deletePassword, confirmDeletePassword };
         const profileToJSON = JSON.stringify(profileToDelete);
         console.log("profile 2 delete: ", profileToJSON);
@@ -119,7 +108,6 @@
     <summary>Username</summary>
     <form on:submit|preventDefault={handleUpdateUser}>
         <input type="text" placeholder="Username" bind:value={username} required>
-        <!-- Button -->
         <button type="submit">Update username</button>   
     </form>
     
@@ -173,4 +161,4 @@
         background-color: white;
         border-color: #1095c1;
     }
-</style>
+</style> -->

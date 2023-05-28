@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain";
-    import { user, recipes } from "../../../stores/user";
+    import { user, recipes } from "../../../stores/userGlobals";
     import { publicRecipes } from "../../../stores/publicRecipes.js";
     import { get } from "../../../api/api";
 

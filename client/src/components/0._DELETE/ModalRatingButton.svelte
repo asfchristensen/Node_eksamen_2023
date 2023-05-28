@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import "@picocss/pico";
     import { Link } from "svelte-navigator";
 
@@ -55,4 +55,4 @@
         vertical-align: middle;
         margin-bottom: 7%;
     }
-</style>
+</style> -->

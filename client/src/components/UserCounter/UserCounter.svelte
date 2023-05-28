@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
-    import { allUsers } from "../../stores/user";
+    import { allUsers } from "../../stores/userGlobals";
     import { get } from "../../api/api";
 
     console.log("Længden på alle users: ", $allUsers.length);

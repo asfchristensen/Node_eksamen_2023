@@ -1,6 +1,6 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { user } from "../../stores/user.js";
+    import { user } from "../../stores/userGlobals.js";
     import { navigate, Link } from "svelte-navigator";
     import { post } from "../../api/api.js";
     import LoadingButton from "../LoadingButton/LoadingButton.svelte";
