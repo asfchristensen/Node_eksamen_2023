@@ -5,7 +5,6 @@
     import Login from "./pages/Auth/LoginPage.svelte";
     import Topbar from "./components/Navbars/Topbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
-    import GoogleMaps from "./components/Events/DisplayEvents.svelte";
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
     import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage.svelte";
     import UpdatePasswordPage from "./pages/Auth/UpdatePasswordPage.svelte";
@@ -15,28 +14,25 @@
     import EventsPage from "./pages/EventsPage/EventsPage.svelte";
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
     import SettingsPage from "./pages/SettingsPage/SettingsPage.svelte";
-    import ApproveEventPage from "./pages/ApproveEventPage/ApproveEventPage.svelte";
     import RatingsPage from "./pages/RatingsPage/RatingsPage.svelte";
     import AdminFeedbackPage from "./pages/AdminFeedbackPage/AdminFeedbackPage.svelte";
-    import OgpParserTest from "./pages/OGP_PARSER_TEST/OGP_PARSER_TEST.svelte";
+    import AllMyRecipesPage from "./pages/User/AllMyRecipesPage/AllMyRecipesPage.svelte";
+    import AllMyLikesPage from "./pages/User/AllMyLikesPage/AllMyLikesPage.svelte";
+    import ApproveEventsPage from "./pages/Admin/ApproveEventsPage/ApproveEventsPage.svelte";
+   
 </script>
 
 <Router>
    
     <Topbar/>
     
-    
     <main>
-
         <!-- Public routes -->
-
         <Route path="/login" component={Login}></Route>
         <Route path="/signup" component={Signup}></Route>
         <Route path="/forgot-password" component={ForgotPasswordPage}></Route>
         <Route path="/update-password" component={UpdatePasswordPage}></Route>
         <Route path="/" component={FrontPage}></Route>
-        <Route path="/maps" component={GoogleMaps}></Route>
-        <Route path="/ogp" component={OgpParserTest}></Route>
 
 
         <!-- for admin only -->
@@ -45,7 +41,7 @@
         </PrivateRoute>
 
         <PrivateRoute path="/approve-events" role={1}>
-            <ApproveEventPage/>
+            <ApproveEventsPage/>
         </PrivateRoute>
 
         <PrivateRoute path="/rating" role={1}>
@@ -65,6 +61,14 @@
             <SettingsPage/>
         </PrivateRoute>
 
+        <PrivateRoute path="/my-recipes" role={2}>
+            <AllMyRecipesPage/>
+        </PrivateRoute>
+        
+        <PrivateRoute path="/my-likes" role={2}>
+            <AllMyLikesPage/>
+        </PrivateRoute>
+
         <!-- for all -->
         <PrivateRoute path="/chat">
             <ChatPage/>
@@ -77,12 +81,8 @@
         <PrivateRoute path="/newsfeed">
             <NewsfeedPage/>
         </PrivateRoute>
-
-
     </main>
-
 </Router>
-
 
 <Footer/>
 

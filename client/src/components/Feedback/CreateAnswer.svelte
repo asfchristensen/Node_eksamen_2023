@@ -1,11 +1,21 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js"; 
-    import { patch } from "../../api/api.js";
+    import { getWithCredentials, patch } from "../../api/api.js";
     import toastr from "toastr";
+    import { publicRatings } from "../../stores/ratings.js";
     
     export let feedbackToAnswer;
+    export let onCloseModal;
 
     let answerInput = "";
+
+    async function handleGetAllPublicRatings() {
+        const url = $BASE_URL + "/api/ratings/public";
+        const result = await getWithCredentials(url);
+        console.log(result.data);
+        publicRatings.set(result.data);
+        return result.data;
+    }
 
     async function handleCreateAnswer (feedbackToAnswer){
         const url = $BASE_URL + "/api/admin/feedback";
@@ -18,11 +28,13 @@
         if (result.status === 200) {
             console.log("Answer Created");
             toastr.success("success - Answer sent")
+            await handleGetAllPublicRatings();
         } else {
             toastr.error("error - failed to sent answer");
         }
+        
         answerInput = "";
-      
+        onCloseModal();
     }
 </script>
 

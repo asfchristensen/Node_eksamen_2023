@@ -35,7 +35,7 @@
 
 <style>
     .grid {
-        padding: 1em 1em 0em 0em;
+        padding: 2em 1em 0em 0em;
         border-bottom: 0.1em solid black;
         margin-bottom: 2em;
     }
@@ -48,9 +48,7 @@
 
     .middle { grid-column: 3 span; }
 
-    .right { 
-        grid-column: 1 span; 
-    }
+    .right { grid-column: 1 span; }
 
     img {
         height: 2em;
@@ -58,6 +56,15 @@
     }
 
     p { margin-top: 0.5em; }
+
+    nav {
+        position: fixed;
+        overflow: hidden;
+        width: 100%;
+        background-color: #fff;
+        top: 0;
+        z-index: 999;
+    }
 </style>
 
 <!-- 

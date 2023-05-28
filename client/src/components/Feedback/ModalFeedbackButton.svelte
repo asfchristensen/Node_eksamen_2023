@@ -8,17 +8,17 @@
     let isClicked = false;
 
     console.log("before clicked: ", isClicked);
-    function handleModal () {
+    async function handleModal () {
         isClicked = !isClicked;
         console.log("after cliked: ",isClicked);
     }
 
-    let isAnswered = feedbackToShow.isAnswered === true;
-    console.log(isAnswered);
+    let isGreen = feedbackToShow.isAnswered;
+    console.log("is answered",isGreen);
 
 </script>
 
-{#if isAnswered}
+{#if isGreen}
     <button id="isAnswered" on:click={handleModal}>Read feedback</button>
 {:else}
     <button on:click={handleModal}>Read feedback</button>
@@ -31,14 +31,14 @@
                 <a href="/admin-feedback" class="close" on:click={handleModal}></a>
                 <h3>{feedbackToShow.subject}</h3>
             </header>
-            <div class="feedback-wrapper">
+            <div>
                 <span><strong>From:</strong> {feedbackToShow.username}, ({feedbackToShow.userEmail})</span>
                 <hr>
                 <span><strong>Message:</strong></span><br>
                 <span>{feedbackToShow.feedback}</span>
             </div>
             <footer>
-                <AnswerButton feedbackToAnswer={feedbackToShow}/>
+                <AnswerButton feedbackToAnswer={feedbackToShow} onCloseModal={handleModal}/>
             </footer>
         </article>
         

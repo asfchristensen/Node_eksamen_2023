@@ -66,8 +66,14 @@
     div {
         display: flex;
         justify-content: flex-start;
-        margin-left: 22%;
+        margin-left: 15%;
         margin-bottom: 1em;
+        text-align: left;
+    }
+
+    nav {
+        position: fixed;
+        overflow: hidden;
     }
 
 </style>

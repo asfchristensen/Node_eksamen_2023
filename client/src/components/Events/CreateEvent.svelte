@@ -21,8 +21,9 @@
     let address = "";
 
     async function handleCreateEvent() {
+        const formattedDate = new Date().toLocaleDateString("en-US")
         const url = $BASE_URL + "/api/user/events";
-        const event = { isPublic: false, eventName, category, date, startTime, endTime, picURL, address, isDeleted: false };
+        const event = { isPublic: false, eventName, category, date: formattedDate, startTime, endTime, picURL, address, isDeleted: false };
         const eventToJSON = JSON.stringify(event);
 
         const result = await post(url, eventToJSON);
@@ -57,13 +58,13 @@
             <header><Link to="/events" class="close" on:click={handleModal}></Link>
             <h4>Create Event</h4>
             <form on:submit|preventDefault={handleCreateEvent}>
-                <input type="text" bind:value={eventName} placeholder="Event name">
-                <input type="text" bind:value={category} placeholder="Category">
-                <input type="date" bind:value={date}>
-                <input type="time" bind:value={startTime}>
-                <input type="time" bind:value={endTime}>
-                <input type="url" bind:value={picURL} placeholder="Picture URL">
-                <input type="text" bind:value={address} placeholder="Address">
+                <input type="text" bind:value={eventName} placeholder="Event name" required>
+                <input type="text" bind:value={category} placeholder="Category" required>
+                <input type="date" bind:value={date} required>
+                <input type="time" bind:value={startTime} required>
+                <input type="time" bind:value={endTime} required>
+                <input type="url" bind:value={picURL} placeholder="Picture URL" required>
+                <input type="text" bind:value={address} placeholder="Address" required>
                 <button type="submit">Create event</button>
             </form>
         </article>

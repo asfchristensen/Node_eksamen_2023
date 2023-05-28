@@ -1,23 +1,8 @@
 <script>
     import "@picocss/pico";
-    import { BASE_URL } from "../../stores/urlDomain.js";
     import { feedbackStore } from "../../stores/feedback.js";
-    import { getWithCredentials } from "../../api/api.js";
-    import { onMount } from "svelte";
     import ModalFeedbackButton from "../Feedback/ModalFeedbackButton.svelte";
-
-    onMount(async () => {
-        await handleGetAllPublicRatings();
-    });
-
-    async function handleGetAllPublicRatings() {
-        const url = $BASE_URL + "/api/admin/feedback";
-        const result = await getWithCredentials(url);
-        console.log(result.data);
-        feedbackStore.set(result.data);
-        return result.data;
-    }
-
+  
 </script>
 
 <h3>Feedback from users:</h3>

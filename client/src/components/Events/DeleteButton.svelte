@@ -29,10 +29,4 @@
     }
 </script>
 
-<button on:click={handleDeleteEvent.bind(null, eventToDelete)} class="delete-button">Delete event</button>
-
-<style>
-    .delete-button {
-        background-color: brown;
-    }
-</style>
+<button on:click={handleDeleteEvent.bind(null, eventToDelete)} class="delete-button">Delete</button>

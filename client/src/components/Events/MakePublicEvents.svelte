@@ -1,4 +1,12 @@
-<script>
+<!-- *******************************************************************
+    
+                    ALT DETTE ER SAT IND I NY PAGE
+
+                ****..pages/Admin/ApproveEventsPage ****
+
+    *******************************************************************-->
+
+<!-- <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { eventsToPublic } from "../../stores/events.js";
     import { getWithCredentials, patch } from "../../api/api.js";
@@ -60,4 +68,4 @@
 
 <button on:click={handleMakePublicEvents}>Make event(s) public</button>
 
-
+ -->

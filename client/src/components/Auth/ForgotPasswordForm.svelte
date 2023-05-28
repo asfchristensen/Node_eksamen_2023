@@ -2,8 +2,8 @@
     import { BASE_URL } from "../../stores/urlDomain";
     import { post } from "../../api/api.js";
     import { navigate } from "svelte-navigator";
-    import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.svelte";
     import toastr from "toastr";
+    import LoadingButton from "../LoadingButton/LoadingButton.svelte";
 
     let email = "laura@mail.dk";
     let phoneNumber = "";
@@ -19,8 +19,9 @@
             toastr.success(result.message);
             smsOK = true;
             setTimeout(() => {
-                navigate("/update-password", {replace: true}); 
-            }, 2500);
+                navigate("/update-password", {replace: true});
+                smsOK = false; 
+            }, 3000);
         } else {
             toastr.error(result.message);
         }
@@ -30,14 +31,11 @@
     }
 </script>
 
-{#if smsOK}
-    <LoadingSpinner/>
-{/if}
 
 <form on:submit|preventDefault={handleRequestNewPassword}>
     <input type="email" placeholder="Email" bind:value={email} required>
     <input type="tel" placeholder="phone" bind:value={phoneNumber} required>
-    <button type="submit">Send activation code</button>
+    <LoadingButton action={smsOK} loadingTitle="Sending activation code on SMS..." title="Send activation code"/>
 </form>
 
 <style>

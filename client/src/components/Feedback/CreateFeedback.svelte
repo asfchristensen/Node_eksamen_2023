@@ -25,12 +25,37 @@
     }
 </script>
 
+<article>
+    <h4>Anything on your mind?</h4>
 
-<h4>Anything on your mind?</h4>
-<p>We always want to be the best "uni-version" of ourselves.</p>
-<p>Feel free to write to our administration, if you have any reports to make, suggestions or wishes for this application.</p>
-<form> 
-    <input type="text" placeholder="Subject" bind:value={subject}>   
-    <textarea cols="30" rows="10" bind:value={feedback}></textarea>
-</form>
-<button on:click={handleCreateFeedback}>Send feedback</button>
+    <div class="info-text">
+        <span>We always want to be the best "uni-version" of ourselves.</span><br>
+        <span>Feel free to write to our administration, if you have any reports to make</span>
+    
+    </div>
+    
+    <form> 
+        <input type="text" placeholder="Subject" bind:value={subject}>   
+        <textarea cols="30" rows="5" bind:value={feedback} placeholder="Suggestions, wishes, complaints..."></textarea>
+        <button on:click={handleCreateFeedback}>Send feedback</button>
+    </form>
+</article>
+
+<style>
+    article {
+        display: inline-block;
+        width: 90%;     
+    }
+
+     form {
+        display: inline-block;
+        width: 60%;
+        margin-top: 5%;    
+    }
+
+    .info-text span {
+        color: rgb(108, 134, 143);
+    }
+
+
+</style>
