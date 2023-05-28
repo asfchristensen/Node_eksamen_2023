@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { publicEvents } from "../../stores/events.js";
 
-
   export let onGetAllPublicEvents;
 
   onMount(async () => {
@@ -34,7 +33,7 @@
             zoom: zoomLevel
           });
 
-          // Create marker for the current user's position
+          // Marker for the current user's position
           userMarker = new google.maps.Marker({
             position: { lat, lng },
             map: map,
@@ -91,7 +90,6 @@ function addEventMarkers(map) {
             <span>${event.eventName}</span><br>
             <span>${event.address}</span><br>
             <img src="${event.picURL}" alt="pic" height="100px" width="100px">
-            
           `
         });
 

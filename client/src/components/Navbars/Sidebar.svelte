@@ -2,9 +2,6 @@
     import "@picocss/pico";
     import { Link } from "svelte-navigator";
     import { user } from "../../stores/user.js";
-
-    console.log("User role: ", $user.role);
-
     
 </script>
 

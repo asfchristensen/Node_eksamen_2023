@@ -5,8 +5,7 @@
 </script>
 
 <div class="grid">
-    <div class="col-left">1
-    </div>
+    <div class="col-left"></div>
 
 
     <div class="col-middle">
@@ -15,5 +14,5 @@
     
     </div>
 
-    <div class="col-right">3</div>
+    <div class="col-right"></div>
 </div>

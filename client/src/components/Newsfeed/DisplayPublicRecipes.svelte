@@ -21,7 +21,7 @@
         publicRecipes.set(result.data); 
     } 
 
-    $: intro = $publicRecipes.slice(0,2)
+
 
 </script>
 
@@ -56,7 +56,6 @@
         width: 40em;
         height: 20em;
         object-fit: cover;
-    }
-    
+    } 
 </style>
 

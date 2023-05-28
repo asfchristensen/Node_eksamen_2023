@@ -8,7 +8,13 @@
     let activationCode = "";
     let newPassword = "123";
     let confirmPassword = "123";
+    let passwordsMatch;
     let updateOK = false;
+
+    function handleCheckPasswords() {
+        passwordsMatch = false;
+        passwordsMatch = newPassword !== confirmPassword;
+    }
 
     async function handleUpdatePassword (){
         const url = $BASE_URL + "/api/auth/update-password"
@@ -36,12 +42,11 @@
 <form on:submit|preventDefault={handleUpdatePassword}>
     <input type="number" placeholder="Activation code from phone" bind:value={activationCode}>
     <input type="password" placeholder="New password" bind:value={newPassword}>
-    <input type="password" placeholder="Confirm password" bind:value={confirmPassword}>
+    <input type="password" placeholder="Confirm password" bind:value={confirmPassword} on:input={handleCheckPasswords} aria-invalid={passwordsMatch}>
     <LoadingButton action={updateOK} loadingTitle="Updating password..." title="Save new password"/>
 </form>
 
 <style>
     form { margin: 10%; }
     
-    button { margin-top: 1em; }
 </style>
