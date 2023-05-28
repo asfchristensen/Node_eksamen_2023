@@ -8,7 +8,6 @@ import db from "../../database/connectionAtlas.js";
 import bcrypt from "bcrypt";
 import sendSMS from "../../util/sendSMS.js";
 
-
 router.post("/api/auth/forgot-password", async (req, res) => {
     const { email, phoneNumber } = req.body;
 

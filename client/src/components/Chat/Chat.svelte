@@ -3,7 +3,7 @@
     import { BASE_URL } from "../../stores/urlDomain";
     import { get } from "../../api/api.js"
     import { user } from "../../stores/user";
-    import { userMessages, usersInChatroom } from "../../stores/chatroom";
+    import { userMessages, usersInChatroom } from "../../stores/chatroom.js";
     import io from "socket.io-client";
     import toastr from "toastr";
 
@@ -59,7 +59,7 @@
         const time = today.toLocaleTimeString("en-US", { timeStyle: "short" });
         console.log("Date ", date);
         console.log("Time ", time);
-        messageFromUser = { sentDate: date, sentTime: time, sender: $user.username, sentMessage: message };
+        messageFromUser = { sentDate: date, sentTime: time, sender: $user.username, senderEmail: $user.email, sentMessage: message };
 
         const messageToJSON = JSON.stringify(messageFromUser);
         const response = await fetch($BASE_URL + "/api/messages", {
@@ -98,6 +98,12 @@
 </script>
 
 <h1>Let's Taco 'Bout It</h1>
+
+<article>
+    <header>Header</header>
+    Body
+    <footer>Footer</footer>
+</article>
 
 <!-- Løber igennem listen fra DB -->
 {#each $userMessages as userMessage}

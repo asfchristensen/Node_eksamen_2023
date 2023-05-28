@@ -22,7 +22,7 @@
         const url = $BASE_URL + "/api/auth/login";
    
        const result = await post(url, userToJSON);
-       console.log("result", result);
+       console.log("result", result.data.role);
 
         if (result.message) {
             toastr.error("Wrong email or password. Try again." );
@@ -37,6 +37,7 @@
         }
         email = "";
         password = "";
+        console.log($user)
     }
 
     function handleNavigateToSignup() {
