@@ -27,10 +27,15 @@ a:hover {
 main {
   min-height: 100vh;
   color: rgb(0, 0, 0);
-  
+  margin-top: 8em; 
 }
+
 .col-middle {
-  grid-column: 3 span; 
+  grid-column: 3 span;
+}
+
+.col-right {
+  margin-left: 3em;
 }
 
 h1 {
@@ -40,6 +45,10 @@ h1 {
 
 .card {
   padding: 2em;
+}
+
+.delete-button {
+  background-color: #b72929;
 }
 
 #app {

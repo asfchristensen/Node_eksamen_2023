@@ -27,9 +27,3 @@
 </script>
 
 <button on:click={handleDeleteRating.bind(null, ratingToDelete)} class="delete-button">Delete rating</button>
-
-<style>
-    .delete-button {
-        background-color: brown;
-    }
-</style>

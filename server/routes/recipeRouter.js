@@ -17,14 +17,15 @@ router.get("/api/user/recipes", async (req, res) => {
 });
 
 router.patch("/api/user/recipes", async (req, res) => {
-    const { isPublic, title, category, picURL, ingredients, procedure} = req.body; 
+    const { isPublic, title, category, picURL, serves, ingredients, procedure, isDeleted} = req.body; 
     const sanitizedTitle = validator.escape(title);  
     const sanitizedCategory = validator.escape(category);  
     const sanitizedPicURL = picURL;  
+    const sanitizedServes = validator.escape(serves);  
     const sanitizedIngredients = validator.escape(ingredients);  
     const sanitizedProcedure = validator.escape(procedure);  
         
-    const sanitizedRecipe = { isPublic: isPublic, title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, ingredients: sanitizedIngredients, procedure: sanitizedProcedure};
+    const sanitizedRecipe = { isPublic: isPublic, title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, serves: sanitizedServes, ingredients: sanitizedIngredients, procedure: sanitizedProcedure, isDeleted: isDeleted };
     
     if (!sanitizedRecipe) {
         return res.status(400).send({ message: "error - invalid recipe", status: 400 })
@@ -48,6 +49,57 @@ router.patch("/api/user/recipes/make-public", async (req, res) => {
         return res.status(200).send({ data: recipeToPublic, status: 200 });
     }
 });
+
+router.patch("/api/users/recipes/update-recipe", async (req, res) => {
+    
+    const { title, picURL, procedure, ingredients } = req.body;
+    console.log("Email:", req.session.user.email);
+    console.log("Title:", title);
+    console.log("PicURL:", picURL);
+  
+
+    const updateFields = {};
+    if (procedure && procedure !== "") {
+        updateFields["recipes.$.procedure"] = procedure;
+    }
+    if (ingredients && ingredients !== "") {
+        updateFields["recipes.$.ingredients"] = ingredients;
+    }
+    console.log("Update Fields:", updateFields);
+
+    const updatedUser = await db.collection("users").updateOne(
+        {
+            email: req.session.user.email,
+            "recipes.title": title,
+            "recipes.picURL": picURL
+        },
+        { $set: updateFields }
+    );
+
+    if (updatedUser.modifiedCount === 1) {
+        return res.status(200).send({ data: updatedUser ,message: "Recipe updated successfully", status: 200 });
+    } else {
+         return res.status(400).send({ data: updatedUser, message: "Recipe not found" , status: 400 });
+    }
+    
+});
+
+// delete recipe
+router.patch("/api/user/recipes/delete-recipe", async (req, res) => {
+    const recipeToDelete = req.body;
+    console.log(recipeToDelete);
+
+    if (!recipeToDelete) {
+        return res.status(400).send({ message: "error - failed to delete recipe", status: 400 })
+   } else {
+       const deleted = await db.collection("users").updateOne({ email: req.session.user.email}, {$pull: { recipes: { procedure: recipeToDelete.procedure }}});
+       console.log("deleted", deleted);
+       return res.status(200).send({ message: "Public recipe deleted successfully", status: 200 }); 
+   }
+
+});
+
+
 
 
 export default router;

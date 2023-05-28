@@ -6,7 +6,7 @@
     import { getWithCredentials } from "../../api/api.js";
     import LikeButton from "../Newsfeed/LikeButton.svelte";
     import CommentButton from "../Newsfeed/CommentButton.svelte";
-    import ModalRecipeButton from "../Newsfeed/ModalRecipeButton.svelte";
+    import ModalRecipeButton from "../ModalRecipeButton/ModalRecipeButton.svelte";
     import DeleteButton from "../Newsfeed/DeleteButton.svelte";
 
     onMount(async () => {
@@ -31,12 +31,12 @@
         {#if $user.role === 2}
             <footer>
                 <LikeButton recipe={publicRecipe}/>
-                <ModalRecipeButton recipeToShow={publicRecipe}/> 
+                <ModalRecipeButton buttonTitle="Read recipe" recipeToShow={publicRecipe} path="/newsfeed" onGetAllRecipes={handleGetPublicRecipes}/> 
                 <CommentButton recipe={publicRecipe}/>
             </footer>
         {:else if $user.role === 1}
             <footer>
-                <ModalRecipeButton recipeToShow={publicRecipe}/> 
+                <ModalRecipeButton buttonTitle="Read recipe" recipeToShow={publicRecipe} path="/newsfeed" onGetAllRecipes={handleGetPublicRecipes}/> 
                 <DeleteButton recipeToDelete={publicRecipe}/>
             </footer>
         {/if}
@@ -55,5 +55,6 @@
         height: 20em;
         object-fit: cover;
     }
+    
 </style>
 

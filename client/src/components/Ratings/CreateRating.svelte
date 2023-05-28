@@ -1,9 +1,8 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user } from "../../stores/user.js";
-    import toastr from "toastr";
     import { post } from "../../api/api.js";
-    
+    import toastr from "toastr";
  
     let ratingNumber = 0;
     let comment = "";
@@ -28,19 +27,57 @@
 
 </script>
 
-<h4>Rate our application</h4>
-<form>
-    <label for="ratingNumber">How would you rate us?</label> 
-    <p>Number of stars: {ratingNumber}</p>
-    <input type="range" min="0" max="5" step="1" bind:value={ratingNumber}>
-    <br>
-    
-    <label for="comment">Feel free to elaborate:</label>
-    <br>
-    <textarea cols="30" rows="10" bind:value={comment}></textarea>
-</form>
-<button on:click={handleCreateRating}>Send Rating</button>
+<article>
+    <h4>Rate our application</h4>
+
+    <form>
+        <div class="rating-container">
+            <input id="stars" type="range" min="0" max="5" step="1" bind:value={ratingNumber}>
+            <h3>{ratingNumber}</h3>
+            <img src="../icons/star.png" alt="star">
+        </div>
+        <textarea cols="30" rows="5" bind:value={comment} placeholder="Feel free to elaborate..."></textarea>
+        <button on:click={handleCreateRating}>Send Rating</button>
+    </form>
+</article>
 
 <hr>
+
+<style>
+    article {
+        display: inline-block;
+        width: 90%;     
+    }
+
+    .rating-container {
+        display: flex;
+        align-items: center;
+    }
+
+    form {
+        display: inline-block;
+        width: 60%;    
+    }
+
+    #stars {
+        display: flex;
+        align-items: flex-start;
+        width: 80%;
+        color:#1095c1;
+    }
+
+    h3 {
+        margin-left: 8%;
+        font-size: large;
+    }
+
+    img {
+        height: 6%;
+        width: 6%;
+        margin-left: 3%;
+        vertical-align: middle;
+        margin-bottom: 8%;
+    }
+</style>
 
 

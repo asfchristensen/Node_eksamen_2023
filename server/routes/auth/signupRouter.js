@@ -7,7 +7,7 @@ import validator from "validator";
 import { sendConfirmationMail } from "../../util/nodemailer.js";
 
 router.post("/api/auth/signup", async (req, res) => {
-    const { username, password, confirmedPassword, email } = req.body;
+    const { username, password, confirmedPassword, email, memberSince } = req.body;
     const sanitizedUsername = validator.escape(username);
     const sanitizedPassword = validator.escape(password);
     const sanitizedConfirmPassword = validator.escape(confirmedPassword);
@@ -19,7 +19,7 @@ router.post("/api/auth/signup", async (req, res) => {
         const hashedPassword = await bcrypt.hash(sanitizedPassword, 12);
         const userRole = 2;
 
-        const newUser = { username: sanitizedUsername, email: sanitizedEmail, password: hashedPassword, role_id: userRole };
+        const newUser = { username: sanitizedUsername, email: sanitizedEmail, password: hashedPassword, role_id: userRole, memberSince: memberSince  };
 
         db.collection("users").insertOne(newUser);
 

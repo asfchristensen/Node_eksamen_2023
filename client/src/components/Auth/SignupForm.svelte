@@ -4,7 +4,7 @@
     import { post } from "../../api/api";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
-    import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.svelte";
+    import LoadingButton from "../LoadingButton/LoadingButton.svelte";
     
     toastr.options = {
         "positionClass": "toast-top-center",
@@ -24,16 +24,18 @@
     }
 
     async function handleSignup() {
-        const userToJSON = JSON.stringify({ username, password, confirmedPassword, email });
+        const picture = "../profilePictures/default.png";
+        const userToJSON = JSON.stringify({ username, password, confirmedPassword, email, profilePicture: picture, memberSince: new Date().getFullYear() });
+        console.log("Date now: ", Date.now());
         const url = $BASE_URL + "/api/auth/signup";
 
         const result = await post(url, userToJSON);
 
         if (result.data === username) {
-            toastr.success(`User successfully created. Welcome ${result.data}`);
             signupOK = true;
             setTimeout(() => {
                 navigate("/login", {replace: true});
+                signupOK = false;
             }, 2500)
         } else if (result.message === "error") {
             toastr.error("Account already exists");
@@ -45,19 +47,16 @@
         password = "";
         confirmedPassword = "";
         email = "";
+        
     }
 </script>
-
-{#if signupOK}
-    <LoadingSpinner/>
-{/if}
 
 <form on:submit|preventDefault={handleSignup}>
     <input type="text" placeholder="Username" name="username" bind:value={username} required>
     <input type="password" placeholder="Password" name="password" bind:value={password} required>
     <input type="password" placeholder="Confirm password" name="confirmedPassword" bind:value={confirmedPassword} on:input={handleCheckPasswords} aria-invalid={passwordsMatch} required>
     <input type="email" placeholder="Email" name="email" bind:value={email} required>
-    <button type="submit">Sign up</button>
+    <LoadingButton action={signupOK} loadingTitle="Saving credentials..." title="Sign up"/>
 </form>
 
 <style>

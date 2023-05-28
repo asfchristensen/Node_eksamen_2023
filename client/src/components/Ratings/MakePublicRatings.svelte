@@ -1,22 +1,11 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { onMount } from "svelte";
     import { ratingsToPublic } from "../../stores/ratings.js";
-    import { getWithCredentials, patch, remove } from "../../api/api.js";
+    import { patch } from "../../api/api.js";
     import toastr from "toastr";
     import DeleteButton from "../Ratings/DeleteButton.svelte";
+    import ModalRatingButton from "./ModalRatingButton.svelte";
     
-    onMount(async () => {
-        await handleGetAllNotPublicRatings();
-    });
-
-    async function handleGetAllNotPublicRatings() {
-        const url = $BASE_URL + "/api/admin/ratings/not-public";
-        const result = await getWithCredentials(url);
-        console.log(result.data);
-        ratingsToPublic.set(result.data);
-        return result.data;
-    }
 
     async function handleMakePublicRating() {
         const url = $BASE_URL + "/api/admin/ratings";
@@ -24,7 +13,6 @@
         const ratingToJSON = JSON.stringify(ratingToPublic);
 
         const result = await patch(url, ratingToJSON);
-        console.log(result);
 
         if (result.status === 200) {
             toastr.success("success - rating is now public");
@@ -34,27 +22,37 @@
 
         ratingsToPublic.update(ratings => ratings.filter( rating => !rating.isPublic ));
     }
-   
 </script>
 
-<h4>All Ratings</h4>
-
 {#if $ratingsToPublic !== undefined}
-    {#each $ratingsToPublic as rating }
-        <div style="background-color:rosybrown;">
-            <p>rating: {rating.rating}</p>
-            <p>comment: {rating.comment}</p>
-            <p>username: {rating.username}</p>
-            <p>Is public: {rating.isPublic}</p>
-            <hr>
-            <p>
-                <b>Publish Rating:</b> 
-                <input type="checkbox" bind:checked={rating.isPublic}> 
-            </p>
-            <DeleteButton ratingToDelete={rating}/>
-        </div>
-    {/each}
+    <table role="grid">
+        <thead>
+            <tr>
+                <th scope="col">MAKE PUBLIC</th>
+                <th scope="col">FROM</th>
+                <th scope="col">RATING</th>
+                <th scope="col">READ</th>
+                <th scope="col">DELETE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#each $ratingsToPublic as rating }  
+                <tr>
+                <td><input type="checkbox" bind:checked={rating.isPublic}></td>
+                <td>{rating.username}</td>
+                <td>{rating.rating}</td>
+                <td><ModalRatingButton ratingToRead={rating}/></td>
+                <td><DeleteButton ratingToDelete={rating}/></td>
+                </tr>
+            {/each} 
+        </tbody>
+    </table>
+
+    <button on:click={handleMakePublicRating}>Make rating(s) public</button>
 {:else}
     <p>No ratings to make public at the moment...</p>
 {/if}
-<button on:click={handleMakePublicRating}>Make rating(s) public</button>
+
+<style>
+    p { color: rgb(108, 134, 143); }
+</style>

@@ -65,7 +65,7 @@
 </script>
 
 {#if handleHasLikedButton(recipe)}
-    <button on:click={handleDislike.bind(null, recipe)} class="liked">Liked </button>
+    <button on:click={handleDislike.bind(null, recipe)} class="liked">Liked</button>
 {:else}
     <button on:click={handleLike.bind(null, recipe)}>Like recipe</button>
 {/if}

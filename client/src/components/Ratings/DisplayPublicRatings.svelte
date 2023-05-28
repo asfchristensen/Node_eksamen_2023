@@ -1,35 +1,56 @@
 <script>
     import "@picocss/pico";
-    import { BASE_URL } from "../../stores/urlDomain.js";
     import { publicRatings } from "../../stores/ratings.js";
-    import { getWithCredentials } from "../../api/api.js";
-    import { onMount } from "svelte";
     import { user } from "../../stores/user.js";
+    import Carousel from "svelte-carousel";
     import DeleteButton from "../Ratings/DeleteButton.svelte";
 
-    onMount(async () => {
-        await handleGetAllPublicRatings();
-    });
-
-    async function handleGetAllPublicRatings() {
-        const url = $BASE_URL + "/api/ratings/public";
-        const result = await getWithCredentials(url);
-        console.log(result.data);
-        publicRatings.set(result.data);
-        return result.data;
-    }
+    export let ratingsToShow = 3;
+    export let ratingsOnScroll = 1;
+    export let ratingsList = [];
+    console.log("to show: ", ratingsToShow);
 
 </script>
 
-<h3>What others think of the universe:</h3>
-{#each $publicRatings as rating }
-    <div>
-        <p>{rating.rating}</p>
-        <p>{rating.comment}</p>
-        <p> - {rating.username}</p>
-    </div>
-    {#if $user && $user.role === 1}
-        <DeleteButton ratingToDelete={rating}/> 
-    {/if}
-{/each}
+<h3>What others think of the universe</h3>
+
+<Carousel particlesToShow={ratingsToShow} particlesToScroll={ratingsOnScroll}>
+    {#each ratingsList as rating}
+        <article>
+            <div class="rating">
+                {#each Array(rating.rating) as _}
+                    <img src="../icons/star.png" alt="star">
+                {/each}
+                <p id="username"><strong>{rating.username}</strong></p>
+                <hr>
+                <p>{rating.comment}</p>
+            </div>
+            {#if $user && $user.role === 1}
+                <div class="button">
+                    <DeleteButton ratingToDelete={rating}/> 
+                </div>
+            {/if}
+        </article>
+    {/each}
+</Carousel>
+
+<style>
+    article {
+        border: 0.1em solid black;
+        box-shadow: none;
+        width: 80%;
+    }
+
+    .rating { height: 80%; }
+
+    img {
+        height: 10%;
+        width: 15%;
+        vertical-align: middle;
+    }
+
+    #username { margin-top: 1em; }
+    
+</style>
+
 
