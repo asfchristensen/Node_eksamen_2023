@@ -1,7 +1,10 @@
 <script>
     import { user } from "../../stores/user.js";
+    import { pictures } from "../../stores/frontpage.js";
     import DisplayPublicRatings from "../../components/Ratings/DisplayPublicRatings.svelte";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
+
+    import Carousel from "svelte-carousel";
 
 </script>
 
@@ -12,9 +15,14 @@
         {/if}
     </div>
     <div class="col-middle">
-        <!-- Karusel med billeder af opskrifter-->
+        <Carousel autoplay autoplayDuration={2500} pauseOnFocus>
+            {#each $pictures as picture}
+                <img src={picture.picURL} alt="food">
+            {/each}
+        </Carousel>
 
         <!-- Fortælle om os sektion -->
+
 
         <DisplayPublicRatings/>    
     </div>
@@ -23,3 +31,10 @@
     </div>
 </div>
 
+
+<style>
+    img {
+        height: 60%;
+        width: 10%;
+    }
+</style>

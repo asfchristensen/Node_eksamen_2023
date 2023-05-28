@@ -27,6 +27,7 @@
         <p><Logout/></p>
         {:else}
         <p><Link to="/login">Login</Link></p>
+        <p><Link to="/ogp">OGP</Link></p>
         {/if}
     </div>
 </nav>

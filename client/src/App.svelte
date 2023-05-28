@@ -18,6 +18,7 @@
     import ApproveEventPage from "./pages/ApproveEventPage/ApproveEventPage.svelte";
     import RatingsPage from "./pages/RatingsPage/RatingsPage.svelte";
     import AdminFeedbackPage from "./pages/AdminFeedbackPage/AdminFeedbackPage.svelte";
+    import OgpParserTest from "./pages/OGP_PARSER_TEST/OGP_PARSER_TEST.svelte";
 </script>
 
 <Router>
@@ -35,6 +36,7 @@
         <Route path="/update-password" component={UpdatePasswordPage}></Route>
         <Route path="/" component={FrontPage}></Route>
         <Route path="/maps" component={GoogleMaps}></Route>
+        <Route path="/ogp" component={OgpParserTest}></Route>
 
 
         <!-- for admin only -->

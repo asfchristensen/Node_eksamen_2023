@@ -45,7 +45,7 @@ router.post("/api/user/events", async (req, res) => {
     // kun til test - slet bagefter med many 
     if (Array.isArray(event)) {
         await db.collection("events").insertMany(event);
-
+        
         return res.status(200).send({ data: event, message: "Many events created", status: 200 });
     } else {
         await db.collection("events").insertOne(event);

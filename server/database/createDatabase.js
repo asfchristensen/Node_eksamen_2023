@@ -326,6 +326,7 @@ if (isDeleteMode) {
     await db.collection("public_recipes").insertMany([
         {
             isPublic: true,
+            author: "Bob",
             title: "Blue Burger", 
             category: "Dinner", 
             picURL: "https://www.sbs.com.au/food/sites/sbs.com.au.food/files/styles/full/public/full_blue_burger.jpg?itok=kjFiYdxF", 
@@ -352,6 +353,7 @@ if (isDeleteMode) {
         },
         {
             isPublic: true,
+            author: "Bob",
             title: "Afternoon Milkshake", 
             category: "Sweets", 
             picURL: "https://i.pinimg.com/736x/bc/d7/ae/bcd7ae536e8382e25d1254a1b3be3d7c.jpg", 
@@ -376,6 +378,7 @@ if (isDeleteMode) {
         },
         {
             isPublic: true,
+            author: "Stan",
             title: "Fried Cool-Aid", 
             category: "Breakfast", 
             picURL: "https://img.sndimg.com/food/image/upload/f_auto,c_thumb,q_55,w_860,ar_3:2/v1/img/recipes/45/92/70/picDhUJGc.jpg", 
@@ -399,6 +402,7 @@ if (isDeleteMode) {
         },
         { 
             isPublic: true,
+            author: "Bob",
             title: "Green Dog", 
             category: "Lunch", 
             picURL: "https://static.dezeen.com/uploads/2018/03/space-10-design_dezeen_2364_col_4.jpg", 
@@ -429,6 +433,7 @@ if (isDeleteMode) {
         }, 
         {
             isPublic: true,
+            author: "Stan",
             title: "Deep Fried Mars Bars", 
             category: "Sweets", 
             picURL: "https://img.sndimg.com/food/image/upload/q_92,fl_progressive,w_1200,c_scale/v1/img/recipes/43/46/3/8RvPP9HHTO2QVcz1AnLC_food-2016-05-047143.jpg", 

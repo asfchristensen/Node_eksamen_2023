@@ -21,6 +21,8 @@
         publicRecipes.set(result.data); 
     } 
 
+    $: intro = $publicRecipes.slice(0,2)
+
 </script>
 
 <h2>Newsfeed</h2>

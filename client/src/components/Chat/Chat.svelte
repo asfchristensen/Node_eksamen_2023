@@ -97,19 +97,114 @@
     }); 
 </script>
 
-<h1>Let's Taco 'Bout It</h1>
+<div class="chatroom">
+    <h2>Let's Taco 'Bout It</h2>
+  
+    <div class="messages">
+        {#each $userMessages as userMessage}
+            {#if userMessage.sender === $user.username}
+                <div class="user-message"> 
+                    <div class="content">
+                        <p><span id="user-sender">{userMessage.sender} – {userMessage.sentTime} {userMessage.sentDate}</span></p>
+                        <p id="content-placement-user">{userMessage.sentMessage}</p>
+                    </div>
+                </div>
+            {:else}
+                <div class="other-message"> 
+                    <div class="content">
+                        <p><span id="other-sender">{userMessage.sender} – {userMessage.sentTime} {userMessage.sentDate}</span></p>
+                        <p id="content-placement-other">{userMessage.sentMessage}</p>
+                    </div>
+                </div>
+            {/if}
+        {/each}
+    </div>
+  
+    <div class="input-container">
+      <input type="text" bind:value={message} placeholder="Type your message..." />
+      <button on:click={handleSendMessage}>Send message</button>
+    </div>
+</div>
 
-<article>
-    <header>Header</header>
-    Body
-    <footer>Footer</footer>
-</article>
+<style>
+    .chatroom {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 2em;
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+  
+    .messages {
+      flex-grow: 1;
+      overflow-y: scroll;
+      padding: 1em;
+      margin-bottom: 1em;
+    }
 
-<!-- Løber igennem listen fra DB -->
-{#each $userMessages as userMessage}
-    <p>{userMessage.sender} says: {userMessage.sentMessage}</p>
-{/each}
+    #content-placement-user, #content-placement-other {
+        display: block;
+        text-align: left;
+    }
 
+    .content {
+        padding: 1em;
+        max-width: 70%;
+    }
 
-<input type="text" bind:value={message}>
-<button on:click={handleSendMessage}>Send message</button>
+    #user-sender {
+        display: block;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    #other-sender {
+        display: block;
+        font-weight: bold;
+        text-align: left;
+    }
+  
+    .user-message {
+        display: flex;
+        justify-content: right;
+        background-color: #c8e6c9;
+        width: 50%;
+        margin-bottom: 0.5em;
+        border-radius: 1em;
+        margin-left: auto;
+    }
+  
+    .other-message {
+        background-color: #e0e0e0;
+        width: 50%;
+        margin-bottom: 0.5em;
+        border-radius: 1em;
+    }
+  
+    .input-container {
+        display: flex;
+        gap: 1em;
+    }
+  
+    /* Kan det ændres til at modtage andre ting også?*/
+    .input-container input[type="text"] {
+      flex-grow: 1;
+      padding: 0.5em;
+      font-size: 1em;
+    }
+  
+    .input-container button {
+      padding: 0.5em 0.5em;
+      font-size: 1em;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
