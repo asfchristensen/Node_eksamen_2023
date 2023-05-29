@@ -32,8 +32,9 @@ router.post("/api/user/publicRecipes", async (req, res) => {
     }
 });
 
-router.patch("/api/user/publicRecipes/likes", async (req, res) => {
-    const { email, id } = req.body;
+router.patch("/api/user/publicRecipes/likes/:id", async (req, res) => {
+    const { email } = req.body;
+    const { id } = req.params;
     
     if (!email || !id) {
         return res.status(400).send({ message: "error - invalid email or id", status: 400 });
@@ -82,17 +83,19 @@ router.patch("/api/user/publicRecipes/dislike", async (req, res) => {
     }
 });
 
-router.patch("/api/user/publicRecipes/comment", async (req, res) => {
-    const { email, id, comment } = req.body;
+router.patch("/api/user/publicRecipes/:id", async (req, res) => {
+    const { comment } = req.body;
+    const { id } = req.params;
+    const userEmail = req.session.user.email;
     
-    if (!email || !id) {
-        return res.status(400).send({ message: "error - invalid email or id", status: 400 });
+    if (!id) {
+        return res.status(400).send({ message: "error - invalid id", status: 400 });
     }
 
     const chosenRecipe = await db.collection("public_recipes").findOne({ _id: new ObjectId(id) });
     console.log("chosen ",chosenRecipe);
    
-    const commentedRecipe = await db.collection("public_recipes").updateOne({ _id: new ObjectId(id) }, { $push: { comments: { email: email, comment: comment} }});
+    const commentedRecipe = await db.collection("public_recipes").updateOne({ _id: new ObjectId(id) }, { $push: { comments: { email: userEmail, comment: comment} }});
     console.log("status for creating comment to recipe", commentedRecipe);
 
     if (commentedRecipe.modifiedCount === 1) {
@@ -102,13 +105,14 @@ router.patch("/api/user/publicRecipes/comment", async (req, res) => {
     }
 });
 
-router.delete("/api/admin/publicRecipes", async (req, res) => {
+router.delete("/api/admin/publicRecipes/:id", async (req, res) => {
     const recipeToDelete = req.body;
+    const { id } = req.params;
     
     if (!recipeToDelete) {
          return res.status(400).send({ message: "error - failed to delete public recipe", status: 400 })
     } else {
-        await db.collection("public_recipes").deleteOne({ _id: new ObjectId(recipeToDelete._id) });
+        await db.collection("public_recipes").deleteOne({ _id: new ObjectId(id) });
         return res.status(200).send({ message: "Public recipe deleted successfully", status: 200 }); 
     }
 });

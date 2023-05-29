@@ -83,7 +83,7 @@ router.patch("/api/admin/events", async (req, res) => {
     
 });
 
-router.delete("/api/admin/events", async (req, res) => {
+router.delete("/api/admin/events/:id", async (req, res) => {
     const eventToDelete = req.body;
     console.log("event to delete: ", eventToDelete);
     console.log("id:", eventToDelete._id);

@@ -1,0 +1,77 @@
+<script>
+    import { BASE_URL } from "../../stores/urlDomain.js"; 
+    import { user } from "../../stores/userGlobals.js";
+    import { publicRecipes } from "../../stores/publicRecipes.js";
+    import { patch } from "../../api/api.js";
+    
+    export let recipeToLike;
+
+    function handleHasLikedButton(recipe) {
+        const isLiked = recipe.likes && recipe.likes.some(email => email === $user.email);
+        return isLiked;
+    }
+
+    async function handleLike(recipeToLike) {
+        const url = $BASE_URL + `/api/user/publicRecipes/likes/${recipeToLike._id}`;
+        const email = $user.email;
+
+        const likedRecipeToJSON = JSON.stringify({ email });
+
+        if (recipeToLike.likes === undefined) {
+            recipeToLike.likes = [];
+        }
+        
+        recipeToLike.likes.push(email); 
+
+        const response = await patch(url, likedRecipeToJSON);
+    
+        if (response.ok) { 
+            const likedRecipes = $publicRecipes.map((recipe) => {
+                if (recipe.procedure === recipeToLike.procedure) {
+                    return recipeToLike;
+                }
+                return recipe;
+            });
+            $publicRecipes = likedRecipes;
+           
+        } else {
+            console.log("Failed to like recipe");
+        }
+    }
+
+    async function handleDislike(recipeToDislike) {
+        const url = $BASE_URL + "/api/user/publicRecipes/dislike";
+        const email = $user.email;
+        const id = recipeToDislike._id;
+
+        const updatedLikes = recipeToDislike.likes.filter(like => like !== email);
+        console.log("updated like list:", updatedLikes);
+        recipeToDislike.likes = updatedLikes;
+
+        const dislikedRecipeToJSON = JSON.stringify({ email, id });
+
+        await patch(url, dislikedRecipeToJSON);
+
+        const updatePublicRecipes = $publicRecipes.map(recipe => {
+            if (recipe.procedure === recipeToDislike.procedure) {
+                return recipeToDislike;
+            }
+            return recipe;
+        });
+
+        $publicRecipes = updatePublicRecipes;
+    }
+
+</script>
+
+{#if handleHasLikedButton(recipeToLike)}
+    <button on:click={handleDislike.bind(null, recipeToLike)} class="liked">Liked</button>
+{:else}
+    <button on:click={handleLike.bind(null, recipeToLike)}>Like recipe</button>
+{/if}
+
+<style>
+    .liked {
+        background-color: green;
+    }
+</style>

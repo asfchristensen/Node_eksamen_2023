@@ -8,8 +8,8 @@
     import { BASE_URL } from "../../../stores/urlDomain";
     import { eventsToPublic } from "../../../stores/events";
     import toastr from "toastr";
-    import DeleteButton from "../../../components/Events/DeleteButton.svelte";
     import { Link } from "svelte-navigator";
+    import DeleteButton from "../../../components/Templates/Buttons/DeleteButton.svelte";
 
     let isClicked = false;
     let eventToRead = null;
@@ -75,11 +75,18 @@
             <tbody>
                 {#each $eventsToPublic as event }  
                     <tr>
-                    <td><input type="checkbox" bind:checked={event.isPublic}></td>
-                    <td>{event.eventName}</td>
-                    <td>{event.category}</td>
-                    <td><button on:click={handleModal.bind(null, event)}>Read Event</button></td>
-                    <td><DeleteButton eventToDelete={event}/></td>
+                        <td><input type="checkbox" bind:checked={event.isPublic}></td>
+                        <td>{event.eventName}</td>
+                        <td>{event.category}</td>
+                        <td><button on:click={handleModal.bind(null, event)}>Read Event</button></td>
+                            <td>
+                                <DeleteButton 
+                                objectToDelete={event} 
+                                onHandleUpdate={handleGetAllNotPublicEvents}
+                                endpoint={`/api/admin/events/${event._id}`}
+                                objectName="Event"
+                            />   
+                        </td>
                     </tr>
                 {/each} 
             </tbody>

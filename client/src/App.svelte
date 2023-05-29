@@ -2,27 +2,28 @@
     import "@picocss/pico";
     import { Router, Route } from "svelte-navigator";
     import PrivateRoute from "./components/Protectors/PrivateRoute.svelte";
-    import Signup from "./pages/Auth/SignupPage.svelte";
-    import Login from "./pages/Auth/LoginPage.svelte";
+    import Signup from "./pages/SignupPage/SignupPage.svelte";
+    import Login from "./pages/LoginPage/LoginPage.svelte";
     import Topbar from "./components/Navbars/Topbar.svelte";
     import Footer from "./components/Footer/Footer.svelte";
-    import ChatPage from "./pages/ChatPage/ChatPage.svelte";
-    import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage.svelte";
-    import UpdatePasswordPage from "./pages/Auth/UpdatePasswordPage.svelte";
+    import UpdatePasswordPage from "./pages/UpdatePasswordPage/UpdatePasswordPage.svelte";
     import FrontPage from "./pages/FrontPage/FrontPage.svelte";
     import FeedbackPage from "./pages/User/FeedbackPage/FeedbackPage.svelte";
-    import ProfilePage from "./pages/ProfilePage/ProfilePage.svelte";
+    import ProfilePage from "./pages/User/ProfilePage/ProfilePage.svelte";
     import EventsPage from "./pages/EventsPage/EventsPage.svelte";
     import NewsfeedPage from "./pages/NewsfeedPage/NewsfeedPage.svelte";
     import SettingsPage from "./pages/User/SettingsPage/SettingsPage.svelte";
     import RatingsPage from "./pages/Admin/RecievedRatingsPage/RecievedRatingsPage.svelte";
     import RecievedFeedbackPage from "./pages/Admin/RecievedFeedbackPage/RecievedFeedbackPage.svelte";
-    import AllMyRecipesPage from "./pages/User/MyRecipesPage/MyRecipesPage.svelte";
-    import AllMyLikesPage from "./pages/User/MyLikesPage/MyLikesPage.svelte";
+    import AllMyRecipesPage from "./pages/User/AllMyRecipesPage/AllMyRecipesPage.svelte";
     import ApproveEventsPage from "./pages/Admin/ApproveEventsPage/ApproveEventsPage.svelte";
     import BackToTop from "./components/Templates/Buttons/BackToTopButton.svelte";
+    import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage.svelte";
+    import ChatPage from "./pages/ChatPage/ChatPage.svelte";
     import toastr from "toastr";
+    import AllLikedRecipesPage from "./pages/User/AllLikedRecipesPage/AllLikedRecipesPage.svelte";
     import 'toastr/build/toastr.css';
+    
 
     toastr.options = {
         "positionClass": "toast-middle-top",
@@ -75,7 +76,7 @@
         </PrivateRoute>
         
         <PrivateRoute path="/my-likes" role={2}>
-            <AllMyLikesPage/>
+            <AllLikedRecipesPage/>
         </PrivateRoute>
 
         <!-- for all -->

@@ -107,15 +107,12 @@
                 <span>{feedbackToRead.feedback}</span>
             </div>
             <footer>
-                {#if isAnswered }
+                <button on:click={handleToggleAnswer}>Reply</button>
+                {#if isAnswered}
                     <div>
-                        <textarea placeholder="Write comment"cols="30" rows="1" bind:value={adminFeedbackAnswer}></textarea>
+                        <textarea placeholder="Write comment" cols="30" rows="1" bind:value={adminFeedbackAnswer}></textarea>
                         <button on:click={handleCreateAnswer.bind(null, feedbackToRead)}>Send answer</button>
                     </div>
-                {/if}
-
-                {#if !isAnswered}
-                    <button on:click={handleToggleAnswer}>Answer</button>
                 {/if}
             </footer>
         </article>  

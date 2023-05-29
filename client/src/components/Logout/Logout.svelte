@@ -14,8 +14,7 @@
 
         if (result.status === 200) {
             toastr.info("See you!");
-            localStorage.removeItem("user")
-            
+            localStorage.removeItem("user");
         } else {
             toastr.error("Failed to log out. Please try again later.");
         }

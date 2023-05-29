@@ -43,8 +43,6 @@ const chatUsers = {};
 io.on("connection", (socket) => {
     console.log("Connection made"); 
 
-    // CHAT
-    
     socket.on("User joins room", (user) => {
         console.log("User connected in Let's Taco 'Bout It Room:", user);
         for (const socketIDKey in chatUsers) {
