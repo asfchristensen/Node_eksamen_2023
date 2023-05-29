@@ -1,4 +1,4 @@
-<script>
+<!--<script>
     import { BASE_URL } from "../../stores/urlDomain.js"; 
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { user } from "../../stores/userGlobals.js";
@@ -51,4 +51,4 @@
 <div>
     <textarea placeholder="Write comment"cols="30" rows="1" bind:value={commentInput}></textarea>
     <button on:click={handleCreateComment.bind(null, recipe)}>Add comment</button>
-</div>
+</div> -->

@@ -18,10 +18,8 @@
 
     let isClicked = false;
 
-    console.log("before clicked: ", isClicked);
     function handleModal() {
         isClicked = !isClicked;
-        console.log("after cliked: ",isClicked);
     }
 
     async function handleCreateRecipe() {

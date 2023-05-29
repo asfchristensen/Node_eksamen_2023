@@ -2,6 +2,7 @@
     import toastr from "toastr";
     import { patch } from "../../api/api";
     import { BASE_URL } from "../../stores/urlDomain";
+   // import { user } from "../../stores/userGlobals.userGlobals.js";
 
     export let recipeToUpdate;
     export let onGetAllRecipes;
@@ -35,15 +36,17 @@
 
 </script>
 
-<details>
-    <summary role="button">Update</summary>
-    <form on:submit|preventDefault={handleUpdateRecipe}> 
-        
-        <input type="text" placeholder="ingredients" name="ingredients" bind:value={ingredients}>
-        <textarea placeholder="procedure"cols="30" rows="5" bind:value={procedure}></textarea>
-        <button type="submit">Update recipe</button>   
-    </form>
-</details>
+
+    <details>
+        <summary role="button">Update</summary>
+        <form on:submit|preventDefault={handleUpdateRecipe}> 
+            
+            <input type="text" placeholder="ingredients" name="ingredients" bind:value={ingredients}>
+            <textarea placeholder="procedure"cols="30" rows="5" bind:value={procedure}></textarea>
+            <button type="submit">Update recipe</button>   
+        </form>
+    </details>  
+
 
 <style>
     details {

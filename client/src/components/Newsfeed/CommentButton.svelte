@@ -1,4 +1,4 @@
-<script>
+<!--<script>
     import CreateComment from "./CreateComment.svelte";
 
     export let recipe;
@@ -17,7 +17,7 @@
 <button on:click={handleToggleComments.bind(null, recipe)}>Comment</button>
 <div>
     {#if recipe.comments !== undefined && showComments[recipe._id]}
-        <div class="">
+        <div>
             {#each recipe.comments as comment}                 
                 <div class="comment-wrapper">
                     <span><strong>{comment.email}</strong></span>
@@ -44,11 +44,11 @@
 
     }
 
-    span {
+    .comment-wrapper span {
         margin: 0.2em 0.8em ;
     }
 
     textarea {
         margin-top: 1em;
     }
-</style>
+</style> -->
