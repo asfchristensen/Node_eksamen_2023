@@ -22,7 +22,7 @@
 {:else}
     <div class="grid">
         {#each latestAdded as recipe}
-            <article>
+            <article class="recipe-article">
                 <h4>{recipe.title}</h4>
                 <img src="{recipe.picURL}" alt="image of food"/><br>
                 <div class="buttons">
@@ -48,11 +48,11 @@
 
 
 <style>
-    article {
+    .recipe-article {
         display: inline-block;
     }
 
-    img { 
+    .recipe-article img { 
         width: 25em;
         height: 15em;
         object-fit: cover;
@@ -61,7 +61,7 @@
 
     .buttons {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     #button {

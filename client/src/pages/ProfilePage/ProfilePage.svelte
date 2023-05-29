@@ -35,18 +35,22 @@
         isClicked = !isClicked;
     }
 
-
 </script>
 
 <div class="grid">
     <div class="col-left">
         <Sidebar/>
     </div>
+
+
     <div class="col-middle">
         <h2>{$user.username}'s profile</h2>
         <DisplayRecipes onGetAllRecipes={handleGetAllRecipes}/>
         <MyLikes onGetAllRecipes={handleGetAllRecipes}/>
-        </div>
+ 
+    </div>
+
+
     <div class="col-right">
         <ProfileInfo/>
         <CreateRecipe onGetAllRecipes={handleGetAllRecipes}/>

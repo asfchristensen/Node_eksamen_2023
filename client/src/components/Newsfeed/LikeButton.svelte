@@ -3,7 +3,8 @@
     import { user } from "../../stores/userGlobals.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { patch } from "../../api/api.js";
-    export let recipe;
+    
+    export let recipeToLike;
 
     function handleHasLikedButton(recipe) {
         const isLiked = recipe.likes && recipe.likes.some(email => email === $user.email);
@@ -38,25 +39,25 @@
         }
     }
 
-    async function handleDislike(recipe) {
+    async function handleDislike(recipeToDislike) {
         console.log("Dislike function");
         const url = $BASE_URL + "/api/user/publicRecipes/dislike";
         const email = $user.email;
-        const id = recipe._id;
+        const id = recipeToDislike._id;
 
-        const updatedLikes = recipe.likes.filter(like => like !== email);
+        const updatedLikes = recipeToDislike.likes.filter( like => like !== email);
         console.log("updated like list:", updatedLikes);
-        recipe.likes = updatedLikes;
+        recipeToDislike.likes = updatedLikes;
 
         const dislikedRecipeToJSON = JSON.stringify({ email, id });
 
         await patch(url, dislikedRecipeToJSON);
 
-        const updatePublicRecipes = $publicRecipes.map((r) => {
-            if (r.procedure === recipe.procedure) {
-                return recipe;
+        const updatePublicRecipes = $publicRecipes.map(recipe => {
+            if (recipe.procedure === recipeToDislike.procedure) {
+                return recipeToDislike;
             }
-            return r;
+            return recipe;
         });
 
         $publicRecipes = updatePublicRecipes;
@@ -64,10 +65,10 @@
 
 </script>
 
-{#if handleHasLikedButton(recipe)}
-    <button on:click={handleDislike.bind(null, recipe)} class="liked">Liked</button>
+{#if handleHasLikedButton(recipeToLike)}
+    <button on:click={handleDislike.bind(null, recipeToLike)} class="liked">Liked</button>
 {:else}
-    <button on:click={handleLike.bind(null, recipe)}>Like recipe</button>
+    <button on:click={handleLike.bind(null, recipeToLike)}>Like recipe</button>
 {/if}
 
 <style>

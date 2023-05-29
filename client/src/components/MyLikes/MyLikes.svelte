@@ -3,6 +3,7 @@
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { user } from "../../stores/userGlobals.js"
     import ModalRecipeButton from "../ModalRecipeButton/ModalRecipeButton.svelte";
+    import LikeButton from "../Newsfeed/LikeButton.svelte";
 
     export let onGetAllRecipes;
 
@@ -20,7 +21,7 @@
 
 <div class="grid">
     {#each latestLiked as liked }
-        <article>
+        <article class="recipe-article">
             <h4>{liked.title}</h4>
             <img src="{liked.picURL}" alt="image of food"/>
             <p>Author: {liked.author}</p>
@@ -29,6 +30,9 @@
                 <div id="button">
                     <ModalRecipeButton canUpdate={false} buttonTitle="Read" recipeToShow={liked} path="/profile" onGetAllRecipes={onGetAllRecipes}/>
                 </div>
+                <div id="button">
+                    <LikeButton recipeToLike={liked} />
+                </div>
             </div>
         </article>
     {/each}
@@ -36,11 +40,11 @@
 <Link to="/my-likes" role="button">See all your liked recipes</Link>
 
 <style>
-    article {
+    .recipe-article  {
         display: inline-block;
     }
 
-    img { 
+    .recipe-article img { 
         width: 25em;
         height: 15em;
         object-fit: cover;
@@ -59,7 +63,7 @@
     }
 
     #header {
-        margin-top: 2em;
+        margin-top: none;
     }
     
 </style>

@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { remove } from "../../api/api.js";
@@ -26,9 +26,4 @@
 </script>
 
 <button on:click={handleDeletePublicRecipe.bind(null, recipeToDelete)} class="delete-button">Delete recipe</button>
-
-<style>
-    .delete-button {
-        background-color: brown;
-    }
-</style>
+ -->

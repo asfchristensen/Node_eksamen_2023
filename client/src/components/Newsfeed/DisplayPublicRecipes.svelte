@@ -7,13 +7,13 @@
     import LikeButton from "../Newsfeed/LikeButton.svelte";
     import CommentButton from "../Newsfeed/CommentButton.svelte";
     import ModalRecipeButton from "../ModalRecipeButton/ModalRecipeButton.svelte";
-    import DeleteButton from "../Newsfeed/DeleteButton.svelte";
+    import DeleteButton from "../Templates/Buttons/DeleteButton.svelte";
 
     onMount(async () => {
-        await handleGetPublicRecipes();
+        await handleGetAllPublicRecipes();
     });
 
-    async function handleGetPublicRecipes() {
+    async function handleGetAllPublicRecipes() {
         const url = $BASE_URL + "/api/both/publicRecipes";
         const result = await get(url);
         console.log("result.data: ", result);
@@ -32,14 +32,22 @@
         <img src="{publicRecipe.picURL}" alt="image of food"/>
         {#if $user.role === 2}
             <footer>
-                <LikeButton recipe={publicRecipe}/>
-                <ModalRecipeButton buttonTitle="Read recipe" recipeToShow={publicRecipe} path="/newsfeed" onGetAllRecipes={handleGetPublicRecipes}/> 
+                <LikeButton recipeToLike={publicRecipe}/>
+                <ModalRecipeButton canUpdate={false} buttonTitle="Read recipe" recipeToShow={publicRecipe} path="/newsfeed" onGetAllRecipes={handleGetAllPublicRecipes}/> 
                 <CommentButton recipe={publicRecipe}/>
             </footer>
         {:else if $user.role === 1}
             <footer>
-                <ModalRecipeButton buttonTitle="Read recipe" recipeToShow={publicRecipe} path="/newsfeed" onGetAllRecipes={handleGetPublicRecipes}/> 
-                <DeleteButton recipeToDelete={publicRecipe}/>
+                <ModalRecipeButton canUpdate={false} buttonTitle="Read recipe" recipeToShow={publicRecipe} path="/newsfeed" onGetAllRecipes={handleGetAllPublicRecipes}/> 
+                <DeleteButton
+                    objectToDelete={publicRecipe}
+                    onHandleUpdate={handleGetAllPublicRecipes}
+                    endpoint="/api/admin/publicRecipes"
+                    objectName="Public recipe"
+                />
+
+
+
             </footer>
         {/if}
     </article>
