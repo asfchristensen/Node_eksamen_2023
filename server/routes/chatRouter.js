@@ -3,13 +3,13 @@ const router = Router();
 
 import db from "../database/connectionAtlas.js";
 
-router.get("/api/messages", async (req, res) => {
+router.get("/api/both/messages", async (req, res) => {
     const messages = await db.collection("chat_messages").find().toArray();
     //console.log("Messages from backend: ", messages);
     return res.status(200).send({ data: messages });
 });
 
-router.post("/api/messages", async (req, res) => {
+router.post("/api/both/messages", async (req, res) => {
     const messageData = req.body;
     //console.log(messageData);
     const messageDataToSave = await db.collection("chat_messages").insertOne(messageData);

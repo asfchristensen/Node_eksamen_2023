@@ -1,29 +1,32 @@
 <!-- <script>
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { publicRecipes } from "../../stores/publicRecipes.js";
+    import { eventsToPublic, publicEvents } from "../../stores/events.js";
     import { remove } from "../../api/api.js";
     import toastr from "toastr";
 
-    export let recipeToDelete;
+    export let eventToDelete;
 
-    async function handleDeletePublicRecipe(recipe) {
-        const url = $BASE_URL + "/api/admin/publicRecipes";
-        const recipeToJSON = JSON.stringify(recipe); 
 
-        const result = await remove(url, recipeToJSON);
+    async function handleDeleteEvent(event) {
+        const url = $BASE_URL + "/api/admin/events";
+        const eventToJSON = JSON.stringify(event); 
+
+        const result = await remove(url, eventToJSON);
         console.log("result delete:", result);
 
         if (result.status === 200) {
-            toastr.success("success - public recipe deleted");
+            toastr.success("success - event deleted");
         } else {
-            toastr.error("error - failed to delete public recipe recipe");
+            toastr.error("error - failed to delete event");
         }
 
-        recipeToDelete.isDeleted = true;
-        publicRecipes.update( recipes => recipes.filter(recipe => !recipe.isDeleted ));
-        $publicRecipes.forEach(recipe => console.log("recipes after:", recipe));
+        event.isDeleted = true;
+        eventsToPublic.update( events => events.filter(event => !event.isDeleted ));
+        $eventsToPublic.forEach(event => console.log("events after:", event));
+
+        publicEvents.update( events => events.filter(event => !event.isDeleted ));
+        $publicEvents.forEach(event => console.log("events after:", event));
     }
 </script>
 
-<button on:click={handleDeletePublicRecipe.bind(null, recipeToDelete)} class="delete-button">Delete recipe</button>
- -->
+<button on:click={handleDeleteEvent.bind(null, eventToDelete)} class="delete-button">Delete</button> -->

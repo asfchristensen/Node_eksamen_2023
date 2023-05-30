@@ -17,7 +17,7 @@ export async function post(url, data ) {
         credentials: "include"
     });
     
-    const result = await response.json();
+    const result = await response.json(); // skal denne ændres til response???
     return result;
 }
 

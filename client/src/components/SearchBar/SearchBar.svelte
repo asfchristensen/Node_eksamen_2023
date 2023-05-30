@@ -1,9 +1,9 @@
 <script>
     import { publicRecipes } from "../../stores/publicRecipes.js";
-    import MenuItems from "./MenuItems.svelte";
+    import SearchOptions from "./SearchOptions.svelte";
 
     export let searchSubject;
-    let showMenu = false;
+    let showOptions = false;
     
     
     let filteredItems = [];
@@ -14,29 +14,100 @@
         filteredItems = $publicRecipes.filter( item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
     }
 
+    function handleToggleOptions() {
+        showOptions = !showOptions;
+    }
 </script>
 
 
 <div class="dropdown">
 
 
-    <button on:click={() => showMenu = !showMenu}>{searchSubject}</button>
-    <div class:show={showMenu} class="dropdown-content">
+    <button on:click={handleToggleOptions
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }>{searchSubject}</button>
+
+    <div class:show={showOptions} class="dropdown-content">
         <input type="text" placeholder="Search... " id="userSearchInput" bind:value={userSearchInput} on:keyup={handleFilter}>
 
         {#if filteredItems.length > 0}
             {#each filteredItems as item}
-                <MenuItems recipe_id={item._id} label={item.title}/>
+                <SearchOptions recipe_id={item._id} label={item.title}/>
             {/each}
         {:else}
             {#each $publicRecipes as item}
-               <MenuItems recipe_id={item._id} label={item.title}/>
+               <SearchOptions recipe_id={item._id} label={item.title}/>
            
             {/each}
         {/if}
 
     </div>
-
 
 </div>
 

@@ -8,8 +8,9 @@
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import DeleteButton from "../../../components/Templates/Buttons/DeleteButton.svelte";
+    import Modal from "../../../components/Templates/Modal/Modal.svelte";
 
-    let isClicked = false;
+    let isModalOpen = false;
     let ratingToRead = null;
 
     onMount(async () => {
@@ -24,7 +25,7 @@
     }
 
     async function handleModal (rating) {
-        isClicked = !isClicked;
+        isModalOpen = !isModalOpen;
         ratingToRead = rating;
     }
 
@@ -90,19 +91,19 @@
     </div>
 </div>
 
-{#if isClicked}
-    <dialog open>
-        <article>
-            <Link to="/rating" class="close" on:click={handleModal}></Link>
-            <div class="rating-container">
-                <h3>{ratingToRead.username}</h3>
-                <h3 id="rating-number">{ratingToRead.rating}</h3>
-                <img src="../icons/star.png" alt="star">
-            </div>
-            <p>{ratingToRead.comment}</p>
-        </article>
-    </dialog>
-{/if}
+<Modal 
+    isOpen={isModalOpen}
+    onModal={handleModal}
+    path="/rating"
+    header=""
+>
+    <div class="rating-container">
+        <h3>{ratingToRead.username}</h3>
+        <h3 id="rating-number">{ratingToRead.rating}</h3>
+        <img src="../icons/star.png" alt="star">
+    </div>
+    <p>{ratingToRead.comment}</p>
+</Modal> 
 
 <style>
     p { color: rgb(108, 134, 143); }

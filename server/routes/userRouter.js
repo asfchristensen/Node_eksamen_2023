@@ -62,20 +62,21 @@ router.patch("/api/user/users/email", async (req, res) => {
 
 router.delete("/api/both/users/email", async (req, res) => {
     const userToDelete = req.body;
+    const userEmail = req.session.user.email;
 
     if (!userToDelete) {
         return res.status(400).send({ message: "error - no user deleted", status: 400 });
     } 
     
     if (userToDelete.deletePassword === userToDelete.confirmDeletePassword) {
-        const userExists = await db.collection("users").findOne({ email:  userToDelete.email });
+        const userExists = await db.collection("users").findOne({ email:  userEmail });
 
         const passwordMatch = await bcrypt.compare(userToDelete.deletePassword, userExists.password); 
 
         if (!passwordMatch) {
             return res.status(400).send({ message: "failed to delete user", status: 400 });
         } else {
-            const userDeleted = await db.collection("users").deleteOne({ email: userToDelete.email });
+            const userDeleted = await db.collection("users").deleteOne({ email: userEmail });
             return res.status(200).send({ data: userDeleted, message: "user deleted", status: 200 });
         }
 
