@@ -20,9 +20,6 @@
         result.data.reverse();
         publicRecipes.set(result.data); 
     } 
-
-
-
 </script>
 
 <h2>Newsfeed</h2>
@@ -45,9 +42,6 @@
                     endpoint="/api/admin/publicRecipes"
                     objectName="Public recipe"
                 />
-
-
-
             </footer>
         {/if}
     </article>

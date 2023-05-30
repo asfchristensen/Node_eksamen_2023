@@ -28,6 +28,7 @@ router.post("/api/user/publicRecipes", async (req, res) => {
         return res.status(400).send({ message: "error - invalid recipe", status: 400 });
     } else {
         const publicRecipe = await db.collection("public_recipes").insertOne(publicRecipeInfo);
+        console.log("Public recipe insertet: ", publicRecipe);
         return res.status(200).send({ data: publicRecipe, status: 200 });
     }
 });
@@ -61,7 +62,6 @@ router.patch("/api/user/publicRecipes/likes", async (req, res) => {
         return res.status(400).send({ message: "error - you already liked this recipe", status: 400 });
     }
 });
-
 
 router.patch("/api/user/publicRecipes/dislike", async (req, res) => {
     const { email, id } = req.body;

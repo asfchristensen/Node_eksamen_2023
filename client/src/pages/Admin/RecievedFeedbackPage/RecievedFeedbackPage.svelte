@@ -34,7 +34,7 @@
         isAnswered = !isAnswered;
     }
 
-    async function handleCreateAnswer (feedbackToAnswer){
+    async function handleCreateAnswer (feedbackToAnswer) {
         const url = $BASE_URL + `/api/admin/feedback/${feedbackToAnswer._id}`;
         const answer = { answer: adminFeedbackAnswer };
         const answerToJSON = JSON.stringify(answer);
