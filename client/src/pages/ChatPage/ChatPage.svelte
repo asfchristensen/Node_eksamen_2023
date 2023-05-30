@@ -2,10 +2,11 @@
     import { onMount, onDestroy } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain";
     import { get } from "../../api/api.js"
-    import { user } from "../../stores/userGlobals";
+    import { user } from "../../stores/userGlobals.js"
     import { userMessages, usersInChatroom } from "../../stores/chatroom.js";
     import io from "socket.io-client";
     import toastr from "toastr";
+    import Sidebar from "../../components/Navbars/Sidebar.svelte";
 
     let message = "";
     let socket = io($BASE_URL);
@@ -78,9 +79,7 @@
             return list;
         }); 
     }); 
-    import Sidebar from "../../components/Navbars/Sidebar.svelte";
-    import OnlineUsers from "../../components/0._DELETE/OnlineUsers.svelte";
-
+    
 </script>
 
 

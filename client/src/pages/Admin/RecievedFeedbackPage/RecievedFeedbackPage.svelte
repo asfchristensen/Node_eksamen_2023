@@ -1,13 +1,13 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain.js";
-    import { feedbackStore } from "../../../stores/adminGlobals.js";
     import { get, patch } from "../../../api/api.js";
     import { Link } from "svelte-navigator";
     import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
+    import { feedbackStore } from "../../../stores/adminGlobals.js";
     
     let isModalOpen = false;
     let feedbackToRead = null;

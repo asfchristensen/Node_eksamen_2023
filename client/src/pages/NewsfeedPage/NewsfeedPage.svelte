@@ -3,7 +3,7 @@
     import { BASE_URL } from "../../stores/urlDomain";
     import { get } from "../../api/api";
     import { publicRecipes } from "../../stores/publicRecipes";
-    import { user } from "../../stores/userGlobals";
+    import { user } from "../../stores/userGlobals.js";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import SearchBar from "../../components/SearchBar/SearchBar.svelte";
     import LikeButton from "../../components/LikeButton/LikeButton.svelte";
