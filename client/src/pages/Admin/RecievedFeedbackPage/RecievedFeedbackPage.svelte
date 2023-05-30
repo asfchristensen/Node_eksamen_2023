@@ -7,8 +7,9 @@
     import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
+    import Modal from "../../../components/Templates/Modal/Modal.svelte";
     
-    let isClicked = false;
+    let isModalOpen = false;
     let feedbackToRead = null;
     let isAnswered = false;
 
@@ -26,7 +27,7 @@
     }
 
     async function handleModal (feedback) {
-        isClicked = !isClicked;
+        isModalOpen = !isModalOpen;
         feedbackToRead = feedback;
     }
 
@@ -92,40 +93,34 @@
     </div>
 </div>
 
-{#if isClicked}
-    <dialog open>
-        <article>
-            <header>
-                <Link to="/admin-feedback" class="close" on:click={handleModal}></Link>
-                <h4>{feedbackToRead.subject}</h4>
-            </header>
+<Modal 
+    isOpen={isModalOpen}
+    path="/admin-feedback"
+    header=""
+    onModal={handleModal}
+>
+    <h5>{feedbackToRead.subject}</h5>
+    <div class="modal">
+        <span><strong>FROM:</strong></span><br><br>
+        <span>{feedbackToRead.username} ({feedbackToRead.userEmail})</span><br>
+        <hr>
+        <span><strong>MESSAGE:</strong></span><br><br>
+        <span>{feedbackToRead.feedback}</span>
+    </div>
+    <footer>
+        <button on:click={handleToggleAnswer}>Reply</button>
+        {#if isAnswered}
             <div>
-                <span><strong>FROM:</strong></span><br><br>
-                <span>{feedbackToRead.username} ({feedbackToRead.userEmail})</span><br>
-                <hr>
-                <span><strong>MESSAGE:</strong></span><br><br>
-                <span>{feedbackToRead.feedback}</span>
+                <textarea placeholder="Write comment" cols="30" rows="1" bind:value={adminFeedbackAnswer}></textarea>
+                <button on:click={handleCreateAnswer.bind(null, feedbackToRead)}>Send answer</button>
             </div>
-            <footer>
-                <button on:click={handleToggleAnswer}>Reply</button>
-                {#if isAnswered}
-                    <div>
-                        <textarea placeholder="Write comment" cols="30" rows="1" bind:value={adminFeedbackAnswer}></textarea>
-                        <button on:click={handleCreateAnswer.bind(null, feedbackToRead)}>Send answer</button>
-                    </div>
-                {/if}
-            </footer>
-        </article>  
-    </dialog>
-{/if}
+        {/if}
+    </footer>
+</Modal>
 
 <style>
-    article {
-        width: 80%;
-    }
-
-    header h4 {
-        margin-bottom: 0.1em;
+    .modal {
+       text-align: left;
     }
 
     #isAnswered {

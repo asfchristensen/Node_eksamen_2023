@@ -35,11 +35,7 @@
                 <span><strong>Procedure</strong></span>
                 <span>{recipeToShow.procedure}</span>
             </div>
-
             <slot/>
-            <!-- {#if canUpdate}
-                <UpdateRecipe recipeToUpdate={recipeToShow} onGetAllRecipes={onGetAllRecipes}/> 
-            {/if} -->
         </article>
         
     </dialog>

@@ -10,8 +10,9 @@
     import toastr from "toastr";
     import { Link } from "svelte-navigator";
     import DeleteButton from "../../../components/Templates/Buttons/DeleteButton.svelte";
+    import Modal from "../../../components/Templates/Modal/Modal.svelte";
 
-    let isClicked = false;
+    let isModalOpen = false;
     let eventToRead = null;
 
     onMount(async () => {
@@ -49,7 +50,7 @@
 
     async function handleModal (event) {
         eventToRead = event;
-        isClicked = !isClicked;
+        isModalOpen = !isModalOpen;
     }
 
 </script>
@@ -100,25 +101,25 @@
     </div>
 </div>
 
-{#if isClicked}
-    <dialog open>
-        <article>
-            <Link to="/approve-events" class="close" on:click={handleModal}></Link>
-            <div class="event-info">
-                <div id="div-picture">
-                    <img src={eventToRead.picURL} alt={eventToRead.eventName}>
-                </div>
-                <div id="div-info">
-                    <h6><strong>{eventToRead.eventName}</strong></h6>
-                    <span><strong>Date: </strong>{eventToRead.date}</span>
-                    <span><strong>Time: </strong>{eventToRead.startTime} : {eventToRead.endTime}</span>
-                    <span><strong>Category: </strong>{eventToRead.category}</span>
-                    <span><strong>Address: </strong>{eventToRead.address}</span>
-                </div>
-            </div>
-        </article>
-    </dialog>
-{/if}
+<Modal
+    isOpen={isModalOpen}
+    onModal={handleModal}
+    path="/approve-events"
+    header=""   
+>
+    <div class="event-info">
+        <div id="div-picture">
+            <img src={eventToRead.picURL} alt={eventToRead.eventName}>
+        </div>
+        <div id="div-info">
+            <h6><strong>{eventToRead.eventName}</strong></h6>
+            <span><strong>Date: </strong>{eventToRead.date}</span>
+            <span><strong>Time: </strong>{eventToRead.startTime} : {eventToRead.endTime}</span>
+            <span><strong>Category: </strong>{eventToRead.category}</span>
+            <span><strong>Address: </strong>{eventToRead.address}</span>
+        </div>
+    </div>
+</Modal>
 
 <style>
     .event-info {

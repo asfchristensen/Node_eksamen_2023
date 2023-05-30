@@ -58,6 +58,10 @@
                             endpoint={`/api/admin/publicRecipes/${publicRecipe._id}`}
                             objectName="Public recipe"
                         />
+                        <ModalRecipe 
+                            path="/newsfeed"
+                            recipeToShow={publicRecipe}
+                        ></ModalRecipe>
                     </footer>
                 {/if}
             </article>

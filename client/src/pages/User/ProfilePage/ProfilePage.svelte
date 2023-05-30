@@ -88,7 +88,7 @@
     </div>
     <div class="col-right">
         <ProfileInfo/>
-        <button on:click={handleCreateModal}>Create event</button>
+        <button on:click={handleCreateModal}>Create recipe</button>
         <a href="#inbox" data-tooltip="Read feedback answers">
             <img src="../icons/inbox.png" alt="inbox" on:click={handleFeedbackModal}>
         </a>
