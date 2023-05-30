@@ -1,14 +1,11 @@
 <script>
     import { onMount } from "svelte";
-    import { get, patch } from "../../../api/api";
-
-
-    import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import { BASE_URL } from "../../../stores/urlDomain";
     import { eventsToPublic } from "../../../stores/events";
+    import { get, patch } from "../../../api/api";
+    import Sidebar from "../../../components/Navbars/Sidebar.svelte";
+    import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import toastr from "toastr";
-    import { Link } from "svelte-navigator";
     import DeleteButton from "../../../components/Templates/Buttons/DeleteButton.svelte";
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
 

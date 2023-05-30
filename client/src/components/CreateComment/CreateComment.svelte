@@ -15,15 +15,13 @@
     }
 
     async function handleCreateComment (recipeToComment) {
-        const url = $BASE_URL + `/api/user/publicRecipes/${recipeToComment._id}`;
-
-        const email = $user.email;
+        const url = $BASE_URL + `/api/user/publicRecipes/comment/${recipeToComment._id}`;
 
         if (recipeToComment.comments === undefined) {
             recipeToComment.comments = [];
         }
 
-       const comment = { email, comment: commentInput };
+       const comment = { comment: commentInput };
 
        recipeToComment.comments.push(comment); 
 

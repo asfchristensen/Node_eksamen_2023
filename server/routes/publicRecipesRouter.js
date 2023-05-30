@@ -83,7 +83,7 @@ router.patch("/api/user/publicRecipes/dislike", async (req, res) => {
     }
 });
 
-router.patch("/api/user/publicRecipes/:id", async (req, res) => {
+router.patch("/api/user/publicRecipes/comment/:id", async (req, res) => {
     const { comment } = req.body;
     const { id } = req.params;
     const userEmail = req.session.user.email;
