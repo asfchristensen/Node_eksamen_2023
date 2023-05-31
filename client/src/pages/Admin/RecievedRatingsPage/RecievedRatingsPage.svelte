@@ -72,7 +72,7 @@
                             <td><DeleteButton 
                                     objectToDelete={rating} 
                                     onHandleUpdate={handleGetAllNotPublicRatings} 
-                                    endpoint="/api/admin/ratings" 
+                                    endpoint="/api/admin/ratings/{rating._id}" 
                                     objectName="Rating"
                                 />
                             </td>

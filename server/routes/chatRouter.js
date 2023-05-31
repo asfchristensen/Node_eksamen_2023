@@ -9,7 +9,7 @@ router.get("/api/both/messages", async (req, res) => {
     if (!messages) {
         return res.status(400).send({ message: "error - couldn't get any message", status: 400 });
     } else {
-        return res.status(200).send({ data: messages });
+        return res.status(200).send({ data: messages, status: 200 });
     }
 });
 
@@ -18,9 +18,9 @@ router.post("/api/both/messages", async (req, res) => {
     const messageDataToSave = await db.collection("chat_messages").insertOne(messageData);
 
     if (!messageDataToSave) {
-        return res.status(400).send({ message: "error - failed to save message" });
+        return res.status(400).send({ message: "error - failed to save message", status: 400 });
     } else {
-        return res.status(200).send({ data: messageDataToSave });
+        return res.status(200).send({ data: messageDataToSave, status: 200 });
     }
 });
 

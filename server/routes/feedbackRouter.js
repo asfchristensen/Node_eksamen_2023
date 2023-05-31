@@ -59,7 +59,7 @@ router.patch("/api/admin/feedback/:id", async (req, res) => {
     } else {
         const isAnswered = await db.collection("feedback").updateOne({ _id: new ObjectId(id) }, { $set: { isAnswered: true }});
         console.log(isAnswered);
-        return res.status(200).send({ message: "updated feedback", status: 200 });
+        return res.status(200).send({ message: "success - updated feedback", status: 200 });
     }  
 });
 

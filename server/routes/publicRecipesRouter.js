@@ -60,8 +60,7 @@ router.patch("/api/user/publicRecipes/dislike/:id", async (req, res) => {
         return res.status(400).send({ message: "error - invalid email or id", status: 400 });
     }
 
-    const chosenRecipe = await db.collection("public_recipes").findOne({ _id: new ObjectId(id) });
-    console.log("chosen ",chosenRecipe);
+    await db.collection("public_recipes").findOne({ _id: new ObjectId(id) });
     
     const dislikedRecipe = await db.collection("public_recipes").updateOne({ _id: new ObjectId(id) }, { $pull: { likes: email }});
 
@@ -80,11 +79,11 @@ router.patch("/api/user/publicRecipes/comment/:id", async (req, res) => {
         return res.status(400).send({ message: "error - invalid id", status: 400 });
     }
 
-    const chosenRecipe = await db.collection("public_recipes").findOne({ _id: new ObjectId(id) });
-    console.log("chosen ",chosenRecipe);
+    await db.collection("public_recipes").findOne({ _id: new ObjectId(id) });
    
-    const commentedRecipe = await db.collection("public_recipes").updateOne({ _id: new ObjectId(id) }, { $push: { comments: { username: username, comment: comment} }});
-    console.log("status for creating comment to recipe", commentedRecipe);
+    const commentedRecipe = await db.collection("public_recipes").updateOne(
+        { _id: new ObjectId(id) }, { $push: { comments: { username: username, comment: comment} }}
+    );
 
     if (commentedRecipe.modifiedCount !== 1) {
         return res.status(400).send({ message: "error - unable to comment public recipe", status: 400 });
@@ -98,10 +97,10 @@ router.delete("/api/admin/publicRecipes/:id", async (req, res) => {
     const { id } = req.params;
     
     if (!recipeToDelete) {
-         return res.status(400).send({ message: "error - failed to delete public recipe", status: 400 })
+         return res.status(400).send({ message: "error - failed to delete public recipe", status: 400 });
     } else {
         await db.collection("public_recipes").deleteOne({ _id: new ObjectId(id) });
-        return res.status(200).send({ message: "Public recipe deleted successfully", status: 200 }); 
+        return res.status(200).send({ message: "success - public recipe deleted", status: 200 }); 
     }
 });
 

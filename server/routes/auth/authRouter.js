@@ -8,7 +8,6 @@ router.post("/api/all/auth/login", async (req, res) => {
     const { password, email } = req.body;
     
     const userExist = await db.collection("users").findOne({ email: email });
-    console.log("userExist", userExist);
 
     if (!userExist && await bcrypt.compare(password, userExist.password)) {
         return res.status(400).send({ message: "invalid email or password", status: 400 });

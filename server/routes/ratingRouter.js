@@ -45,40 +45,30 @@ router.post("/api/user/ratings", async (req, res) => {
 
 router.patch("/api/admin/ratings", async (req, res) => {
     const ratingToPublic = req.body;
-    console.log("req.body rating to public:",ratingToPublic.length);
-    console.log("req.body rating to public:",ratingToPublic[0]._id);
     
     if (!ratingToPublic) {
         return res.status(400).send({ message: "error - no rating to make public", status: 400 });
     }
     
     if (ratingToPublic.length > 1) {
-        console.log("er jeg her");
         const ratingIds = ratingToPublic.map(rating => new ObjectId(rating._id));
-        console.log("array med id'er: ",ratingIds);
 
-        const ratingsToUpdate = await db.collection("ratings").updateMany({ _id: { $in: ratingIds }}, { $set: { isPublic: true }});
-        console.log(ratingsToUpdate);
-
-        return res.status(200).send({ data: ratingToPublic, message: "Many ratings made public", status: 200 });
+        await db.collection("ratings").updateMany({ _id: { $in: ratingIds }}, { $set: { isPublic: true }});
+        return res.status(200).send({ data: ratingToPublic, message: "success - many ratings made public", status: 200 });
     } else {
-        console.log("else - rating to public:",ratingToPublic.length);
-        console.log("else - rating to public:",ratingToPublic[0]._id);
-        const x = await db.collection("ratings").updateOne({ _id: new ObjectId(ratingToPublic[0]._id) }, { $set: { isPublic: true }});
-        console.log(x);
-
-        return res.status(200).send({ data: ratingToPublic, message: "One rating made public", status: 200 });
+        await db.collection("ratings").updateOne({ _id: new ObjectId(ratingToPublic[0]._id) }, { $set: { isPublic: true }});
+        return res.status(200).send({ data: ratingToPublic, message: "success - one rating made public", status: 200 });
     }
 });
 
-router.delete("/api/admin/ratings", async (req, res) => {
-    const ratingToDelete = req.body;
+router.delete("/api/admin/ratings/:id", async (req, res) => {
+    const { id } = req.params;
     
-    if (!ratingToDelete) {
+    if (!id) {
          return res.status(400).send({ message: "error - failed to delete rating", status: 400 })
     } else {
-        await db.collection("ratings").deleteOne({ _id: new ObjectId(ratingToDelete._id) });
-        return res.status(200).send({ message: "Rating deleted successfully", status: 200 }); 
+        await db.collection("ratings").deleteOne({ _id: new ObjectId(id) });
+        return res.status(200).send({ message: "success - rating deleted", status: 200 }); 
     }
 });
 

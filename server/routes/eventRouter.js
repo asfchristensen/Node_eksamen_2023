@@ -32,7 +32,7 @@ router.post("/api/user/events", async (req, res) => {
         return res.status(400).send({ message: "error - invalid event", status: 400 })
     } else {
         await db.collection("events").insertOne(event);
-        return res.status(200).send({ data: event, message: "One event created", status: 200 });
+        return res.status(200).send({ data: event, message: "success - event created", status: 200 });
     }
 });
 
@@ -60,15 +60,13 @@ router.patch("/api/admin/events", async (req, res) => {
 });
 
 router.delete("/api/admin/events/:id", async (req, res) => {
-    const eventToDelete = req.body;
-    console.log("event to delete: ", eventToDelete);
-    console.log("id:", eventToDelete._id);
+    const { id } = req.params;
 
-    if (!eventToDelete) {
+    if (!id) {
         return res.status(400).send({ message: "error - failed to delete event", status: 400 });
     } else {
-        await db.collection("events").deleteOne({_id: new ObjectId(eventToDelete._id)});
-        return res.status(200).send({ message: "Event deleted successfully", status: 200 });
+        await db.collection("events").deleteOne({_id: new ObjectId(id)});
+        return res.status(200).send({ message: "success - event deleted successfully", status: 200 });
     }
 });
 

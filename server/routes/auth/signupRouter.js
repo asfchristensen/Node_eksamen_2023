@@ -28,7 +28,7 @@ router.post("/api/all/auth/signup", async (req, res) => {
 
         await db.collection("users").insertOne(newUser);
         sendConfirmationMail(userToSave.username, userToSave.email).catch(console.error);
-        return res.status(200).send({ data: userToSave.username });
+        return res.status(200).send({ data: userToSave.username, status: 200 });
     }
 });
 
