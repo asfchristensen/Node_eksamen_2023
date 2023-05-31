@@ -20,7 +20,7 @@
         }
 
         recipe.isDeleted = true;
-        recipes.update( recipes => recipes.filter(recipe => !recipe.isDeleted ));
+        recipes.update(recipes => recipes.filter(recipe => !recipe.isDeleted));
     }
 </script>
 

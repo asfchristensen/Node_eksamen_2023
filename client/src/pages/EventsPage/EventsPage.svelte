@@ -10,7 +10,7 @@
     import Modal from "../../components/Templates/Modal/Modal.svelte";
     import Map from "../../components/Map/Map.svelte";
     import toastr from "toastr";
-   
+
     let isModalOpen = false; 
     let eventName = "";
     let category = "";
@@ -27,13 +27,20 @@
     async function handleGetAllPublicEvents() {
         const url = $BASE_URL + "/api/both/events/public";
         const result = await get(url);
-        publicEvents.set(result.data);
-        console.log(result.data);
-        return result.data;
+
+        const todaysDate = new Date();
+        const upComingEvents = result.data.filter(event => {
+            const eventDate = new Date(event.date);
+            return eventDate > todaysDate;
+        });
+
+        publicEvents.set(upComingEvents);
+        console.log(upComingEvents);
+        return upComingEvents;
     }
 
     async function handleCreateEvent() {
-        const formattedDate = new Date().toLocaleDateString("en-US");
+        const formattedDate = new Date(date).toLocaleDateString("en-US");
         const url = $BASE_URL + "/api/user/events";
 
         const event = { 
@@ -88,7 +95,7 @@
                   <div id="div-info">
                         <h6><strong>{event.eventName}</strong></h6>
                         <span><strong>Date: </strong>{event.date}</span>
-                        <span><strong>Time: </strong>{event.startTime} : {event.endTime}</span>
+                        <span><strong>Time: </strong>{event.startTime} – {event.endTime}</span>
                         <span><strong>Category: </strong>{event.category}</span>
                         <span><strong>Address: </strong>{event.address}</span>
                     {#if $user.role === 1}
