@@ -12,7 +12,11 @@
     async function handleUpdateRecipe() {
         const url = $BASE_URL + "/api/users/recipes/update-recipe";
     
-        const recipe = { ...recipeToUpdate, ingredients: ingredients, procedure: procedure };
+        const recipe = { 
+            ...recipeToUpdate, 
+            ingredients: ingredients, 
+            procedure: procedure 
+        };
 
         const recipeToJSON = JSON.stringify(recipe);
         const response = await patch(url, recipeToJSON);

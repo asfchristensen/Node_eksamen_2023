@@ -52,29 +52,40 @@ router.patch("/api/user/recipes/make-public", async (req, res) => {
 
 router.patch("/api/users/recipes/update-recipe", async (req, res) => {
     const { title, picURL, procedure, ingredients } = req.body;
+    const userEmail = req.session.user.email;
    
-    const updateFields = {};
+    const updateRecipeFields = {};
+    const updatePublicRecipeFields = {};
+
     if (procedure && procedure !== "") {
-        updateFields["recipes.$.procedure"] = procedure;
+        updateRecipeFields["recipes.$.procedure"] = procedure;
+        updatePublicRecipeFields.procedure = procedure;
     }
+    
     if (ingredients && ingredients !== "") {
-        updateFields["recipes.$.ingredients"] = ingredients;
+        updateRecipeFields["recipes.$.ingredients"] = ingredients;
+        updatePublicRecipeFields.ingredients = ingredients;
     }
 
-    const updatedUser = await db.collection("users").updateOne(
-        {
-            email: req.session.user.email,
-            "recipes.title": title,
-            "recipes.picURL": picURL
-        },
-        { $set: updateFields }
+    const updatedRecipe = await db.collection("users").updateOne(
+        { email: userEmail, "recipes.title": title, "recipes.picURL": picURL },
+        { $set: updateRecipeFields }
     );
 
-    if (updatedUser.modifiedCount !== 1) {
-        return res.status(400).send({ data: updatedUser, message: "error - recipe not found" , status: 400 });
-    } else {
-        return res.status(200).send({ data: updatedUser, message: "success - recipe updated", status: 200 });
+    if (updatedRecipe.modifiedCount !== 1) {
+        return res.status(400).send({ data: updatedRecipe, message: "error - recipe not found" , status: 400 });
+    } 
+
+    const updatedPublicRecipe = await db.collection("public_recipes").updateOne(
+        { title: title, picURL: picURL },
+        { $set: updatePublicRecipeFields }
+    );
+
+    if (updatedPublicRecipe.modifiedCount !== 1) {
+        return res.status(400).send({ data: updatedPublicRecipe, message: "error - recipe not found" , status: 400 });
     }
+
+    return res.status(200).send({ message: "success - recipe updated", status: 200 });  
 });
 
 router.patch("/api/user/recipes/delete-recipe", async (req, res) => {

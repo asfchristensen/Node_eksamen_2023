@@ -2,11 +2,11 @@
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { profileInfo, user } from "../../../stores/userGlobals.js"; 
     import { profilePics } from "../../../stores/hardcodedData.js";
-    import { get, patch, remove } from "../../../api/api.js";
+    import { patch, remove } from "../../../api/api.js";
     import { navigate } from "svelte-navigator";
     import { Confirm } from "svelte-confirm";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import UserInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
+    import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
     import toastr from "toastr";
 
     let username = "";
@@ -29,6 +29,8 @@
 
         if (response.ok) {
             toastr.success("Username updated");
+            $profileInfo.username = username;
+            $user.username = username;
         } else {
             toastr.error("Failed to update username");
         }
@@ -72,7 +74,7 @@
 
         if (response.ok) {
             toastr.success("Profile picture updated");
-            await handleGetUser();
+            $profileInfo.profilePicture = picture.img;
         } else {
             toastr.error("Failed to update profile picture");
         }
@@ -101,13 +103,6 @@
         email = "";
         deletePassword = "";
         confirmDeletePassword = "";
-    }
-
-    async function handleGetUser() {
-        const url = $BASE_URL + "/api/user/users/email";
-        const result = await get(url);
-        profileInfo.set(result.data);
-        return result.data;
     }
 </script>
 
@@ -177,7 +172,7 @@
         </details>
     </div>
     <div class="col-right">
-        <UserInfo/>
+        <ProfileInfo/>
     </div>
 </div>
 

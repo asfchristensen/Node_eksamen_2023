@@ -26,6 +26,7 @@ router.get("/api/user/users/email", async (req, res) => {
 
         const profileInfo = { 
             profilePicture: user.profilePicture, 
+            username: user.username,
             memberSince: user.memberSince 
         };
         return res.status(200).send({ data: profileInfo, status: 200 });

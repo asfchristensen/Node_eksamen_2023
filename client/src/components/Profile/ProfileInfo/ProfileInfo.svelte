@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { get } from "../../../api/api.js";
-    import { user, profileInfo } from "../../../stores/userGlobals.js";
+    import { profileInfo } from "../../../stores/userGlobals.js";
 
     onMount(async () => {
         await handleGetUser();
@@ -19,7 +19,7 @@
 {#if $profileInfo}
     <div>
         <img src={$profileInfo.profilePicture} alt="profilePicture">   
-        <h6>{$user.username}</h6>
+        <h6>{$profileInfo.username}</h6>
         <p>Member since: {$profileInfo.memberSince}</p>
     </div>
 {:else}
