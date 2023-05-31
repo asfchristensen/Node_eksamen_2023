@@ -10,6 +10,7 @@
     import CreateComment from "../../components/CreateComment/CreateComment.svelte";
     import DeleteButton from "../../components/Templates/Buttons/DeleteButton.svelte";
     import ModalRecipe from "../../components/ModalRecipe/ModalRecipe.svelte";
+    import toastr from "toastr";
   
     onMount(async () => {
         await handleGetAllPublicRecipes();
@@ -18,8 +19,13 @@
     async function handleGetAllPublicRecipes() {
         const url = $BASE_URL + "/api/both/publicRecipes";
         const result = await get(url);
-        result.data.reverse();
-        publicRecipes.set(result.data); 
+
+        if (result.status === 200) {
+            result.data.reverse();
+            publicRecipes.set(result.data);
+        } else {
+            toastr.error("Failed to get all public recipes");
+        } 
     } 
 </script>
 

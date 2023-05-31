@@ -62,7 +62,6 @@ router.patch("/api/admin/ratings", async (req, res) => {
 
 router.delete("/api/admin/ratings/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     
     if (!id) {
         return res.status(400).send({ message: "error - failed to delete rating", status: 400 })

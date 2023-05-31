@@ -33,7 +33,7 @@ const server = http.createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: "http://localhost:5173",
         methods: ["*"] 
     }
 });
@@ -41,13 +41,9 @@ const io = new Server(server, {
 const chatUsers = {};
 
 io.on("connection", (socket) => {
-    console.log("Connection made"); 
 
     socket.on("User joins room", (user) => {
-        console.log("User connected in Let's Taco 'Bout It Room:", user);
-        for (const socketIDKey in chatUsers) {
-            console.log("key:", socketIDKey);
-    
+        for (const socketIDKey in chatUsers) {    
             const userInList = chatUsers[socketIDKey];
             if (userInList.data.email === user.data.email) {
                     delete chatUsers[socketIDKey];
@@ -61,12 +57,10 @@ io.on("connection", (socket) => {
     });
 
     socket.on("Let's Taco 'Bout It Room chatmessages", (messageData) => {
-        console.log("Data recieved?: ", messageData);
         io.to("Let's Taco 'Bout It Room").emit("message", messageData);
     });
 
     socket.on("leave room", (user) => {
-        console.log("A user disconnected:", user);
         socket.leave("Let's Taco 'Bout It Room");
         socket.to("Let's Taco 'Bout It Room").emit("User left the room", user);
         delete chatUsers[socket.id];
@@ -95,7 +89,6 @@ app.use("/api/auth/login", loginLimiter);
 
 
 function bothChecker(req, res, next) {
-    console.log("In all checker...");
     if (!req.session.user) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
     }
@@ -103,7 +96,6 @@ function bothChecker(req, res, next) {
 }
 
 function userChecker(req, res, next) {
-    console.log("In user checker...");
     if (!req.session.user || req.session.user.role !== 2) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
     }
@@ -111,7 +103,6 @@ function userChecker(req, res, next) {
 }
 
 function adminChecker(req, res, next) {
-    console.log("In admin checker...");
     if (!req.session.user || req.session.user.role !== 1) {
         return res.status(400).send({ message: "You are not authorized to see this page" });
     }
@@ -156,9 +147,6 @@ app.use(feedbackRouter);
 import weeklyPlanRouter from "./routes/weeklyPlanRouter.js";
 app.use(weeklyPlanRouter);
 
-
-// const isDev = process.env.ENV === "DEV";
-// const PORT = isDev ? process.env.PORT : 80;
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, (error) => {

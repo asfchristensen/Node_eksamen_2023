@@ -45,7 +45,6 @@
         const email = $user.email;
 
         const updatedLikes = recipeToDislike.likes.filter(like => like !== email);
-        console.log("updated like list:", updatedLikes);
         recipeToDislike.likes = updatedLikes;
 
         const dislikedRecipeToJSON = JSON.stringify({ email: email });

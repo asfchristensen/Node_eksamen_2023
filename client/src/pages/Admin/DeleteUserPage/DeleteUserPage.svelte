@@ -6,6 +6,7 @@
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import DeleteButton from "../../../components/Templates/Buttons/DeleteButton.svelte";
+    import toastr from "toastr";
 
     onMount(async () => {
         await handleGetAllUsers();
@@ -14,8 +15,13 @@
     async function handleGetAllUsers() {
         const url = $BASE_URL + "/api/admin/users";
         const result = await get(url);
-        allUsers.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            allUsers.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all users");
+        }
     }
 </script>
 

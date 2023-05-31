@@ -21,8 +21,13 @@
     async function handleGetAllFeedback() {
         const url = $BASE_URL + "/api/admin/feedback";
         const result = await get(url);
-        feedbackStore.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            feedbackStore.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all the feedback");
+        } 
     }
 
     async function handleCreateAnswer (feedbackToAnswer) {

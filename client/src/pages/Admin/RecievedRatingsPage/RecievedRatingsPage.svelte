@@ -19,8 +19,13 @@
     async function handleGetAllNotPublicRatings() {
         const url = $BASE_URL + "/api/admin/ratings/not-public";
         const result = await get(url);
-        notPublicRatings.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            notPublicRatings.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all non-public ratings");
+        }
     }
 
     async function handleCreatePublicRating() {

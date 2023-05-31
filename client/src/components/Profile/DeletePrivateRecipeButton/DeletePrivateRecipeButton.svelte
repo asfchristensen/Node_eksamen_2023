@@ -11,7 +11,6 @@
         const recipeToJSON = JSON.stringify(recipe); 
 
         const response = await patch(url, recipeToJSON);
-        console.log("result delete:", response);
 
         if (response.ok) {
             toastr.success("Recipe deleted");

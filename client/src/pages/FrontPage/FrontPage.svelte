@@ -9,6 +9,7 @@
     import Carousel from "svelte-carousel";
     import DeleteButton from "../../components/Templates/Buttons/DeleteButton.svelte";
     import NavigateToButton from "../../components/Templates/Buttons/NavigateToButton.svelte";
+    import toastr from "toastr";
 
     onMount(async () => {
         await handleGetAllPublicRatings();
@@ -17,8 +18,13 @@
     async function handleGetAllPublicRatings() {
         const url = $BASE_URL + "/api/all/ratings/public";
         const result = await get(url);
-        publicRatings.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            publicRatings.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all public ratings");
+        }
     }
 </script>
 

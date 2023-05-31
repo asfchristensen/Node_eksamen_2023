@@ -28,15 +28,18 @@
         const url = $BASE_URL + "/api/both/events/public";
         const result = await get(url);
 
-        const todaysDate = new Date();
-        const upComingEvents = result.data.filter(event => {
-            const eventDate = new Date(event.date);
-            return eventDate > todaysDate;
-        });
+        if (result.status === 200) {
+            const todaysDate = new Date();
+            const upComingEvents = result.data.filter(event => {
+                const eventDate = new Date(event.date);
+                return eventDate > todaysDate;
+            });
 
-        publicEvents.set(upComingEvents);
-        console.log(upComingEvents);
-        return upComingEvents;
+            publicEvents.set(upComingEvents);
+            return upComingEvents;
+        } else {
+            toastr.error("Failed to get all public events");
+        }
     }
 
     async function handleCreateEvent() {

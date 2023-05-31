@@ -24,7 +24,6 @@
             if (res.status === 200) {
                 const updateRecipes = $recipes.map((recipeInStore) => {
                     if (recipeInStore.procedure === recipe.procedure) {
-                        console.log("Recipe changed to true", recipe);
                         return recipe;
                     }
                     return recipeInStore;

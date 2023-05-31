@@ -3,6 +3,7 @@
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { get } from "../../../api/api.js";
     import { profileInfo } from "../../../stores/userGlobals.js";
+    import toastr from "toastr";
 
     onMount(async () => {
         await handleGetUser();
@@ -11,8 +12,13 @@
     async function handleGetUser() {
         const url = $BASE_URL + "/api/user/users/email";
         const result = await get(url);
-        profileInfo.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            profileInfo.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get user");
+        }
     }
 </script>
 

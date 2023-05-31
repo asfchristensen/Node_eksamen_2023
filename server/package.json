@@ -6,8 +6,8 @@
   "main": "app.js",
   "scripts": {
     "reset-db": "node ./database/createDatabase.js delete_mode",
-    "dev": "nodemon app.js ENV=DEV PORT=3000",
-    "prod": "node app.js ENV=PROD PORT=80",
+    "dev": "PORT=3000 nodemon app.js",
+    "prod": "PORT=80 node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

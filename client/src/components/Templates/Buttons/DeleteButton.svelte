@@ -9,14 +9,11 @@
     export let objectName;
 
     async function handleDelete(objectToDelete) {
-        console.log(objectToDelete);
         objectToDelete.isDeleted = true;
         const url = $BASE_URL + endpoint;
         const objectToJSON = JSON.stringify(objectToDelete);
-        console.log("ToJSON: ", objectToJSON);
 
         const response = await remove(url, objectToJSON);
-        console.log(response);
 
         if (response.ok) {
             toastr.success(`${objectName} deleted`);

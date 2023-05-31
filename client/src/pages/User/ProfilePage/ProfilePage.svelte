@@ -31,16 +31,25 @@
     async function handleGetAllRecipes() {
         const url = $BASE_URL + "/api/user/recipes";
         const result = await get(url);
-        console.log("From get all recipes:", result);
-        recipes.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            recipes.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all recipes");
+        } 
     }
 
     async function handleGetAllAnsweredFeedback() {
         const url = $BASE_URL + "/api/user/feedback/email";
         const result = await get(url);
-        answeredFeedback.set(result.data);
-        return result;
+
+        if (result.status === 200) {
+            answeredFeedback.set(result.data);
+            return result;
+        } else {
+            toastr.error("Failed to get all feedback answers");
+        }
     }
 
     async function handleCreateRecipe() {
@@ -53,7 +62,6 @@
             ingredients: ingredients, 
             procedure: procedure 
         });
-        console.log("object to send: ", recipeToJSON);
         const response = await patch(url, recipeToJSON);
     
         if (response.ok) { 

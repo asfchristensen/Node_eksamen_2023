@@ -23,7 +23,6 @@
         const url = $BASE_URL + "/api/user/users/email";
         const usernameToUpdate = { username: username };
         const usernameToJSON = JSON.stringify(usernameToUpdate);
-        console.log("username data: ", usernameToJSON);
 
         const response = await patch(url, usernameToJSON);
 

@@ -34,7 +34,6 @@
         
         email = "";
         password = "";
-        console.log($user)
     }
 
     function handleNavigateToSignup() {

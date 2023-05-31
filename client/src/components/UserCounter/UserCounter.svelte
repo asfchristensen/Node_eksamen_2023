@@ -3,6 +3,7 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { get } from "../../api/api.js";
     import { allUsers } from "../../stores/adminGlobals.js";
+    import toastr from "toastr";
 
     onMount( async () => {
         await handleGetAllUsers();
@@ -11,9 +12,13 @@
     async function handleGetAllUsers() {
         const url = $BASE_URL + "/api/admin/users";
         const result = await get(url);
-        console.log("Result: ", result.data);
-        allUsers.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            allUsers.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all users");
+        }
     }
 </script>
 

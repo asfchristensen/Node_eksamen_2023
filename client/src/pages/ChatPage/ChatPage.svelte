@@ -18,8 +18,13 @@
     async function handleGetAllMessages() {
         const url = $BASE_URL + "/api/both/messages";
         const result = await get(url);
-        userMessages.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            userMessages.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all messages");
+        }
     }
 
     onDestroy( () => {

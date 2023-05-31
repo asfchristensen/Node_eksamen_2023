@@ -5,7 +5,7 @@
     import { get } from "../../api/api.js";
     import toastr from "toastr";
     
-    async function handleLogout(){
+    async function handleLogout() {
         const url = $BASE_URL + "/api/all/auth/logout";
         const result = await get(url);
 

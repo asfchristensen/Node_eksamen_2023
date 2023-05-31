@@ -19,9 +19,13 @@
     async function handleGetAllNotPublicEvents(){
         const url = $BASE_URL + "/api/admin/events/not-public";
         const result = await get(url);
-        console.log(result.data);
-        eventsToPublic.set(result.data);
-        return result.data;
+
+        if (result.status === 200) {
+            eventsToPublic.set(result.data);
+            return result.data;
+        } else {
+            toastr.error("Failed to get all non-public events");
+        }  
     }
   
     async function handleCreatePublicEvents() {
