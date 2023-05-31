@@ -4,9 +4,10 @@ const router = Router();
 import db from "../database/connectionAtlas.js";
 
 import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
 
 router.get("/api/admin/users", async (req, res) => {
-    const allUsers = await db.collection("users").find().toArray();
+    const allUsers = await db.collection("users").find({ role_id: 2 }).toArray();
 
     if (allUsers.length === 0) {
         return res.status(400).send({ message: "error - no users found", status: 400 });
@@ -63,7 +64,7 @@ router.patch("/api/user/users/email", async (req, res) => {
     return res.status(400).send({ message: "error - no user updated", status: 400 }); 
 });
 
-router.delete("/api/both/users/email", async (req, res) => {
+router.delete("/api/user/users/email", async (req, res) => {
     const userToDelete = req.body;
     const userEmail = req.session.user.email;
 
@@ -85,6 +86,17 @@ router.delete("/api/both/users/email", async (req, res) => {
 
     } else {
         return res.status(400).send({ message: "error - no user deleted", status: 400 });
+    }
+});
+
+router.delete("/api/admin/users/:id", async (req, res) => {
+    const { id } = req.params; 
+
+    if (!id) {
+        return res.status(400).send({ message: "error - no user deleted", status: 400 });
+    } else {
+        const userToDelete = await db.collection("users").deleteOne({ _id: new ObjectId(id) });
+        return res.status(200).send({ data: id, message: "success - user deleted", status: 200 });
     }
 });
 

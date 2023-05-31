@@ -79,7 +79,7 @@
     }
 
     async function handleDeleteProfile() {
-        const url = $BASE_URL + "/api/both/users/email";
+        const url = $BASE_URL + "/api/user/users/email";
         const profileToDelete = { 
             email: email, 
             deletePassword: deletePassword, 

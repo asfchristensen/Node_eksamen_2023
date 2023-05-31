@@ -20,16 +20,15 @@
     import BackToTop from "./components/Templates/Buttons/BackToTopButton.svelte";
     import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage.svelte";
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
-    import toastr from "toastr";
     import AllLikedRecipesPage from "./pages/User/AllLikedRecipesPage/AllLikedRecipesPage.svelte";
+    import DeleteUserPage from "./pages/Admin/DeleteUserPage/DeleteUserPage.svelte";
+    import toastr from "toastr";
     import 'toastr/build/toastr.css';
-    
 
     toastr.options = {
         "positionClass": "toast-middle-top",
         "timeOut": "1200"
     }
-
 </script>
 
 <Router>
@@ -56,6 +55,10 @@
 
         <PrivateRoute path="/rating" role={1}>
             <RatingsPage/>
+        </PrivateRoute>
+
+        <PrivateRoute path="/delete-users" role={1}>
+            <DeleteUserPage/>
         </PrivateRoute>
 
         <!-- for user -->

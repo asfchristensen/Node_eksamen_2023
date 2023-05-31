@@ -47,6 +47,9 @@
             <div>
                 <Link to="/admin-feedback">RECIEVED FEEDBACK</Link>
             </div>
+            <div>
+                <Link to="/delete-users">USER OVERVIEW</Link>
+            </div>
         </nav>
     </aside>
 {:else}
