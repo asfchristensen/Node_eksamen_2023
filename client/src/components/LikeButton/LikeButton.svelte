@@ -75,6 +75,6 @@
 
 <style>
     .liked {
-        background-color: green;
+        background-color: rgb(71, 198, 170);
     }
 </style>

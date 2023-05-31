@@ -35,6 +35,11 @@
                 <img src="{publicRecipe.picURL}" alt="imageOfFood"/>
                 <p><strong>Author: </strong>{publicRecipe.author}</p>
                 <p><strong>Category: </strong>{publicRecipe.category}</p>
+                {#if publicRecipe.likes === undefined}
+                    <p></p>
+                {:else}
+                    <p><strong>Likes: </strong>{publicRecipe.likes.length}</p>
+                {/if}
                 {#if $user.role === 2}
                     <footer>
                         <div class="buttons">
