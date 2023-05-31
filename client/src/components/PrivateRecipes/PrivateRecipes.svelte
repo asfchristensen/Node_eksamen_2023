@@ -1,10 +1,10 @@
 <script>
-    import { Link } from "svelte-navigator";
     import { recipes } from "../../stores/userGlobals.js";
     import ModalRecipe from "../ModalRecipe/ModalRecipe.svelte";
     import UpdateRecipe from "../UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../RecipeToPublicButton/RecipeToPublicButton.svelte";
     import DeletePrivateRecipeButton from "../DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
+    import NavigateToButton from "../Templates/Buttons/NavigateToButton.svelte";
 
     export let onGetAllRecipes;
 
@@ -49,7 +49,7 @@
     </div>
 {/if}
 
-<Link to="/my-recipes" role="button">See all your recipes</Link>
+<NavigateToButton path="/my-recipes" buttonTitle="See all your recipes"/>
 
 <style>
     .recipe-article { display: inline-block; }

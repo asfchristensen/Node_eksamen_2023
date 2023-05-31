@@ -1,9 +1,10 @@
 <script>
-    import { Link } from "svelte-navigator";
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { user } from "../../stores/userGlobals.js";
     import LikeButton from "../LikeButton/LikeButton.svelte";
     import ModalRecipe from "../ModalRecipe/ModalRecipe.svelte";
+    import NavigateToButton from "../Templates/Buttons/NavigateToButton.svelte";
+
 
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
 
@@ -37,7 +38,7 @@
     {/each}
 </div>
 
-<Link to="/my-likes" role="button">See all your liked recipes</Link>
+<NavigateToButton path="/my-likes" buttonTitle="See all your liked recipes"/>
 
 <style>
     .recipe-article { display: inline-block; }

@@ -2,13 +2,13 @@
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { recipes } from "../../../stores/userGlobals.js";
     import { get } from "../../../api/api.js";
-    import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import DeleteButton from "../../../components/DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
     import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
     import UpdateRecipe from "../../../components/UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../../../components/RecipeToPublicButton/RecipeToPublicButton.svelte";
+    import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
 
     async function handleGetAllRecipes() {
         const url = $BASE_URL + "/api/user/recipes";
@@ -58,7 +58,7 @@
     </div>
     <div class="col-right">
         <UserInfo/>
-        <GoBackButton path="/profile"/>
+        <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
     </div>
 </div>
 

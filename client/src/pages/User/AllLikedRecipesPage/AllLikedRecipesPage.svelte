@@ -3,9 +3,9 @@
     import { publicRecipes } from "../../../stores/publicRecipes.js";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import ProfileInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
-    import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
     import LikeButton from "../../../components/LikeButton/LikeButton.svelte";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
+    import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
 
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
 </script>
@@ -39,7 +39,8 @@
     </div>
     <div class="col-right">
         <ProfileInfo/>
-        <GoBackButton path="/profile"/>
+        <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
+
     </div>
 </div>
 
