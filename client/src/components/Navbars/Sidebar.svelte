@@ -1,6 +1,6 @@
 <script>
     import { Link } from "svelte-navigator";
-    import { user } from "../../stores/userGlobals.js";
+    import { user } from "../../stores/userGlobals";
     
 </script>
 
@@ -35,9 +35,6 @@
                 <Link to="/newsfeed">NEWSFEED</Link>
             </div>
             <div>
-                <Link to="/rating">RATINGS</Link>
-            </div>
-            <div>
                 <Link to="/approve-events">APPROVE EVENTS</Link>
             </div>
             <div>
@@ -45,6 +42,9 @@
             </div>
             <div>
                 <Link to="/chat">LET'S TACO 'BOUT IT</Link>
+            </div>
+            <div>
+                <Link to="/rating">RATINGS</Link>
             </div>
             <div>
                 <Link to="/admin-feedback">RECIEVED FEEDBACK</Link>
