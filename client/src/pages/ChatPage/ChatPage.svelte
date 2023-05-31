@@ -106,7 +106,7 @@
                 {/each}
             </div>
             <div class="input-container">
-              <input type="text" bind:value={message} placeholder="Type your message..." />
+              <input type="text" bind:value={message} placeholder="Type your message..."/>
               <button on:click={handleSendMessage}>Send message</button>
             </div>
         </div>
@@ -141,51 +141,55 @@
     margin-bottom: 1em;
   }
 
-  #content-placement-user, #content-placement-other {
-      display: block;
-      text-align: left;
+  #content-placement-user {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  #content-placement-other {
+    display: block;
+    text-align: left;
   }
 
   .content {
-      padding: 1em;
-      width: 70%;
+    padding: 0.8em 0.8em 0.1em 0.8em;
+    width: 70%;
   }
 
   #user-sender {
-      display: block;
-      font-weight: bold;
-      text-align: right;
+    display: block;
+    font-weight: bold;
+    text-align: right;
   }
 
   #other-sender {
-      display: block;
-      font-weight: bold;
-      text-align: left;
+    display: block;
+    font-weight: bold;
+    text-align: left;
   }
 
   .user-message {
-      display: flex;
-      justify-content: right;
-      background-color: #c8e6c9;
-      width: 50%;
-      margin-bottom: 0.5em;
-      border-radius: 1em;
-      margin-left: auto;
+    display: flex;
+    justify-content: right;
+    background-color: #c8e6c9;
+    width: 50%;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
+    margin-left: auto;
   }
 
   .other-message {
-      background-color: #e0e0e0;
-      width: 50%;
-      margin-bottom: 0.5em;
-      border-radius: 1em;
+    background-color: #e0e0e0;
+    width: 50%;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
   }
 
   .input-container {
-      display: flex;
-      gap: 1em;
+    display: flex;
+    gap: 1em;
   }
 
-  /* Kan det ændres til at modtage andre ting også?*/
   .input-container input[type="text"] {
     flex-grow: 1;
     padding: 0.5em;

@@ -74,6 +74,9 @@
     </div>
     <div class="col-right">
         <div class="searchbar-wrapper">
+            <h6>What was the recipe again?..</h6> 
+            <h6>Search here by:</h6>
+            <hr>
             <SearchBar searchTitle="Title"/>
             <SearchBar searchTitle="Category"/>
             <SearchBar searchTitle="Author"/>
@@ -108,6 +111,8 @@
         margin-top: 2em;
         line-height: 5%;
     }
+
+    h6 { font-weight:400; }
 
     .searchbar-wrapper {
         display: flex;

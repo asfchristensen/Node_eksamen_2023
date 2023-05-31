@@ -49,6 +49,7 @@
     img {
         height: 2em;
         width: 2em;
+        margin-left: 2em;
     }
 
     p { margin-top: 0.5em; }

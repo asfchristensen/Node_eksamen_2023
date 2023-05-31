@@ -141,9 +141,7 @@
         margin-bottom: 2em;
     }
 
-    #join-btn {
-        width: 20%;
-    }
+    #join-btn { width: 20%; }
 
     .rating-wrapper { height: auto; }
 
