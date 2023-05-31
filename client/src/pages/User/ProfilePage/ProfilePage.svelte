@@ -5,10 +5,10 @@
     import { get, patch } from "../../../api/api.js";
     import { categories } from "../../../stores/hardcodedData.js";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import ProfileInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
-    import LikedRecipes from "../../../components/LikedRecipes/LikedRecipes.svelte";
+    import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
+    import LikedRecipes from "../../../components/Profile/LikedRecipes/LikedRecipes.svelte";
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
-    import PrivateRecipes from "../../../components/PrivateRecipes/PrivateRecipes.svelte";
+    import PrivateRecipes from "../../../components/Profile/PrivateRecipes/PrivateRecipes.svelte";
     import toastr from "toastr";
 
     let isFeedbackModalOpen = false;

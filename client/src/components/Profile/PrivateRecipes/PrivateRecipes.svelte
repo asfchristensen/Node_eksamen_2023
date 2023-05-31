@@ -1,10 +1,10 @@
 <script>
-    import { recipes } from "../../stores/userGlobals.js";
-    import ModalRecipe from "../ModalRecipe/ModalRecipe.svelte";
+    import { recipes } from "../../../stores/userGlobals.js";
+    import ModalRecipe from "../../ModalRecipe/ModalRecipe.svelte";
     import UpdateRecipe from "../UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../RecipeToPublicButton/RecipeToPublicButton.svelte";
     import DeletePrivateRecipeButton from "../DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
-    import NavigateToButton from "../Templates/Buttons/NavigateToButton.svelte";
+    import NavigateToButton from "../../Templates/Buttons/NavigateToButton.svelte";
 
     export let onGetAllRecipes;
 

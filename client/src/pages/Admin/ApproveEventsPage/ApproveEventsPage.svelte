@@ -19,6 +19,7 @@
     async function handleGetAllNotPublicEvents(){
         const url = $BASE_URL + "/api/admin/events/not-public";
         const result = await get(url);
+        console.log(result.data);
         eventsToPublic.set(result.data);
         return result.data;
     }

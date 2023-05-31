@@ -1,8 +1,8 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { allUsers } from "../../stores/userGlobals.js";
     import { get } from "../../api/api.js";
+    import { allUsers } from "../../stores/adminGlobals.js";
 
     onMount( async () => {
         await handleGetAllUsers();

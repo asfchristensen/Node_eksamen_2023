@@ -77,7 +77,7 @@
                                     <DeleteButton 
                                         objectToDelete={rating}
                                         onHandleUpdate={handleGetAllPublicRatings}
-                                        endpoint={"/api/admin/ratings"}
+                                        endpoint={`/api/admin/ratings/${rating._id}`}
                                         objectName={"Rating"}
                                     /> 
                                 </div>

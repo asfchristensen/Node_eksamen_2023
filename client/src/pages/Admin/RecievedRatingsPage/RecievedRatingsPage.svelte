@@ -70,10 +70,10 @@
                             <td>{rating.rating}</td>
                             <td><button on:click={handleModal.bind(null, rating)}>Read comment</button></td>
                             <td><DeleteButton 
-                                    objectToDelete={rating} 
-                                    onHandleUpdate={handleGetAllNotPublicRatings} 
-                                    endpoint="/api/admin/ratings/{rating._id}" 
-                                    objectName="Rating"
+                                objectToDelete={rating} 
+                                onHandleUpdate={handleGetAllNotPublicRatings} 
+                                endpoint="/api/admin/ratings/{rating._id}" 
+                                objectName="Rating"
                                 />
                             </td>
                         </tr>

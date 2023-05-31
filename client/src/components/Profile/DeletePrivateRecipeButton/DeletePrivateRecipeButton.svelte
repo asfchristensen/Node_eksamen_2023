@@ -1,7 +1,7 @@
 <script>
-    import { BASE_URL } from "../../stores/urlDomain.js";
-    import { patch } from "../../api/api.js";
-    import { recipes } from "../../stores/userGlobals.js";
+    import { BASE_URL } from "../../../stores/urlDomain.js";
+    import { patch } from "../../../api/api.js";
+    import { recipes } from "../../../stores/userGlobals.js";
     import toastr from "toastr";
 
     export let recipeToDelete;

@@ -3,11 +3,11 @@
     import { recipes } from "../../../stores/userGlobals.js";
     import { get } from "../../../api/api.js";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import DeleteButton from "../../../components/DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
-    import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
+    import DeleteButton from "../../../components/Profile/DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
+    import UserInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
-    import UpdateRecipe from "../../../components/UpdateRecipe/UpdateRecipe.svelte";
-    import RecipeToPublicButton from "../../../components/RecipeToPublicButton/RecipeToPublicButton.svelte";
+    import UpdateRecipe from "../../../components/Profile/UpdateRecipe/UpdateRecipe.svelte";
+    import RecipeToPublicButton from "../../../components/Profile/RecipeToPublicButton/RecipeToPublicButton.svelte";
     import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
 
     async function handleGetAllRecipes() {

@@ -2,7 +2,7 @@
     import { user } from "../../../stores/userGlobals.js";
     import { publicRecipes } from "../../../stores/publicRecipes.js";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import ProfileInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
+    import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
     import LikeButton from "../../../components/LikeButton/LikeButton.svelte";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
     import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";

@@ -6,7 +6,7 @@
     import { navigate } from "svelte-navigator";
     import { Confirm } from "svelte-confirm";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
-    import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
+    import UserInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
     import toastr from "toastr";
 
     let username = "";
@@ -80,10 +80,14 @@
 
     async function handleDeleteProfile() {
         const url = $BASE_URL + "/api/both/users/email";
-        const profileToDelete = { email, deletePassword, confirmDeletePassword };
+        const profileToDelete = { 
+            email: email, 
+            deletePassword: deletePassword, 
+            confirmDeletePassword: confirmDeletePassword 
+        };
         const profileToJSON = JSON.stringify(profileToDelete);
 
-        const response = await remove(url,profileToJSON);
+        const response = await remove(url, profileToJSON);
 
         if (response.ok) {
             toastr.success("Profile deleted");
@@ -154,14 +158,20 @@
             <summary>Delete profile</summary>
             <div class="summary-content"> 
                 <Confirm
-                        confirmTitle="Delete"
-                        cancelTitle="Cancel"
-                        let:confirm="{confirmThis}"
+                    confirmTitle="Delete"
+                    cancelTitle="Cancel"
+                    let:confirm="{confirmThis}"
                 >
                     <input type="email" placeholder="Your email" bind:value={email} required>
                     <input type="password" placeholder="Your password" bind:value={deletePassword} required>
                     <input type="password" placeholder="Your password" bind:value={confirmDeletePassword}  on:input={handleCheckPasswords} aria-invalid={deleteMatch} required>
                     <button on:click={() => confirmThis(handleDeleteProfile)}>Delete profile</button>
+                    <span slot="title">
+                        Delete your profile?
+                    </span>
+                    <span slot="description">
+                        You won't be able to revert this. Are you sure?
+                    </span>
                 </Confirm>  
             </div>
         </details>

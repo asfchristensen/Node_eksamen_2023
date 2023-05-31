@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { publicEvents } from "../../stores/events.js";
+  import Confirm from "svelte-confirm/src/Confirm.svelte";
 
   export let onGetAllPublicEvents;
 
@@ -118,13 +119,13 @@
 
 <div id="map"></div>
 
-<button aria-busy={placeUserOK} on:click={toggleShareLocation}>
+<button id="shareLocation-btn" aria-busy={placeUserOK} on:click={toggleShareLocation}>
   {#if shareLocation && placeUserOK}
     <span>Loading...</span> 
   {:else if shareLocation} 
     <span>Location shared</span>
   {:else}
-    <span>Share location</span>
+    <span>Share your location</span>
   {/if}
 </button>
 
@@ -133,4 +134,6 @@
     height: 25em;
     margin-bottom: 1em;
   }
+
+  #shareLocation-btn { margin-bottom: 8em; }
 </style>

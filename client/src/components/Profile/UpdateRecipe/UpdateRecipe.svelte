@@ -1,6 +1,6 @@
 <script>
-    import { patch } from "../../api/api.js";
-    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { patch } from "../../../api/api.js";
+    import { BASE_URL } from "../../../stores/urlDomain.js";
     import toastr from "toastr";
 
     export let recipeToUpdate;

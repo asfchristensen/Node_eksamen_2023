@@ -52,7 +52,6 @@ router.patch("/api/admin/ratings", async (req, res) => {
     
     if (ratingToPublic.length > 1) {
         const ratingIds = ratingToPublic.map(rating => new ObjectId(rating._id));
-
         await db.collection("ratings").updateMany({ _id: { $in: ratingIds }}, { $set: { isPublic: true }});
         return res.status(200).send({ data: ratingToPublic, message: "success - many ratings made public", status: 200 });
     } else {
@@ -63,9 +62,10 @@ router.patch("/api/admin/ratings", async (req, res) => {
 
 router.delete("/api/admin/ratings/:id", async (req, res) => {
     const { id } = req.params;
+    console.log(id);
     
     if (!id) {
-         return res.status(400).send({ message: "error - failed to delete rating", status: 400 })
+        return res.status(400).send({ message: "error - failed to delete rating", status: 400 })
     } else {
         await db.collection("ratings").deleteOne({ _id: new ObjectId(id) });
         return res.status(200).send({ message: "success - rating deleted", status: 200 }); 

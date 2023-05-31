@@ -5,7 +5,7 @@
     import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
 
-    let ratingNumber = 0;
+    let ratingNumber = 1;
     let comment = "";
     
     let subject = "";
@@ -28,7 +28,7 @@
             toastr.error("Failed to upload rating");
         }
 
-        ratingNumber = 0;
+        ratingNumber = 1;
         comment = "";
     }
 

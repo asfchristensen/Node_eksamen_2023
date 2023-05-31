@@ -26,25 +26,26 @@ router.get("/api/admin/events/not-public", async (req, res) => {
 });
 
 router.post("/api/user/events", async (req, res) => {
-    const event = req.body; 
+    const { ...event } = req.body; 
     
-    if (!event) {
+    if (!{ ...event }) {
         return res.status(400).send({ message: "error - invalid event", status: 400 })
     } else {
-        await db.collection("events").insertOne(event);
-        return res.status(200).send({ data: event, message: "success - event created", status: 200 });
+
+        const eventToSave = { 
+            isPublic: false, 
+            ...event, 
+            isDeleted: false 
+        };
+
+        await db.collection("events").insertOne(eventToSave);
+        return res.status(200).send({ data: eventToSave, message: "success - event created", status: 200 });
     }
 });
 
 router.patch("/api/admin/events", async (req, res) => {
-    const { ...event } = req.body;
+    const eventToPublic = req.body;
   
-    const eventToPublic = { 
-        isPublic: false, 
-        ...event, 
-        isDeleted: false 
-    };
-
     if (!eventToPublic) {
         return res.status(400).send({ message: "error - failed to make event public", status: 400 });
     }

@@ -1,10 +1,9 @@
 <script>
-    import { publicRecipes } from "../../stores/publicRecipes.js";
-    import { user } from "../../stores/userGlobals.js";
-    import LikeButton from "../LikeButton/LikeButton.svelte";
-    import ModalRecipe from "../ModalRecipe/ModalRecipe.svelte";
-    import NavigateToButton from "../Templates/Buttons/NavigateToButton.svelte";
-
+    import { publicRecipes } from "../../../stores/publicRecipes.js";
+    import { user } from "../../../stores/userGlobals.js";
+    import LikeButton from "../../LikeButton/LikeButton.svelte";
+    import ModalRecipe from "../../ModalRecipe/ModalRecipe.svelte";
+    import NavigateToButton from "../../Templates/Buttons/NavigateToButton.svelte";
 
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
 

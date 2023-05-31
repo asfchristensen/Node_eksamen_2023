@@ -9,6 +9,7 @@
     export let objectName;
 
     async function handleDelete(objectToDelete) {
+        console.log(objectToDelete);
         objectToDelete.isDeleted = true;
         const url = $BASE_URL + endpoint;
         const objectToJSON = JSON.stringify(objectToDelete);
@@ -27,3 +28,5 @@
 </script>
 
 <button on:click={handleDelete.bind(null, objectToDelete)} class="delete-button">Delete</button>
+    
+
