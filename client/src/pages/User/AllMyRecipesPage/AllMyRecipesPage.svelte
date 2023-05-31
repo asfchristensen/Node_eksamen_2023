@@ -8,7 +8,6 @@
     import UpdateRecipe from "../../../components/Profile/UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../../../components/Profile/RecipeToPublicButton/RecipeToPublicButton.svelte";
     import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
-    import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
 
     async function handleGetAllRecipes() {
         const url = $BASE_URL + "/api/user/recipes";
@@ -57,7 +56,6 @@
         </div>
     </div>
     <div class="col-right">
-        <ProfileInfo/>
         <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
     </div>
 </div>

@@ -17,7 +17,7 @@
 </script>
 
 {#if $profileInfo}
-    <div>
+    <div class="profile-wrapper">
         <img src={$profileInfo.profilePicture} alt="profilePicture">   
         <h6>{$profileInfo.username}</h6>
         <p>Member since: {$profileInfo.memberSince}</p>
@@ -28,6 +28,10 @@
 
 <style>
     h6 { margin-top: 1em; }
+
+    .profile-wrapper img {
+        width: 60%;
+    }
 </style>
 
 
