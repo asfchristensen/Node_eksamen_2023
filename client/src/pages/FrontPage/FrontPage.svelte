@@ -5,10 +5,10 @@
     import { publicRatings } from "../../stores/ratings.js";
     import { frontpagePics } from "../../stores/hardcodedData.js";
     import { get } from "../../api/api.js";
-    import { Link } from "svelte-navigator";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import Carousel from "svelte-carousel";
     import DeleteButton from "../../components/Templates/Buttons/DeleteButton.svelte";
+    import NavigateToButton from "../../components/Templates/Buttons/NavigateToButton.svelte";
 
     onMount(async () => {
         await handleGetAllPublicRatings();
@@ -55,8 +55,13 @@
         </div>
 
         <div class="join-button">
-            <Link role="button" to="/signup">Join now</Link>
-        </div> 
+            <div id="join-btn">
+                <NavigateToButton 
+                    path="/signup"
+                    buttonTitle="Join now"
+                />
+            </div>
+        </div>
 
         <div class="rating-wrapper">
             <h4>What others think of the universe</h4>
@@ -101,7 +106,7 @@
         flex-direction: column;
     }
 
-    .carousel-wrapper { height: 35%; }
+    .carousel-wrapper { height: 30%; }
 
     .about-wrapper { display: flex; }
 
@@ -130,8 +135,14 @@
     }
 
     .join-button {
-        margin-top: 4em;
-        margin-bottom: 4em;
+        display: flex;
+        justify-content: center;
+        margin-top: 3em;
+        margin-bottom: 2em;
+    }
+
+    #join-btn {
+        width: 20%;
     }
 
     .rating-wrapper { height: auto; }

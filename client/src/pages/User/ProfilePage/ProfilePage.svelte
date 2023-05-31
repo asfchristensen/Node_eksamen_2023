@@ -88,7 +88,6 @@
         <Sidebar/>
     </div>
     <div class="col-middle">
-        <h2>{$user.username}'s profile</h2>
         <PrivateRecipes onGetAllRecipes={handleGetAllRecipes}/>
         <LikedRecipes/>
     </div>
