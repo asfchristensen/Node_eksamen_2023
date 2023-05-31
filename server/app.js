@@ -153,6 +153,9 @@ app.use(ratingRouter);
 import feedbackRouter from "./routes/feedbackRouter.js";
 app.use(feedbackRouter);
 
+import weeklyPlanRouter from "./routes/weeklyPlanRouter.js";
+app.use(weeklyPlanRouter);
+
 
 // const isDev = process.env.ENV === "DEV";
 // const PORT = isDev ? process.env.PORT : 80;

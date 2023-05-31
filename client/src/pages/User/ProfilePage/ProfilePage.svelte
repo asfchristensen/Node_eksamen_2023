@@ -10,6 +10,7 @@
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
     import PrivateRecipes from "../../../components/Profile/PrivateRecipes/PrivateRecipes.svelte";
     import toastr from "toastr";
+    import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
 
     let isFeedbackModalOpen = false;
     let isCreateModalOpen = false;
@@ -93,33 +94,18 @@
     </div>
     <div class="col-right">
         <ProfileInfo/>
+
+        <NavigateToButton
+            path="/weekly-plan"
+            buttonTitle="Weekly food plan"
+        />
+
         <button on:click={handleCreateModal}>Create recipe</button>
         <a href="#inbox" data-tooltip="Read feedback answers" on:click={handleFeedbackModal}>
             <img src="../icons/inbox.png" alt="inbox">
         </a>
     </div>
 </div>
-
-<Modal 
-    isOpen={isFeedbackModalOpen}
-    path="/profile"
-    header="Feedback answers"
-    onModal={handleFeedbackModal}
->
-    {#if $answeredFeedback === undefined}
-        <summary>Your feedback hasn't been answered yet</summary>
-    {:else}
-        {#each $answeredFeedback as feedback }
-            <details>
-                <summary><strong>Subject: </strong>{feedback.subject}</summary>
-                {#each feedback.answer as answer}
-                <hr>
-                    <p><strong>Answer: </strong>{answer}</p>
-                {/each}
-            </details>
-        {/each}
-    {/if}
-</Modal>
 
 <Modal 
     isOpen={isCreateModalOpen}
@@ -147,6 +133,27 @@
             <button type="submit">Upload recipe</button>
         </form>
     </div>
+</Modal>
+
+<Modal 
+    isOpen={isFeedbackModalOpen}
+    path="/profile"
+    header="Feedback answers"
+    onModal={handleFeedbackModal}
+>
+    {#if $answeredFeedback === undefined}
+        <summary>Your feedback hasn't been answered yet</summary>
+    {:else}
+        {#each $answeredFeedback as feedback }
+            <details>
+                <summary><strong>Subject: </strong>{feedback.subject}</summary>
+                {#each feedback.answer as answer}
+                <hr>
+                    <p><strong>Answer: </strong>{answer}</p>
+                {/each}
+            </details>
+        {/each}
+    {/if}
 </Modal>
 
 <style>

@@ -22,6 +22,7 @@
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
     import AllLikedRecipesPage from "./pages/User/AllLikedRecipesPage/AllLikedRecipesPage.svelte";
     import DeleteUserPage from "./pages/Admin/DeleteUserPage/DeleteUserPage.svelte";
+    import WeeklyFoodPlanPage from "./pages/User/WeeklyFoodPlanPage/WeeklyFoodPlanPage.svelte";
     import toastr from "toastr";
     import 'toastr/build/toastr.css';
 
@@ -81,6 +82,10 @@
         <PrivateRoute path="/my-likes" role={2}>
             <AllLikedRecipesPage/>
         </PrivateRoute>
+
+        <PrivateRoute path="/weekly-plan" role={2}>
+            <WeeklyFoodPlanPage/>
+        </PrivateRoute> 
 
         <!-- for all -->
         <PrivateRoute path="/chat">
