@@ -20,7 +20,7 @@
         const url = $BASE_URL + "/api/both/publicRecipes";
         const result = await get(url);
 
-        if (result.status === 200) {
+        if (result.status === 200 || result.data === undefined) {
             result.data.reverse();
             publicRecipes.set(result.data);
         } else {

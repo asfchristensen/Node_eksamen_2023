@@ -22,7 +22,7 @@
         const url = $BASE_URL + "/api/admin/feedback";
         const result = await get(url);
 
-        if (result.status === 200) {
+        if (result.status === 200 || result.data === undefined) {
             feedbackStore.set(result.data);
             return result.data;
         } else {

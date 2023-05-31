@@ -14,7 +14,7 @@
         const url = $BASE_URL + "/api/user/recipes";
         const result = await get(url);
 
-        if (result.status === 200) {
+        if (result.status === 200 || result.data === undefined) {
             recipes.set(result.data);
             return result.data;
         } else {

@@ -44,7 +44,7 @@
         const url = $BASE_URL + "/api/user/feedback/email";
         const result = await get(url);
 
-        if (result.status === 200) {
+        if (result.status === 200 || result.data === undefined) {
             answeredFeedback.set(result.data);
             return result;
         } else {

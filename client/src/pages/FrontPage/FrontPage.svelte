@@ -19,7 +19,7 @@
         const url = $BASE_URL + "/api/all/ratings/public";
         const result = await get(url);
 
-        if (result.status === 200) {
+        if (result.status === 200 || result.data === undefined) {
             publicRatings.set(result.data);
             return result.data;
         } else {

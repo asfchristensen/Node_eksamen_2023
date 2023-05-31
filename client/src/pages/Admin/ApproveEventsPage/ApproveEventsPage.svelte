@@ -20,7 +20,7 @@
         const url = $BASE_URL + "/api/admin/events/not-public";
         const result = await get(url);
 
-        if (result.status === 200) {
+        if (result.status === 200 || result.data === undefined) {
             eventsToPublic.set(result.data);
             return result.data;
         } else {

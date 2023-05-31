@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import { publicEvents } from "../../stores/events.js";
-  import Confirm from "svelte-confirm/src/Confirm.svelte";
 
   export let onGetAllPublicEvents;
 
