@@ -22,7 +22,6 @@ router.get("/api/user/users/email", async (req, res) => {
         return res.status(400).send({ message: "error - no user with that email", status: 400 });
     } else {
         const user = await db.collection("users").findOne({ email: userEmail });
-
         const profileInfo = { profilePicture: user.profilePicture, memberSince: user.memberSince };
         return res.status(200).send({ data: profileInfo, status: 200 });
     }

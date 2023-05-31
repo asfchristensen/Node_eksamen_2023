@@ -1,4 +1,3 @@
-
 <script>
     import { Link } from "svelte-navigator";
 
@@ -6,23 +5,7 @@
     export let onModal;
     export let path;
     export let header;
-    
-
-
-    /**
-      
-      let isModalOpen = false; 
-      function handleModal() {
-            isModalOpen = !isModalOpen;
-        }
-      
-     
-    */
-
 </script>
-
-
-
 
 {#if isOpen}
     <dialog open>
@@ -37,6 +20,10 @@
 
 <style>
     header h4 { margin-bottom: 0.1em; }
+
+    article {
+        width: 40em;
+    }
 </style>
 
 

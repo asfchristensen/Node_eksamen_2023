@@ -8,8 +8,8 @@
     import UserCounter from "../../components/UserCounter/UserCounter.svelte";
     import DeleteButton from "../../components/Templates/Buttons/DeleteButton.svelte";
     import Modal from "../../components/Templates/Modal/Modal.svelte";
-    import toastr from "toastr";
     import Map from "../../components/Map/Map.svelte";
+    import toastr from "toastr";
    
     let isModalOpen = false; 
     let eventName = "";
@@ -27,24 +27,28 @@
     async function handleGetAllPublicEvents() {
         const url = $BASE_URL + "/api/both/events/public";
         const result = await get(url);
-
         publicEvents.set(result.data);
         console.log(result.data);
         return result.data;
     }
 
-    function handleModal() {
-        isModalOpen = !isModalOpen;
-    }
-
     async function handleCreateEvent() {
-        const formattedDate = new Date().toLocaleDateString("en-US")
+        const formattedDate = new Date().toLocaleDateString("en-US");
         const url = $BASE_URL + "/api/user/events";
-        const event = { isPublic: false, eventName, category, date: formattedDate, startTime, endTime, picURL, address, isDeleted: false };
+
+        const event = { 
+            eventName: eventName, 
+            category: category, 
+            date: formattedDate, 
+            startTime: startTime, 
+            endTime: endTime, 
+            picURL: picURL, 
+            address: address, 
+        };
+
         const eventToJSON = JSON.stringify(event);
 
         const result = await post(url, eventToJSON);
-        console.log("Result: ", result.data);
 
         if (result.status === 200) {
             toastr.success("Created event successfully");
@@ -62,7 +66,10 @@
 
         handleModal(); 
     }
-    
+
+    function handleModal() {
+        isModalOpen = !isModalOpen;
+    }
 </script>
 
 <div class="grid">

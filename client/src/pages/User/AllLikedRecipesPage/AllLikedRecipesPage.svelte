@@ -1,27 +1,13 @@
 <script>
-    import { onMount } from "svelte";
-    import { BASE_URL } from "../../../stores/urlDomain";
-    import { user, recipes } from "../../../stores/userGlobals";
+    import { user } from "../../../stores/userGlobals.js";
     import { publicRecipes } from "../../../stores/publicRecipes.js";
-    import { get } from "../../../api/api";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import ProfileInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
     import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
     import LikeButton from "../../../components/LikeButton/LikeButton.svelte";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
 
-    onMount(async () => {
-        await handleGetAllRecipes();
-    });
-
-    async function handleGetAllRecipes(){
-        const url = $BASE_URL + "/api/user/recipes";
-        const result = await get(url);
-        recipes.set(result.data);
-    }
-
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
-
 </script>
 
 <div class="grid">
@@ -43,18 +29,14 @@
                                 recipeToShow={liked}
                             ></ModalRecipe>
                         </div>
-                     
                         <div id="button">
                             <LikeButton recipeToLike={liked}/>
                         </div>
-                     
                     </div>
                 </article>
             {/each}
         </div>
     </div>
-
-
     <div class="col-right">
         <ProfileInfo/>
         <GoBackButton path="/profile"/>
@@ -62,11 +44,9 @@
 </div>
 
 <style>
-
     .recipes {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Creates three equal-width columns */
-        /* Adds a gap of 20px between grid items */
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 1em; 
     }
 
@@ -82,12 +62,9 @@
         justify-content: center;
     }
 
-
     #button {
         width: 35%;
         height: 10%;
         margin: 0.1em;
     }
-
-  
 </style>

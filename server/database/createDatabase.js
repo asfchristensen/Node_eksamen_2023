@@ -209,7 +209,6 @@ if (isDeleteMode) {
             role_id: 2,
             profilePicture: "../profilePictures/default.png",
             memberSince: 2023,
-            recipes: [] 
         },
         {
             username: "Stan",

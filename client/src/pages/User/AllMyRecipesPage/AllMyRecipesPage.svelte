@@ -1,23 +1,21 @@
 <script>
-    import { get } from "../../../api/api";
+    import { BASE_URL } from "../../../stores/urlDomain.js";
+    import { recipes } from "../../../stores/userGlobals.js";
+    import { get } from "../../../api/api.js";
     import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import DeleteButton from "../../../components/DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
     import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
-    import { BASE_URL } from "../../../stores/urlDomain";
-    import { recipes } from "../../../stores/userGlobals";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
     import UpdateRecipe from "../../../components/UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../../../components/RecipeToPublicButton/RecipeToPublicButton.svelte";
 
-
-    async function handleGetAllRecipes(){
+    async function handleGetAllRecipes() {
         const url = $BASE_URL + "/api/user/recipes";
         const result = await get(url);
-        console.log("From get all recipes:", result);
         recipes.set(result.data);
+        return result.data;
     }
-
 </script>
     
 <div class="grid">
@@ -41,7 +39,6 @@
                         {/if}
                         <div id="button">
                             <ModalRecipe 
-                              
                                 path="/my-recipes"
                                 recipeToShow={recipe}
                             >
@@ -62,16 +59,13 @@
     <div class="col-right">
         <UserInfo/>
         <GoBackButton path="/profile"/>
-
     </div>
 </div>
 
 <style>
-
     .recipes {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Creates three equal-width columns */
-        /* Adds a gap of 20px between grid items */
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 1em; 
     }
 

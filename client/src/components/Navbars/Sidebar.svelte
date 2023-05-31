@@ -1,5 +1,4 @@
 <script>
-    import "@picocss/pico";
     import { Link } from "svelte-navigator";
     import { user } from "../../stores/userGlobals.js";
     
@@ -53,9 +52,7 @@
         </nav>
     </aside>
 {:else}
-    <aside>
-
-    </aside>
+    <aside></aside>
 {/if}
 
 
@@ -72,5 +69,4 @@
         position: fixed;
         overflow: hidden;
     }
-
 </style>

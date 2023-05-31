@@ -17,12 +17,9 @@
     async function handleGetAllPublicRatings() {
         const url = $BASE_URL + "/api/all/ratings/public";
         const result = await get(url);
-        console.log(result.data);
         publicRatings.set(result.data);
         return result.data;
     }
-
-
 </script>
 
 <div class="grid">
@@ -32,8 +29,6 @@
         {/if}
     </div>
     <div class="col-middle">
-        
-
         <div class="carousel-wrapper">
             <Carousel autoplay autoplayDuration={2500} arrows={false} dots={false}>
                 {#each $frontpagePics as picture}
@@ -65,7 +60,6 @@
 
         <div class="rating-wrapper">
             <h4>What others think of the universe</h4>
-
             {#if $publicRatings !== undefined}
                 <Carousel particlesToShow={3} particlesToScroll={1}>
                     {#each $publicRatings as rating}
@@ -142,7 +136,7 @@
 
     .rating-wrapper { height: auto; }
 
-   #article-rating-wrapper {
+    #article-rating-wrapper {
         border: 0.1em solid black;
         box-shadow: none;
         width: 80%;

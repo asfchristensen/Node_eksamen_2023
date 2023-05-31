@@ -1,8 +1,9 @@
 <script>
-    import { patch } from "../../api/api";
-    import { publicRecipes } from "../../stores/publicRecipes";
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { user } from "../../stores/userGlobals";
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { patch } from "../../api/api.js";
+    import { user } from "../../stores/userGlobals.js";
+    import { publicRecipes } from "../../stores/publicRecipes.js";
+    import toastr from "toastr";
 
     export let recipeToComment;
     
@@ -10,7 +11,6 @@
     let commentInput= "";
 
     function handleToggleComments(recipeToComment) {
-        console.log("toggle", showComments[recipeToComment._id]);
         showComments[recipeToComment._id] = !showComments[recipeToComment._id];
     }
 
@@ -21,7 +21,10 @@
             recipeToComment.comments = [];
         }
 
-       const comment = { comment: commentInput };
+        const comment = { 
+            username: $user.username, 
+            comment: commentInput
+        };
 
        recipeToComment.comments.push(comment); 
 
@@ -30,37 +33,38 @@
     
         if (response.ok) { 
             const recipeComments = $publicRecipes.map((recipe) => {
-            if (recipe.procedure === recipeToComment.procedure) {
-                return recipeToComment;
-            }
-            return recipe;
+                if (recipe.procedure === recipeToComment.procedure) {
+                    return recipeToComment;
+                }
+                return recipe;
             });
+
             $publicRecipes = recipeComments;
         } else {
-            console.log("Failed create a comment");
+            toastr.error("Failed create a comment");
         }
 
         commentInput = "";
     }
 </script>
 
-
 <button on:click={handleToggleComments.bind(null, recipeToComment)}>Comment</button>
+
 <div>
     {#if recipeToComment.comments !== undefined && showComments[recipeToComment._id]}
         <div>
             {#each recipeToComment.comments as comment}                 
                 <div class="comment-wrapper">
-                    <span><strong>{comment.email}</strong></span>
+                    <span><strong>{comment.username}</strong></span>
                     <span>{comment.comment}</span>
                 </div>
             {/each}
-            <textarea placeholder="Write comment"cols="30" rows="1" bind:value={commentInput}></textarea>
+            <textarea placeholder="Write comment" cols="30" rows="1" bind:value={commentInput}></textarea>
             <button on:click={handleCreateComment.bind(null, recipeToComment)}>Add comment</button>
         </div>
     {:else if recipeToComment.comments === undefined && showComments[recipeToComment._id]}
         <div>
-            <textarea placeholder="Write comment"cols="30" rows="1" bind:value={commentInput}></textarea>
+            <textarea placeholder="Write comment" cols="30" rows="1" bind:value={commentInput}></textarea>
             <button on:click={handleCreateComment.bind(null, recipeToComment)}>Add comment</button>
         </div>
     {:else}

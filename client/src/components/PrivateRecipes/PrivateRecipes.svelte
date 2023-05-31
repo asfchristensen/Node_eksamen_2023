@@ -9,17 +9,12 @@
     export let onGetAllRecipes;
 
     let latestAdded;
-
-    $: {
-        latestAdded = $recipes ? [...$recipes].reverse().slice(0,2) : [];
-    }
-
+    $: { latestAdded = $recipes ? [...$recipes].reverse().slice(0,2) : []; }
 </script>
 
-
 <h2 id="header">Your recipes sneak-peak</h2>
-{#if $recipes === null || $recipes === undefined || $recipes.length === 0}
-    <h4>No recipes created yet...</h4>
+{#if $recipes === undefined}
+    <p id="p">No recipes created yet...</p>   
 {:else}
     <div class="grid">
         {#each latestAdded as recipe}
@@ -35,8 +30,7 @@
                         <button id="button" class="contrast" disabled>Is public</button>
                     {/if}
                     <div id="button">
-                        <ModalRecipe
-                              
+                        <ModalRecipe    
                             path="/profile"
                             recipeToShow={recipe}
                         >
@@ -45,24 +39,20 @@
                                 onGetAllRecipes={onGetAllRecipes}
                             />
                         </ModalRecipe>
-                   
                     </div>
                     <div id="button">
                         <DeletePrivateRecipeButton recipeToDelete={recipe}/>
-
                     </div>
                 </div>
             </article>
         {/each}
     </div>
 {/if}
+
 <Link to="/my-recipes" role="button">See all your recipes</Link>
 
-
 <style>
-    .recipe-article {
-        display: inline-block;
-    }
+    .recipe-article { display: inline-block; }
 
     .recipe-article img { 
         width: 25em;
@@ -82,8 +72,7 @@
         margin: 0.1em;
     }
 
-    #header {
-        margin-bottom: none;
-    }
-    
+    #header { margin-bottom: none; }
+
+    #p { color: rgb(108, 134, 143); }
 </style>

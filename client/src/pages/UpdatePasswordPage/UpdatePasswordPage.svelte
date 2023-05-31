@@ -1,13 +1,13 @@
 <script>
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { post } from "../../api/api";
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { post } from "../../api/api.js";
     import { navigate } from "svelte-navigator";
-    import toastr from "toastr";
     import LoadingButton from "../../components/Templates/Buttons/LoadingButton.svelte";
+    import toastr from "toastr";
 
     let activationCode = "";
-    let newPassword = "123";
-    let confirmPassword = "123";
+    let newPassword = "";
+    let confirmPassword = "";
     let passwordsMatch;
     let updateOK = false;
    
@@ -16,20 +16,26 @@
         passwordsMatch = newPassword !== confirmPassword;
     }
 
-    async function handleUpdatePassword (){
-        const url = $BASE_URL + "/api/auth/update-password"
-        const updatePasswordInfoToJSON = JSON.stringify({activationCode, newPassword, confirmPassword});
+    async function handleUpdatePassword () {
+        const url = $BASE_URL + "/api/all/auth/update-password";
+
+        const updatePasswordInfoToJSON = JSON.stringify({
+            activationCode: activationCode, 
+            newPassword: newPassword, 
+            confirmPassword: confirmPassword
+        });
+
         const result = await post(url, updatePasswordInfoToJSON);
       
         if (result.status === 200) {
-            toastr.success(result.message);
+            toastr.success("Password updated");
             updateOK = true;
             setTimeout(() => {
                 navigate("/login", { replace: true });
                 updateOK = false; 
-            }, 2500)
+            }, 2500);
         } else {
-            toastr.error(result.message)
+            toastr.error("Failed to update password");
         }
         
         activationCode = "";
@@ -40,7 +46,6 @@
 
 <div class="grid">
     <div class="col-left"></div>
-
     <div class="col-middle">
         <h2>Reset Password</h2>
         <form on:submit|preventDefault={handleUpdatePassword}>
@@ -50,11 +55,9 @@
             <LoadingButton action={updateOK} loadingTitle="Updating password..." title="Save new password"/>
         </form>
     </div>
-
     <div class="col-right"></div>
 </div>
 
 <style>
     form { margin: 10%; }
-    
 </style>

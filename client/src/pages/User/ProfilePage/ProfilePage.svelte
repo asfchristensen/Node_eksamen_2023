@@ -3,13 +3,13 @@
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { user, recipes, answeredFeedback } from "../../../stores/userGlobals.js";
     import { get, patch } from "../../../api/api.js";
+    import { categories } from "../../../stores/hardcodedData.js";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import ProfileInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
     import LikedRecipes from "../../../components/LikedRecipes/LikedRecipes.svelte";
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
-    import toastr from "toastr";
-    import { categories } from "../../../stores/hardcodedData.js";
     import PrivateRecipes from "../../../components/PrivateRecipes/PrivateRecipes.svelte";
+    import toastr from "toastr";
 
     let isFeedbackModalOpen = false;
     let isCreateModalOpen = false;
@@ -27,11 +27,12 @@
        await handleGetAllAnsweredFeedback();
     });
 
-    async function handleGetAllRecipes(){
+    async function handleGetAllRecipes() {
         const url = $BASE_URL + "/api/user/recipes";
         const result = await get(url);
         console.log("From get all recipes:", result);
         recipes.set(result.data);
+        return result.data;
     }
 
     async function handleGetAllAnsweredFeedback() {
@@ -43,15 +44,20 @@
 
     async function handleCreateRecipe() {
         const url = $BASE_URL + "/api/user/recipes";
-        const recipeToJSON = JSON.stringify({ isPublic: false, title, category, picURL, serves, ingredients, procedure, isDeleted: false });
+        const recipeToJSON = JSON.stringify({ 
+            title: title, 
+            category: category, 
+            picURL: picURL, 
+            serves: serves, 
+            ingredients: ingredients, 
+            procedure: procedure 
+        });
         console.log("object to send: ", recipeToJSON);
-        const result = await patch(url, recipeToJSON);
+        const response = await patch(url, recipeToJSON);
     
-        if (result.status === 200) { 
+        if (response.ok) { 
             toastr.success("Recipe created");
-            setTimeout(async () => {
-                await handleGetAllRecipes();
-            }, 1000)
+            await handleGetAllRecipes();
         } else {
             toastr.error("Failed to create recipe");
         }
@@ -63,14 +69,14 @@
         ingredients = "";
         procedure = "";
 
-        handleCreateModal()
+        handleCreateModal();
     }
     
-    function handleFeedbackModal () {
+    function handleFeedbackModal() {
         isFeedbackModalOpen = !isFeedbackModalOpen;
     }
 
-    function handleCreateModal () {
+    function handleCreateModal() {
         isCreateModalOpen = !isCreateModalOpen;
     }
 
@@ -83,14 +89,14 @@
     <div class="col-middle">
         <h2>{$user.username}'s profile</h2>
         <PrivateRecipes onGetAllRecipes={handleGetAllRecipes}/>
-        <LikedRecipes onGetAllRecipes={handleGetAllRecipes}/>  <!--  HANDLEGETALLRECIPES ER FORKERT? -->
- 
+        <LikedRecipes/>
     </div>
     <div class="col-right">
         <ProfileInfo/>
         <button on:click={handleCreateModal}>Create recipe</button>
-        <a href="#inbox" data-tooltip="Read feedback answers">
-            <img src="../icons/inbox.png" alt="inbox" on:click={handleFeedbackModal}>
+
+        <a href="#inbox" data-tooltip="Read feedback answers" on:click={handleFeedbackModal}>
+            <img src="../icons/inbox.png" alt="inbox">
         </a>
     </div>
 </div>
@@ -108,7 +114,8 @@
             <details>
                 <summary><strong>Subject: </strong>{feedback.subject}</summary>
                 {#each feedback.answer as answer}
-                    <p>{answer}</p>
+                <hr>
+                    <p><strong>Answer: </strong>{answer}</p>
                 {/each}
             </details>
         {/each}
@@ -124,7 +131,6 @@
     <div class="form-recipe">
         <form on:submit|preventDefault={handleCreateRecipe}>
             <input type="text" placeholder="Title" name="title" bind:value={title} required>
-
             <select bind:value={category} required>
                 {#if placeholder}
                     <option value="" disabled selected hidden>{placeholder}</option>
@@ -135,18 +141,14 @@
                     </option>
                 {/each}
             </select>
-
             <input type="url" placeholder="picture url (web url)" name="picURL" bind:value={picURL} required>
             <input type="text" placeholder="4 serves" name="serves" bind:value={serves} required>
             <input type="text" placeholder="ingredients" name="ingredients" bind:value={ingredients} required>
             <textarea placeholder="procedure"cols="30" rows="5" bind:value={procedure} required></textarea>
-
             <button type="submit">Upload recipe</button>
         </form>
     </div>
 </Modal>
-
-
 
 <style>
     img {
@@ -155,7 +157,5 @@
         margin-top: 2em;
     }
 
-    article {
-        width: 50em;
-    }
+    details { text-align: left; }
 </style>

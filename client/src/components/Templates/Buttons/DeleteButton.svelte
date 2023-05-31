@@ -14,10 +14,10 @@
         const objectToJSON = JSON.stringify(objectToDelete);
         console.log("ToJSON: ", objectToJSON);
 
-        const result = await remove(url, objectToJSON);
-        console.log(result);
+        const response = await remove(url, objectToJSON);
+        console.log(response);
 
-        if (result.status === 200) {
+        if (response.ok) {
             toastr.success(`${objectName} deleted`);
             await onHandleUpdate();
         } else {

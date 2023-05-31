@@ -1,8 +1,9 @@
 <script>
     import { BASE_URL } from "../../stores/urlDomain.js"; 
-    import { user } from "../../stores/userGlobals.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import { patch } from "../../api/api.js";
+    import { user } from "../../stores/userGlobals.js";
+    import toastr from "toastr";
     
     export let recipeToLike;
 
@@ -15,10 +16,10 @@
         const url = $BASE_URL + `/api/user/publicRecipes/likes/${recipeToLike._id}`;
         const email = $user.email;
 
-        const likedRecipeToJSON = JSON.stringify({ email });
+        const likedRecipeToJSON = JSON.stringify({ email: email });
 
         if (recipeToLike.likes === undefined) {
-            recipeToLike.likes = [];
+             recipeToLike.likes = [];
         }
         
         recipeToLike.likes.push(email); 
@@ -32,36 +33,38 @@
                 }
                 return recipe;
             });
+
             $publicRecipes = likedRecipes;
-           
         } else {
-            console.log("Failed to like recipe");
+            toastr.error("Failed to like recipe");
         }
     }
 
     async function handleDislike(recipeToDislike) {
-        const url = $BASE_URL + "/api/user/publicRecipes/dislike";
+        const url = $BASE_URL + `/api/user/publicRecipes/dislike/${recipeToLike._id}`;
         const email = $user.email;
-        const id = recipeToDislike._id;
 
         const updatedLikes = recipeToDislike.likes.filter(like => like !== email);
         console.log("updated like list:", updatedLikes);
         recipeToDislike.likes = updatedLikes;
 
-        const dislikedRecipeToJSON = JSON.stringify({ email, id });
+        const dislikedRecipeToJSON = JSON.stringify({ email: email });
 
-        await patch(url, dislikedRecipeToJSON);
+        const response = await patch(url, dislikedRecipeToJSON);
 
-        const updatePublicRecipes = $publicRecipes.map(recipe => {
-            if (recipe.procedure === recipeToDislike.procedure) {
-                return recipeToDislike;
-            }
-            return recipe;
-        });
+        if (response.ok) {
+            const updatePublicRecipes = $publicRecipes.map(recipe => {
+                if (recipe.procedure === recipeToDislike.procedure) {
+                    return recipeToDislike;
+                }
+                return recipe;
+            });
 
-        $publicRecipes = updatePublicRecipes;
+            $publicRecipes = updatePublicRecipes;
+        } else {
+            toastr.error("Failed to dislike recipe");
+        }
     }
-
 </script>
 
 {#if handleHasLikedButton(recipeToLike)}

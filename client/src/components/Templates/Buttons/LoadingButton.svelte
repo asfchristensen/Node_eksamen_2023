@@ -5,13 +5,11 @@
 </script>
 
 {#if action}
-        <button aria-busy={action}>{loadingTitle}</button>
+    <button aria-busy={action}>{loadingTitle}</button>
 {:else}
-        <button type="submit">{title}</button>
+    <button type="submit">{title}</button>
 {/if}
 
 <style>
-   button {
-       margin-top: 1em; 
-   }
+   button { margin-top: 1em; }
 </style>

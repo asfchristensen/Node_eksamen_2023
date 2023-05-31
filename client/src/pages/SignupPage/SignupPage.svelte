@@ -1,10 +1,10 @@
 <script>
-    import { BASE_URL } from "../../stores/urlDomain";
+    import { BASE_URL } from "../../stores/urlDomain.js";
     import { navigate } from "svelte-navigator";
-    import { post } from "../../api/api";
-    import toastr from "toastr";
+    import { post } from "../../api/api.js";
     import LoadingButton from "../../components/Templates/Buttons/LoadingButton.svelte";
-    
+    import toastr from "toastr";
+
     let username = "";
     let password = "";
     let confirmedPassword = "";
@@ -18,19 +18,25 @@
     }
 
     async function handleSignup() {
-        const picture = "../profilePictures/default.png";
-        const userToJSON = JSON.stringify({ username, password, confirmedPassword, email, memberSince: new Date().getFullYear() });
-        console.log("Date now: ", Date.now());
-        const url = $BASE_URL + "/api/auth/signup";
+        const url = $BASE_URL + "/api/all/auth/signup";
+
+        const userToJSON = JSON.stringify({ 
+            username: username, 
+            password: password, 
+            confirmPassword: confirmedPassword, 
+            email: email, 
+            memberSince: new Date().getFullYear() 
+        });
 
         const result = await post(url, userToJSON);
 
         if (result.data === username) {
+            toastr.success("User profile created successfully");
             signupOK = true;
             setTimeout(() => {
                 navigate("/login", {replace: true});
                 signupOK = false;
-            }, 2500)
+            }, 2500);
         } else if (result.message === "error") {
             toastr.error("Account already exists");
         } else {

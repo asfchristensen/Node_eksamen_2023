@@ -5,9 +5,9 @@
     import { get, patch, remove } from "../../../api/api.js";
     import { navigate } from "svelte-navigator";
     import { Confirm } from "svelte-confirm";
-    import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
+    import toastr from "toastr";
 
     let username = "";
     let password = "";
@@ -21,13 +21,13 @@
 
     async function handleUpdateUser() {
         const url = $BASE_URL + "/api/user/users/email";
-        const usernameToUpdate = { username };
+        const usernameToUpdate = { username: username };
         const usernameToJSON = JSON.stringify(usernameToUpdate);
         console.log("username data: ", usernameToJSON);
 
-        const result = await patch(url, usernameToJSON);
+        const response = await patch(url, usernameToJSON);
 
-        if (result.status === 200) {
+        if (response.ok) {
             toastr.success("Username updated");
         } else {
             toastr.error("Failed to update username");
@@ -38,12 +38,16 @@
 
     async function handleUpdatePassword() {
         const url = $BASE_URL + "/api/user/users/email";
-        const passwordToUpdate = { password, newPassword, confirmNewPassword };
+        const passwordToUpdate = { 
+            password: password, 
+            newPassword: newPassword, 
+            confirmNewPassword: confirmNewPassword 
+        };
         const passwordToJSON = JSON.stringify(passwordToUpdate);
 
-        const result = await patch(url, passwordToJSON);
+        const response = await patch(url, passwordToJSON);
 
-        if (result.status === 200) {
+        if (response.ok) {
             toastr.success("Password updated");
         } else {
             toastr.error("Failed to update password");
@@ -64,9 +68,9 @@
         const pictureToUpdate = { profilePicture: picture.img };
         const pictureToJSON = JSON.stringify(pictureToUpdate);
 
-        const result = await patch(url, pictureToJSON);
+        const response = await patch(url, pictureToJSON);
 
-        if (result.status === 200) {
+        if (response.ok) {
             toastr.success("Profile picture updated");
             await handleGetUser();
         } else {
@@ -79,9 +83,9 @@
         const profileToDelete = { email, deletePassword, confirmDeletePassword };
         const profileToJSON = JSON.stringify(profileToDelete);
 
-        const result = await remove(url,profileToJSON);
+        const response = await remove(url,profileToJSON);
 
-        if (result.status === 200) {
+        if (response.ok) {
             toastr.success("Profile deleted");
             $user = null;
             localStorage.removeItem("user");
@@ -118,8 +122,7 @@
                     <input type="text" placeholder="Username" bind:value={username} required>
                     <button type="submit">Update username</button>   
                 </form>
-            </div>
-            
+            </div>  
         </details>
   
         <details >
@@ -181,9 +184,7 @@
         background-color: rgba(108, 134, 143, 0.054);
     }
 
-    img {
-        width: 4em;
-    }
+    img { width: 4em; }
 
     #profilePic {
         background-color: white;

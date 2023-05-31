@@ -22,18 +22,25 @@ router.get("/api/user/feedback/email", async (req, res) => {
     if (answeredFeedback.length === 0) {
         return res.status(400).send({ message: "error - no answers found", status: 400 });
     } else {
-        return res.status(200).send({ data: answeredFeedback, message: "found answers to feedback(s)", status: 200 });
+        return res.status(200).send({ data: answeredFeedback, message: "success - found answers to feedback(s)", status: 200 });
     }
 });
 
 router.post("/api/user/feedback", async (req, res) => {
-    const feedback = req.body;
+    const { ...feedback } = req.body;
     
-    if (!feedback) {
+    if (!{ ...feedback }) {
         return res.status(400).send({ message: "error - invalid feedback", status: 400 })
     } else {
-        await db.collection("feedback").insertOne(feedback);
-        return res.status(200).send({ data: feedback, message: "Feedback created", status: 200 });
+
+        const feedbackToSave = {
+            isAnswered: false, 
+            ... feedback,
+            isDeleted: false 
+        } 
+
+        await db.collection("feedback").insertOne(feedbackToSave);
+        return res.status(200).send({ data: feedbackToSave, message: "success - feedback created", status: 200 });
     }
 });
 

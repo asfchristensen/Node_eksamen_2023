@@ -14,7 +14,6 @@
         profileInfo.set(result.data);
         return result.data;
     }
-
 </script>
 
 {#if $profileInfo}

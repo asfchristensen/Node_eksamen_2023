@@ -2,12 +2,12 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { user, recipes } from "../../stores/userGlobals.js";
     import { patch, post } from "../../api/api.js";
+    import toastr from "toastr";
 
     export let recipeToPublic;
     
-    async function handleMakePublicRecipe(recipe) {
+    async function handleCreatePublicRecipe(recipe) {
         const url = $BASE_URL + "/api/user/publicRecipes";
-        console.log("Handle public recipes", recipe);
         recipe.isPublic = true;
         
         const recipeToPublic = { author: $user.email, ...recipe };
@@ -32,10 +32,10 @@
                 $recipes = updateRecipes;
                 $recipes.forEach(recipeInStore => console.log("Is public in foreach:", recipeInStore.isPublic))
             } else {
-                console.log("error - not changed anything");
+                toastr.error("Failed to make recipe public");
             }
         };    
     }
 </script>
 
-<button class="contrast" on:click={handleMakePublicRecipe.bind(null, recipeToPublic)}>To public</button>
+<button class="contrast" on:click={handleCreatePublicRecipe.bind(null, recipeToPublic)}>To public</button>
