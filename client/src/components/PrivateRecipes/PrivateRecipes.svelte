@@ -1,5 +1,4 @@
 <script>
-    import { Link } from "svelte-navigator";
     import { recipes } from "../../stores/userGlobals.js";
     import ModalRecipe from "../ModalRecipe/ModalRecipe.svelte";
     import UpdateRecipe from "../UpdateRecipe/UpdateRecipe.svelte";
