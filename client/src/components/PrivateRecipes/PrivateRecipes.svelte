@@ -5,6 +5,8 @@
     import UpdateRecipe from "../UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../RecipeToPublicButton/RecipeToPublicButton.svelte";
     import DeletePrivateRecipeButton from "../DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
+    import GoBackButton from "../Templates/Buttons/NavigateToButton.svelte";
+    import NavigateToButton from "../Templates/Buttons/NavigateToButton.svelte";
 
     export let onGetAllRecipes;
 
@@ -56,7 +58,8 @@
         {/each}
     </div>
 {/if}
-<Link to="/my-recipes" role="button">See all your recipes</Link>
+
+<NavigateToButton path="/my-recipes" buttonTitle="See all your recipes"/>
 
 
 <style>

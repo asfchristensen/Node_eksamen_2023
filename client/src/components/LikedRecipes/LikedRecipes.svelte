@@ -4,7 +4,7 @@
     import { user } from "../../stores/userGlobals.js"
     import LikeButton from "../LikeButton/LikeButton.svelte";
     import ModalRecipe from "../ModalRecipe/ModalRecipe.svelte";
-    import UpdateRecipe from "../UpdateRecipe/UpdateRecipe.svelte";
+    import NavigateToButton from "../Templates/Buttons/NavigateToButton.svelte";
 
     export let onGetAllRecipes;
 
@@ -42,7 +42,8 @@
         </article>
     {/each}
 </div>
-<Link to="/my-likes" role="button">See all your liked recipes</Link>
+
+<NavigateToButton path="/my-likes" buttonTitle="See all your liked recipes"/>
 
 <style>
     .recipe-article  {
@@ -68,5 +69,7 @@
     }
     h2 { margin-top: 2em;}
     #p { color: rgb(108, 134, 143); }
+
+  
     
 </style>

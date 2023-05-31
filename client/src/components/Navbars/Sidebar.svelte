@@ -2,6 +2,8 @@
     import "@picocss/pico";
     import { Link } from "svelte-navigator";
     import { user } from "../../stores/userGlobals";
+  
+  
     
 </script>
 
@@ -73,4 +75,13 @@
         overflow: hidden;
     }
 
+    
+    :root:not([data-theme="dark"]) {
+        --primary-hover: #000000;
+        --h2-color: #3f93d2;
+
+       
+    }   
+
+       
 </style>

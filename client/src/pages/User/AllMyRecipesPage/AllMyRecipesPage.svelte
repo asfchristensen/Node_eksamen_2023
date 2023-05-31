@@ -1,6 +1,6 @@
 <script>
     import { get } from "../../../api/api";
-    import GoBackButton from "../../../components/Templates/Buttons/GoBackButton.svelte";
+    import GoBackButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import DeleteButton from "../../../components/DeletePrivateRecipeButton/DeletePrivateRecipeButton.svelte";
     import UserInfo from "../../../components/ProfileInfo/ProfileInfo.svelte";
@@ -9,6 +9,7 @@
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
     import UpdateRecipe from "../../../components/UpdateRecipe/UpdateRecipe.svelte";
     import RecipeToPublicButton from "../../../components/RecipeToPublicButton/RecipeToPublicButton.svelte";
+    import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
 
 
     async function handleGetAllRecipes(){
@@ -61,8 +62,7 @@
     </div>
     <div class="col-right">
         <UserInfo/>
-        <GoBackButton path="/profile"/>
-
+        <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
     </div>
 </div>
 
