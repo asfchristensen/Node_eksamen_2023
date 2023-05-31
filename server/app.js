@@ -33,7 +33,7 @@ const server = http.createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server, {
     cors: {
-        origin: "*", // SKAL KIGGES PÅ!!!!!
+        origin: "*",
         methods: ["*"] 
     }
 });
@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
             console.log("key:", socketIDKey);
     
             const userInList = chatUsers[socketIDKey];
-            if (userInList.data.email === user.data.email){
+            if (userInList.data.email === user.data.email) {
                     delete chatUsers[socketIDKey];
             }   
         }
@@ -153,6 +153,9 @@ app.use(ratingRouter);
 import feedbackRouter from "./routes/feedbackRouter.js";
 app.use(feedbackRouter);
 
+
+// const isDev = process.env.ENV === "DEV";
+// const PORT = isDev ? process.env.PORT : 80;
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, (error) => {

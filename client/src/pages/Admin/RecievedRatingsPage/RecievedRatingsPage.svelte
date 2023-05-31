@@ -1,14 +1,13 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain.js";
-    import { ratingsToPublic } from "../../../stores/ratings.js";
+    import { notPublicRatings } from "../../../stores/ratings.js";
     import { get, patch } from "../../../api/api.js";
-    import { Link } from "svelte-navigator";
-    import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import DeleteButton from "../../../components/Templates/Buttons/DeleteButton.svelte";
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
+    import toastr from "toastr";
 
     let isModalOpen = false;
     let ratingToRead = null;
@@ -20,28 +19,28 @@
     async function handleGetAllNotPublicRatings() {
         const url = $BASE_URL + "/api/admin/ratings/not-public";
         const result = await get(url);
-        ratingsToPublic.set(result.data);
+        notPublicRatings.set(result.data);
         return result.data;
-    }
-
-    async function handleModal (rating) {
-        isModalOpen = !isModalOpen;
-        ratingToRead = rating;
     }
 
     async function handleCreatePublicRating() {
         const url = $BASE_URL + "/api/admin/ratings";
-        const ratingToPublic = $ratingsToPublic.filter(rating => rating.isPublic === true);
+        const ratingToPublic = $notPublicRatings.filter(rating => rating.isPublic === true);
         const ratingToJSON = JSON.stringify(ratingToPublic);
 
-        const result = await patch(url, ratingToJSON);
+        const response = await patch(url, ratingToJSON);
 
-        if (result.status === 200) {
-            toastr.success("success - rating is now public");
-            ratingsToPublic.update(ratings => ratings.filter(rating => !rating.isPublic));
+        if (response.ok) {
+            toastr.success("Rating is now public");
+            notPublicRatings.update(ratings => ratings.filter(rating => !rating.isPublic));
         } else {
-            toastr.error("error - making rating public")
+            toastr.error("Failed to make rating public");
         }
+    }
+
+    async function handleModal (rating) {
+        ratingToRead = rating;
+        isModalOpen = !isModalOpen;
     }
 </script>
 
@@ -52,7 +51,7 @@
     <div class="col-middle">
         <h2>Ratings from users</h2>
 
-        {#if $ratingsToPublic !== undefined}
+        {#if $notPublicRatings !== undefined}
             <table role="grid">
                 <thead>
                     <tr>
@@ -64,23 +63,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each $ratingsToPublic as rating }  
+                    {#each $notPublicRatings as rating }  
                         <tr>
-                        <td><input type="checkbox" bind:checked={rating.isPublic}></td>
-                        <td>{rating.username}</td>
-                        <td>{rating.rating}</td>
-                        <td><button on:click={handleModal.bind(null, rating)}>Read comment</button></td>
-                        <td><DeleteButton 
-                            objectToDelete={rating} 
-                            onHandleUpdate={handleGetAllNotPublicRatings} 
-                            endpoint="/api/admin/ratings" 
-                            objectName="Rating"
-                        /></td>
+                            <td><input type="checkbox" bind:checked={rating.isPublic}></td>
+                            <td>{rating.username}</td>
+                            <td>{rating.rating}</td>
+                            <td><button on:click={handleModal.bind(null, rating)}>Read comment</button></td>
+                            <td><DeleteButton 
+                                    objectToDelete={rating} 
+                                    onHandleUpdate={handleGetAllNotPublicRatings} 
+                                    endpoint="/api/admin/ratings" 
+                                    objectName="Rating"
+                                />
+                            </td>
                         </tr>
                     {/each} 
                 </tbody>
             </table>
-
             <button on:click={handleCreatePublicRating}>Make rating(s) public</button>
         {:else}
             <p>No ratings to make public at the moment...</p>
@@ -108,13 +107,10 @@
 <style>
     p { color: rgb(108, 134, 143); }
 
-    article p {
-        font-size: 25px;
-    }
-
     .rating-container {
         display: flex;
         align-items: center;
+        text-align: left;
     }
 
     #rating-number {

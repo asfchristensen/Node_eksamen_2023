@@ -2,11 +2,12 @@ import Router from "express";
 const router = Router();
 
 import db from "../database/connectionAtlas.js"
-import validator from "validator";
 
 
 router.get("/api/user/recipes", async (req, res) => {
-    const user = await db.collection("users").findOne({ email: req.session.user.email }); 
+    const userEmail = req.session.user.email;
+
+    const user = await db.collection("users").findOne({ email: userEmail }); 
 
     if (!user) {
         return res.status(400).send({ message: "error - no user found with that email", status: 400 });
@@ -17,33 +18,35 @@ router.get("/api/user/recipes", async (req, res) => {
 });
 
 router.patch("/api/user/recipes", async (req, res) => {
-    const { isPublic, title, category, picURL, serves, ingredients, procedure, isDeleted} = req.body; 
-    const sanitizedTitle = validator.escape(title);  
-    const sanitizedCategory = validator.escape(category);  
-    const sanitizedPicURL = picURL;  
-    const sanitizedServes = validator.escape(serves);  
-    const sanitizedIngredients = validator.escape(ingredients);  
-    const sanitizedProcedure = validator.escape(procedure);  
-        
-    const sanitizedRecipe = { isPublic: isPublic, title: sanitizedTitle, category: sanitizedCategory, picURL: sanitizedPicURL, serves: sanitizedServes, ingredients: sanitizedIngredients, procedure: sanitizedProcedure, isDeleted: isDeleted };
-    
-    if (!sanitizedRecipe) {
-        return res.status(400).send({ message: "error - invalid recipe", status: 400 })
+    const { ...recipe } = req.body;
+    const userEmail = req.session.user.email; 
+             
+    if (!{ ...recipe }) {
+        return res.status(400).send({ message: "error - invalid recipe", status: 400 });
     } else {
-        await db.collection("users").updateOne({ email: req.session.user.email }, { $push: { recipes: sanitizedRecipe }});
-        return res.status(200).send({ data: sanitizedRecipe, status: 200 });
+
+        const recipeToSave = { 
+            isPublic: false,
+            ...recipe, 
+            isDeleted: false 
+        };
+
+        await db.collection("users").updateOne({ email: userEmail }, { $push: { recipes: recipeToSave }});
+        return res.status(200).send({ data: recipeToSave, status: 200 });
     }
 });
 
 router.patch("/api/user/recipes/make-public", async (req, res) => {
     const recipeToPublic = req.body;  
+    const userEmail = req.session.user.email;
+
     console.log("update to public ",req.body)   
     
     if (!recipeToPublic) {
         return res.status(400).send({ message: "error - unables to make recipe public", status: 400 })
     } else {
         await db.collection("users").updateOne(
-            { email: req.session.user.email, "recipes.procedure": recipeToPublic.procedure }, 
+            { email: userEmail, "recipes.procedure": recipeToPublic.procedure }, 
             { $set: { "recipes.$.isPublic" : recipeToPublic.isPublic }}
         );
         return res.status(200).send({ data: recipeToPublic, status: 200 });
@@ -51,13 +54,11 @@ router.patch("/api/user/recipes/make-public", async (req, res) => {
 });
 
 router.patch("/api/users/recipes/update-recipe", async (req, res) => {
-    
     const { title, picURL, procedure, ingredients } = req.body;
     console.log("Email:", req.session.user.email);
     console.log("Title:", title);
     console.log("PicURL:", picURL);
   
-
     const updateFields = {};
     if (procedure && procedure !== "") {
         updateFields["recipes.$.procedure"] = procedure;
@@ -76,18 +77,15 @@ router.patch("/api/users/recipes/update-recipe", async (req, res) => {
         { $set: updateFields }
     );
 
-    if (updatedUser.modifiedCount === 1) {
-        return res.status(200).send({ data: updatedUser ,message: "Recipe updated successfully", status: 200 });
+    if (updatedUser.modifiedCount !== 1) {
+        return res.status(400).send({ data: updatedUser, message: "Recipe not found" , status: 400 });
     } else {
-         return res.status(400).send({ data: updatedUser, message: "Recipe not found" , status: 400 });
+        return res.status(200).send({ data: updatedUser ,message: "Recipe updated successfully", status: 200 });
     }
-    
 });
 
-// delete recipe
 router.patch("/api/user/recipes/delete-recipe", async (req, res) => {
     const recipeToDelete = req.body;
-    console.log(recipeToDelete);
 
     if (!recipeToDelete) {
         return res.status(400).send({ message: "error - failed to delete recipe", status: 400 })

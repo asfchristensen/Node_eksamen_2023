@@ -7,7 +7,6 @@
     function handleNavigateTo() {
         navigate(path);
     }
-
 </script>
 
 <button on:click={handleNavigateTo}>{buttonTitle}</button>

@@ -2,24 +2,21 @@
     import { BASE_URL } from "../../../stores/urlDomain.js";
     import { post } from "../../../api/api.js";
     import { user } from "../../../stores/userGlobals.js";
-
     import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
 
     let ratingNumber = 0;
     let comment = "";
-
+    
     let subject = "";
     let feedback = "";
 
     async function handleCreateRating() {
         const url = $BASE_URL + "/api/user/ratings";
         const rating = { 
-            isPublic: false, 
             rating: ratingNumber, 
             comment: comment, 
             username: $user.username, 
-            isDeleted: false 
         };
 
         const ratingToJSON = JSON.stringify(rating);
@@ -38,12 +35,10 @@
     async function handleCreateFeedback() {
         const url = $BASE_URL + "/api/user/feedback";
         const createFeedback = { 
-            isAnswered: false, 
             subject: subject, 
             feedback: feedback,  
             username: $user.username, 
-            userEmail: $user.email,
-            isDeleted: false 
+            userEmail: $user.email
         };
 
         const feedbackToJSON = JSON.stringify(createFeedback);
@@ -64,14 +59,11 @@
     <div class="col-left">
         <Sidebar/>
     </div>
-
     <div class="col-middle">
         <h2>Feedback</h2>
 
-        <!--Rating-->
         <article>
             <h4>Rate our application</h4>
-        
             <form on:submit|preventDefault={handleCreateRating}>
                 <div class="rating-container">
                     <input id="stars" type="range" min="0" max="5" step="1" bind:value={ratingNumber}>
@@ -83,16 +75,12 @@
             </form>
         </article>
 
-        <!--Feedback-->
         <article>
             <h4>Anything on your mind?</h4>
-        
             <div class="info-text">
                 <span>We always want to be the best "uni-version" of ourselves.</span><br>
                 <span>Feel free to write to our administration, if you have any reports to make</span>
-            
             </div>
-            
             <form on:submit|preventDefault={handleCreateFeedback}> 
                 <input type="text" placeholder="Subject" bind:value={subject}>   
                 <textarea cols="30" rows="5" bind:value={feedback} placeholder="Suggestions, wishes, complaints..."></textarea>
@@ -125,9 +113,7 @@
         margin-top: 5%;    
     }
 
-    .info-text span {
-        color: rgb(108, 134, 143);
-    }
+    .info-text span { color: rgb(108, 134, 143); }
 
     #stars {
         display: flex;

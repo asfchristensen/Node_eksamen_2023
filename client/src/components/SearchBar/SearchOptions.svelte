@@ -12,7 +12,5 @@
         display: block;
     }
 
-    a:hover {
-        background-color: deeppink;
-    }
+    a:hover { background-color: deeppink; }
 </style>

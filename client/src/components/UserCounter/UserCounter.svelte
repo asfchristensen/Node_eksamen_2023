@@ -1,22 +1,20 @@
 <script>
     import { onMount } from "svelte";
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { allUsers } from "../../stores/userGlobals";
-    import { get } from "../../api/api";
-
-    console.log("Længden på alle users: ", $allUsers.length);
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { allUsers } from "../../stores/userGlobals.js";
+    import { get } from "../../api/api.js";
 
     onMount( async () => {
         await handleGetAllUsers();
-    })
+    });
 
     async function handleGetAllUsers() {
         const url = $BASE_URL + "/api/admin/users";
         const result = await get(url);
         console.log("Result: ", result.data);
         allUsers.set(result.data);
+        return result.data;
     }
-
 </script>
 
 <div>
@@ -26,7 +24,5 @@
 </div>
 
 <style>
-    #header {
-        border-bottom: 0.1em solid rgba(0, 0, 0, 0.223);
-    }
+    #header { border-bottom: 0.1em solid rgba(0, 0, 0, 0.223); }
 </style>

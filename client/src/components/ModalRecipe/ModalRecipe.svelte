@@ -1,10 +1,6 @@
 <script>
-    import { user } from "../../stores/userGlobals";
     import { Link } from "svelte-navigator";
-    import UpdateRecipe from "../UpdateRecipe/UpdateRecipe.svelte";
 
-    //export let isOpen = false;
-    //export let onModal;
     export let path;
     export let recipeToShow;
     
@@ -13,8 +9,6 @@
     function handleRecipeModal () {
         isModalOpen = !isModalOpen;
     }
-
-    
 </script>
 
 <button on:click={handleRecipeModal}>Read</button>
@@ -31,13 +25,12 @@
                 <span><strong>Serves</strong></span>
                 <span>{recipeToShow.serves}</span><br>
                 <span><strong>Ingredients</strong></span>
-                <span>{recipeToShow.ingredients}</span> <br>
+                <span>{recipeToShow.ingredients}</span><br>
                 <span><strong>Procedure</strong></span>
                 <span>{recipeToShow.procedure}</span>
             </div>
             <slot/>
         </article>
-        
     </dialog>
 {/if}
 

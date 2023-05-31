@@ -1,37 +1,35 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { get } from "../../api/api.js"
-    import { user } from "../../stores/userGlobals.js"
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { get } from "../../api/api.js";
+    import { user } from "../../stores/userGlobals.js";
     import { userMessages, usersInChatroom } from "../../stores/chatroom.js";
     import io from "socket.io-client";
-    import toastr from "toastr";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
+    import toastr from "toastr";
 
     let message = "";
     let socket = io($BASE_URL);
-    let messageFromUser = null;
-
 
     onMount( async () => {
         await handleGetAllMessages(); 
     });
 
     async function handleGetAllMessages() {
-        const url = $BASE_URL + "/api/both/messages"
+        const url = $BASE_URL + "/api/both/messages";
         const result = await get(url);
         userMessages.set(result.data);
+        return result.data;
     }
 
     onDestroy( () => {
         socket.emit("leave room", { user: $user });
-    })
+    });
 
     socket.on("User left the room", (data) => {
         toastr.error(data.user.username + " left room");
     });
 
-    // start besked
     socket.emit("User joins room", { data: $user });
 
     socket.on("chatUsers", (users) => {
@@ -47,7 +45,7 @@
         const date = today.toLocaleDateString("en-US", { dateStyle: "medium" }); 
         const time = today.toLocaleTimeString("en-US", { timeStyle: "short" });
 
-        messageFromUser = { sentDate: date, sentTime: time, sender: $user.username, senderEmail: $user.email, sentMessage: message };
+        const messageFromUser = { sentDate: date, sentTime: time, sender: $user.username, senderEmail: $user.email, sentMessage: message };
         const messageToJSON = JSON.stringify(messageFromUser);
 
         const response = await fetch($BASE_URL + "/api/both/messages", {
@@ -78,20 +76,16 @@
             });
             return list;
         }); 
-    }); 
-    
+    });  
 </script>
-
 
 <div class="grid">
     <div class="col-left">
         <Sidebar/>
     </div>
-
     <div class="col-middle">
         <div class="chatroom">
             <h2>Let's Taco 'Bout It</h2>
-          
             <div class="messages">
                 {#each $userMessages as userMessage}
                     {#if userMessage.sender === $user.username}
@@ -111,14 +105,12 @@
                     {/if}
                 {/each}
             </div>
-          
             <div class="input-container">
               <input type="text" bind:value={message} placeholder="Type your message..." />
               <button on:click={handleSendMessage}>Send message</button>
             </div>
         </div>
     </div>
-
     <div class="col-right">
         <h5>Online users</h5>
         {#each $usersInChatroom as user}
@@ -156,7 +148,7 @@
 
   .content {
       padding: 1em;
-      max-width: 70%;
+      width: 70%;
   }
 
   #user-sender {

@@ -5,7 +5,6 @@ import db from "../database/connectionAtlas.js";
 
 import { ObjectId } from "mongodb";
 
-
 router.get("/api/all/ratings/public", async (req, res) => {
     const publicRatings = await db.collection("ratings").find({ isPublic: true }).toArray();
 
@@ -26,14 +25,31 @@ router.get("/api/admin/ratings/not-public", async (req, res) => {
     }
 });
 
+router.post("/api/user/ratings", async (req, res) => {
+    const { ...rating } = req.body;
+    
+    if (!{ ...rating }) {
+        return res.status(400).send({ message: "error - invalid rating", status: 400 });
+    } else {
+
+        const ratingToSave = {
+            isPublic: false, 
+            ...rating,
+            isDeleted: false 
+        };
+
+        await db.collection("ratings").insertOne(ratingToSave);
+        return res.status(200).send({ data: ratingToSave, message: "success - rating created", status: 200 });
+    }
+});
+
 router.patch("/api/admin/ratings", async (req, res) => {
     const ratingToPublic = req.body;
     console.log("req.body rating to public:",ratingToPublic.length);
     console.log("req.body rating to public:",ratingToPublic[0]._id);
     
-    
     if (!ratingToPublic) {
-        return res.status(400).send({ message: "error - failed to make rating public", status: 400 });
+        return res.status(400).send({ message: "error - no rating to make public", status: 400 });
     }
     
     if (ratingToPublic.length > 1) {
@@ -41,8 +57,8 @@ router.patch("/api/admin/ratings", async (req, res) => {
         const ratingIds = ratingToPublic.map(rating => new ObjectId(rating._id));
         console.log("array med id'er: ",ratingIds);
 
-        const updater = await db.collection("ratings").updateMany({ _id: { $in: ratingIds }}, { $set: { isPublic: true }});
-        console.log(updater);
+        const ratingsToUpdate = await db.collection("ratings").updateMany({ _id: { $in: ratingIds }}, { $set: { isPublic: true }});
+        console.log(ratingsToUpdate);
 
         return res.status(200).send({ data: ratingToPublic, message: "Many ratings made public", status: 200 });
     } else {
@@ -52,17 +68,6 @@ router.patch("/api/admin/ratings", async (req, res) => {
         console.log(x);
 
         return res.status(200).send({ data: ratingToPublic, message: "One rating made public", status: 200 });
-    }
-});
-
-router.post("/api/user/ratings", async (req, res) => {
-    const rating = req.body; 
-    
-    if (!rating) {
-        return res.status(400).send({ message: "error - invalid rating", status: 400 })
-    } else {
-        await db.collection("ratings").insertOne(rating);
-        return res.status(200).send({ data: rating, message: "Rating created", status: 200 });
     }
 });
 

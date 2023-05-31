@@ -1,12 +1,7 @@
 <script>
-    import "@picocss/pico";
     import { Link } from "svelte-navigator";
-    import { user } from "../../stores/userGlobals";
-  
-  
-    
+    import { user } from "../../stores/userGlobals.js";
 </script>
-
 
 {#if $user.role === 2} 
     <aside>
@@ -55,11 +50,8 @@
         </nav>
     </aside>
 {:else}
-    <aside>
-
-    </aside>
+    <aside></aside>
 {/if}
-
 
 <style>
     div {
@@ -79,9 +71,5 @@
     :root:not([data-theme="dark"]) {
         --primary-hover: #000000;
         --h2-color: #3f93d2;
-
-       
-    }   
-
-       
+    }      
 </style>

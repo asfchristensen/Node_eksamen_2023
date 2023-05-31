@@ -1,14 +1,12 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain.js";
+    import { feedbackStore } from "../../../stores/adminGlobals.js";
     import { get, patch } from "../../../api/api.js";
-    import { Link } from "svelte-navigator";
-    import toastr from "toastr";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import UserCounter from "../../../components/UserCounter/UserCounter.svelte";
     import Modal from "../../../components/Templates/Modal/Modal.svelte";
-    import { feedbackStore } from "../../../stores/adminGlobals.js";
-    
+    import toastr from "toastr";
     
     let isModalOpen = false;
     let feedbackToRead = null;
@@ -27,23 +25,14 @@
         return result.data;
     }
 
-    async function handleModal (feedback) {
-        isModalOpen = !isModalOpen;
-        feedbackToRead = feedback;
-    }
-
-    function handleToggleAnswer() {
-        isAnswered = !isAnswered;
-    }
-
-    async function handleCreateAnswer (feedbackToAnswer){
+    async function handleCreateAnswer (feedbackToAnswer) {
         const url = $BASE_URL + `/api/admin/feedback/${feedbackToAnswer._id}`;
         const answer = { answer: adminFeedbackAnswer };
         const answerToJSON = JSON.stringify(answer);
 
-        const result = await patch(url, answerToJSON);
+        const response = await patch(url, answerToJSON);
 
-        if (result.status === 200) {
+        if (response.ok) {
             toastr.success("Answer sent")
             await handleGetAllFeedback();
         } else {
@@ -53,16 +42,23 @@
         adminFeedbackAnswer = "";
         handleModal();
     }
+
+    async function handleModal (feedback) {
+        isModalOpen = !isModalOpen;
+        feedbackToRead = feedback;
+    }
+
+    function handleToggleAnswer() {
+        isAnswered = !isAnswered;
+    }
 </script>
 
 <div class="grid">
     <div class="col-left">
         <Sidebar/>
     </div>
-
     <div class="col-middle">
         <h2>Feedback from users</h2>
-        
         <table role="grid">
             <thead>
                 <tr>
@@ -72,7 +68,7 @@
                 </tr>
             </thead>
             <tbody>
-                {#each $feedbackStore as feedback }  
+                {#each $feedbackStore as feedback}  
                     <tr>
                         <td>{feedback.username}</td>
                         <td>{feedback.subject}</td>
@@ -88,7 +84,6 @@
             </tbody>
         </table>
     </div>
-
     <div class="col-right">
         <UserCounter/>
     </div>
@@ -120,11 +115,7 @@
 </Modal>
 
 <style>
-    .modal {
-       text-align: left;
-    }
+    .modal { text-align: left; }
 
-    #isAnswered {
-        background-color: green;
-    }
+    #isAnswered { background-color: green; }
 </style>

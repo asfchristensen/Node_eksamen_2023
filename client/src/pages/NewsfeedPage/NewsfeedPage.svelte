@@ -1,13 +1,12 @@
 <script>
     import { onMount } from "svelte";
-    import { BASE_URL } from "../../stores/urlDomain";
-    import { get } from "../../api/api";
-    import { publicRecipes } from "../../stores/publicRecipes";
+    import { BASE_URL } from "../../stores/urlDomain.js";
+    import { get } from "../../api/api.js";
+    import { publicRecipes } from "../../stores/publicRecipes.js";
     import { user } from "../../stores/userGlobals.js";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import SearchBar from "../../components/SearchBar/SearchBar.svelte";
     import LikeButton from "../../components/LikeButton/LikeButton.svelte";
-    import ModalRecipeButton from "../../components/ModalRecipe/ModalRecipe.svelte";
     import CreateComment from "../../components/CreateComment/CreateComment.svelte";
     import DeleteButton from "../../components/Templates/Buttons/DeleteButton.svelte";
     import ModalRecipe from "../../components/ModalRecipe/ModalRecipe.svelte";
@@ -19,19 +18,15 @@
     async function handleGetAllPublicRecipes() {
         const url = $BASE_URL + "/api/both/publicRecipes";
         const result = await get(url);
-        console.log("result.data: ", result);
         result.data.reverse();
         publicRecipes.set(result.data); 
     } 
-
-
 </script>
 
 <div class="grid">
     <div class="col-left">
         <Sidebar/>
     </div>
-
     <div class="col-middle">
         <h2>Newsfeed</h2>
         {#each $publicRecipes as publicRecipe}
@@ -66,10 +61,7 @@
                 {/if}
             </article>
         {/each} 
-
-
     </div>
-
     <div class="col-right">
         <SearchBar searchSubject="Category"/>
         <SearchBar searchSubject="Title"/>
@@ -88,6 +80,6 @@
         object-fit: cover;
     } 
 
-    p{ margin-top: 1em;}
+    p { margin-top: 1em; }
 </style>
 

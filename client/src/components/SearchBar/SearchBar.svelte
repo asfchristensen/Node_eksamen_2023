@@ -5,7 +5,6 @@
     export let searchSubject;
     let showOptions = false;
     
-    
     let filteredItems = [];
     let userSearchInput = "";
     $:{console.log("filtered items:", filteredItems)}
@@ -22,76 +21,7 @@
 
 <div class="dropdown">
 
-
-    <button on:click={handleToggleOptions
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    }>{searchSubject}</button>
+<button on:click={handleToggleOptions}>{searchSubject}</button>
 
     <div class:show={showOptions} class="dropdown-content">
         <input type="text" placeholder="Search... " id="userSearchInput" bind:value={userSearchInput} on:keyup={handleFilter}>
@@ -103,16 +33,10 @@
         {:else}
             {#each $publicRecipes as item}
                <SearchOptions recipe_id={item._id} label={item.title}/>
-           
             {/each}
         {/if}
-
     </div>
-
 </div>
-
-
-
 
 <style>
     .dropdown{
@@ -124,11 +48,8 @@
         display: none;
         background-color: khaki;
         width: auto;
-
     }
 
-    .show {
-        display:block;
-    }
+    .show { display:block; }
 </style>
 

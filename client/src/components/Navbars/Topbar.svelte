@@ -1,9 +1,7 @@
 <script>
-    import "@picocss/pico";
     import { user } from "../../stores/userGlobals.js";
     import { Link } from "svelte-navigator";
     import Logout from "../Logout/Logout.svelte";
-
 </script>
 
 <nav class="grid">
@@ -30,7 +28,6 @@
         {/if}
     </div>
 </nav>
-
 
 <style>
     .grid {

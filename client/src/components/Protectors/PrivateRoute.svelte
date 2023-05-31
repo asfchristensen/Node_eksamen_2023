@@ -5,7 +5,6 @@
     
     export let role = 0;
     export let path;
-
 </script>
 
 <Route {path}>
