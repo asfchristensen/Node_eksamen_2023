@@ -30,7 +30,7 @@
     <div class="col-middle">
         <h2>Newsfeed</h2>
         {#each $publicRecipes as publicRecipe}
-            <article id="{publicRecipe._id.toLowerCase()}">
+            <article id="{publicRecipe._id}">
                 <h4>{publicRecipe.title}</h4>
                 <img src="{publicRecipe.picURL}" alt="imageOfFood"/>
                 <p><strong>Author: </strong>{publicRecipe.author}</p>
@@ -69,9 +69,9 @@
     </div>
     <div class="col-right">
         <div class="searchbar-wrapper">
-            <SearchBar searchSubject="Title"/>
-            <SearchBar searchSubject="Category"/>
-            <SearchBar searchSubject="Author"/>
+            <SearchBar searchTitle="Title"/>
+            <SearchBar searchTitle="Category"/>
+            <SearchBar searchTitle="Author"/>
         </div>
     </div>
 </div>
