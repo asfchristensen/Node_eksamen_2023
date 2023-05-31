@@ -30,19 +30,24 @@
     <div class="col-middle">
         <h2>Newsfeed</h2>
         {#each $publicRecipes as publicRecipe}
-            <article id="{publicRecipe._id.toLowerCase()}">
+            <article id="{publicRecipe._id}">
                 <h4>{publicRecipe.title}</h4>
                 <img src="{publicRecipe.picURL}" alt="imageOfFood"/>
-                <p>Author: {publicRecipe.author}</p>
+                <p><strong>Author: </strong>{publicRecipe.author}</p>
+                <p><strong>Category: </strong>{publicRecipe.category}</p>
                 {#if $user.role === 2}
                     <footer>
-                        <LikeButton recipeToLike={publicRecipe}/>
-                        
-                        <ModalRecipe 
-                            path="/newsfeed"
-                            recipeToShow={publicRecipe}
-                        ></ModalRecipe>
-                        
+                        <div class="buttons">
+                            <div id="button">
+                                <LikeButton recipeToLike={publicRecipe}/>
+                            </div>
+                            <div id="button">
+                                <ModalRecipe 
+                                    path="/newsfeed"
+                                    recipeToShow={publicRecipe}
+                                ></ModalRecipe>
+                            </div>
+                        </div>        
                         <CreateComment recipeToComment={publicRecipe}/>
                     </footer>
                 {:else if $user.role === 1}
@@ -63,8 +68,11 @@
         {/each} 
     </div>
     <div class="col-right">
-        <SearchBar searchSubject="Category"/>
-        <SearchBar searchSubject="Title"/>
+        <div class="searchbar-wrapper">
+            <SearchBar searchTitle="Title"/>
+            <SearchBar searchTitle="Category"/>
+            <SearchBar searchTitle="Author"/>
+        </div>
     </div>
 </div>
 
@@ -80,6 +88,25 @@
         object-fit: cover;
     } 
 
-    p { margin-top: 1em; }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #button {
+        width: 50%;
+        height: 10%;
+        margin: 0.1em;
+    }
+
+    p { 
+        margin-top: 2em;
+        line-height: 5%;
+    }
+
+    .searchbar-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 

@@ -2,15 +2,14 @@
     import { publicRecipes } from "../../stores/publicRecipes.js";
     import SearchOptions from "./SearchOptions.svelte";
 
-    export let searchSubject;
+    export let searchTitle;
     let showOptions = false;
     
     let filteredItems = [];
     let userSearchInput = "";
-    $:{console.log("filtered items:", filteredItems)}
 
-    function handleFilter (){
-        filteredItems = $publicRecipes.filter( item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
+    function handleFilter() {
+        filteredItems = $publicRecipes.filter(item => item[searchTitle.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
     }
 
     function handleToggleOptions() {
@@ -18,18 +17,19 @@
     }
 </script>
 
-
 <div class="dropdown">
 
-<button on:click={handleToggleOptions}>{searchSubject}</button>
+<button on:click={handleToggleOptions}>{searchTitle}</button>
 
     <div class:show={showOptions} class="dropdown-content">
         <input type="text" placeholder="Search... " id="userSearchInput" bind:value={userSearchInput} on:keyup={handleFilter}>
 
-        {#if filteredItems.length > 0}
+        {#if userSearchInput && filteredItems.length > 0}
             {#each filteredItems as item}
                 <SearchOptions recipe_id={item._id} label={item.title}/>
             {/each}
+        {:else if userSearchInput && filteredItems.length === 0}
+            <p>No matching recipes found</p>
         {:else}
             {#each $publicRecipes as item}
                <SearchOptions recipe_id={item._id} label={item.title}/>
@@ -42,11 +42,12 @@
     .dropdown{
         position: relative;
         display: inline-block;
+        margin-bottom: 0.5em;
     }
 
     .dropdown-content{
         display: none;
-        background-color: khaki;
+        background-color: rgba(108, 134, 143, 0.054);
         width: auto;
     }
 

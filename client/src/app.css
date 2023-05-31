@@ -21,7 +21,7 @@ a {
 }
 
 a:hover {
-  color: #535bf2;
+  color: #a6aae7;
 }
 
 .toast-middle-top {
@@ -33,7 +33,8 @@ a:hover {
 main {
   min-height: 100vh;
   color: rgb(0, 0, 0);
-  margin-top: 8em; 
+  margin-top: 8em;
+  max-width: 100%; 
 }
 
 .col-middle {
@@ -42,6 +43,7 @@ main {
 
 .col-right {
   margin-left: 15%;
+  margin-right: 15%;
 }
 
 thead th {
@@ -62,7 +64,6 @@ h1 {
 }
 
 #app {
-  
   margin: 0 auto;
   padding: 2rem;
   text-align: center;

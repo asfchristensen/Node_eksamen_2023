@@ -10,7 +10,11 @@
         color: black;
         padding: 1em;
         display: block;
+        text-decoration: none;
     }
 
-    a:hover { background-color: deeppink; }
+    a:hover { 
+        background-color: #1395c2;
+        color: white; 
+    }
 </style>
