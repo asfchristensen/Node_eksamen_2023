@@ -1,9 +1,7 @@
 <script>
     import { Link } from "svelte-navigator";
-    import { user } from "../../stores/userGlobals";
-    
+    import { user } from "../../stores/userGlobals.js";
 </script>
-
 
 {#if $user.role === 2} 
     <aside>
@@ -54,7 +52,6 @@
 {:else}
     <aside></aside>
 {/if}
-
 
 <style>
     div {
