@@ -7,17 +7,15 @@
     
     let filteredItems = [];
     let userSearchInput = "";
-    $:{console.log("filtered items:", filteredItems)}
 
-    function handleFilter (){
-        filteredItems = $publicRecipes.filter( item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
+    function handleFilter() {
+        filteredItems = $publicRecipes.filter(item => item[searchSubject.toLowerCase()].toLowerCase().includes(userSearchInput.toLowerCase()));
     }
 
     function handleToggleOptions() {
         showOptions = !showOptions;
     }
 </script>
-
 
 <div class="dropdown">
 
@@ -42,11 +40,12 @@
     .dropdown{
         position: relative;
         display: inline-block;
+        margin-bottom: 0.5em;
     }
 
     .dropdown-content{
         display: none;
-        background-color: khaki;
+        background-color: rgba(108, 134, 143, 0.054);
         width: auto;
     }
 
