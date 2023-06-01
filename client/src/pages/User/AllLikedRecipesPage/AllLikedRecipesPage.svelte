@@ -16,6 +16,9 @@
     </div>
     <div class="col-middle">
         <h2>All my likes</h2>
+        {#if myLikes.length === 0}
+            <p id="p">No liked recipes at the moment. Explore in Newsfeed</p>   
+        {:else}
         <div class="recipe-grid">
             {#each myLikes as liked}
                 <article class="recipe-article">
@@ -36,6 +39,7 @@
                 </article>
             {/each}
         </div>
+        {/if}
     </div>
     <div class="col-right">
         <ProfileInfo/>
@@ -78,4 +82,6 @@
       margin: 0.1em;
       height: 10%;
     } 
+
+    #p { color: rgb(108, 134, 143); }
 </style>

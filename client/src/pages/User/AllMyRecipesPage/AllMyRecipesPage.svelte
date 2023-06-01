@@ -30,37 +30,41 @@
     </div>
     <div class="col-middle">
         <h2>All my recipes</h2>
-        <div class="recipe-grid">
-            {#each $recipes as recipe}
-                <article class="recipe-article">
-                    <h4>{recipe.title}</h4>
-                    <img src={recipe.picURL} alt="imageOfFood"/>
-                    <div class="buttons">
-                        {#if !recipe.isPublic}
+        {#if $recipes === undefined}
+            <p id="p">No recipes created yet...</p>   
+        {:else}
+            <div class="recipe-grid">
+                {#each $recipes as recipe}
+                    <article class="recipe-article">
+                        <h4>{recipe.title}</h4>
+                        <img src={recipe.picURL} alt="imageOfFood"/>
+                        <div class="buttons">
+                            {#if !recipe.isPublic}
+                                <div id="button">
+                                    <RecipeToPublicButton recipeToPublic={recipe}/>
+                                </div>
+                            {:else}
+                                <button class="contrast public-btn" disabled>Is public</button>
+                            {/if}
                             <div id="button">
-                                <RecipeToPublicButton recipeToPublic={recipe}/>
+                                <ModalRecipe 
+                                    path="/my-recipes"
+                                    recipeToShow={recipe}
+                                >
+                                    <UpdateRecipe 
+                                        recipeToUpdate={recipe}
+                                        onGetAllRecipes={handleGetAllRecipes}
+                                    />
+                                </ModalRecipe>
                             </div>
-                        {:else}
-                            <button class="contrast public-btn" disabled>Is public</button>
-                        {/if}
-                        <div id="button">
-                            <ModalRecipe 
-                                path="/my-recipes"
-                                recipeToShow={recipe}
-                            >
-                                <UpdateRecipe 
-                                    recipeToUpdate={recipe}
-                                    onGetAllRecipes={handleGetAllRecipes}
-                                />
-                            </ModalRecipe>
+                            <div id="button">
+                                <DeleteButton recipeToDelete={recipe}/>
+                            </div>
                         </div>
-                        <div id="button">
-                            <DeleteButton recipeToDelete={recipe}/>
-                        </div>
-                    </div>
-                </article>
-            {/each}
-        </div>
+                    </article>
+                {/each}
+            </div>
+        {/if}
     </div>
     <div class="col-right">
         <ProfileInfo/>
@@ -102,4 +106,6 @@
       margin: 0.1em;
       height: 10%;
     } 
+
+    #p { color: rgb(108, 134, 143); }
 </style>
