@@ -8,6 +8,7 @@
     import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
     import WeeklyFoodDropdown from "../../../components/Profile/WeeklyFoodDropdown/WeeklyFoodDropdown.svelte";
     import toastr from "toastr";
+    import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
     
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
     $: combinedRecipeLists = myLikes.concat($recipes);
@@ -130,5 +131,9 @@
     </div>
     <div class="col-right">
         <ProfileInfo/>
+        <NavigateToButton 
+            path="/profile" 
+            buttonTitle="Go back" 
+        />
     </div>
 </div>
