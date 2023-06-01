@@ -112,9 +112,15 @@
         flex-direction: column;
     }
 
-    .carousel-wrapper { height: 30%; }
+    .carousel-wrapper { 
+        height: 30%; 
+        margin-bottom: 1em;
+    }
 
-    .about-wrapper { display: flex; }
+    .about-wrapper { 
+        display: flex;
+        margin-top: 1em; 
+    }
 
     .box {
         height: 5em;
