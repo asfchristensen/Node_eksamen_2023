@@ -5,6 +5,7 @@
     import LikeButton from "../../../components/LikeButton/LikeButton.svelte";
     import ModalRecipe from "../../../components/ModalRecipe/ModalRecipe.svelte";
     import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
+    import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
 
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
 </script>
@@ -15,9 +16,9 @@
     </div>
     <div class="col-middle">
         <h2>All my likes</h2>
-        <div class="recipes">
+        <div class="recipe-grid">
             {#each myLikes as liked}
-                <article>
+                <article class="recipe-article">
                     <h4>{liked.title}</h4>
                     <img src="{liked.picURL}" alt="imageOfFood"/>
                      <p>Author: {liked.author}</p>
@@ -37,18 +38,31 @@
         </div>
     </div>
     <div class="col-right">
+        <ProfileInfo/>
         <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
     </div>
 </div>
 
+
 <style>
-    .recipes {
+    .recipe-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-gap: 1em; 
+        grid-gap: 1em;
     }
 
-    img { 
+    .recipe-article {
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+       
+    }
+
+    .recipe-article h4 {
+        margin-top: 0;
+    }
+
+    .recipe-article img { 
         width: 25em;
         height: 15em;
         object-fit: cover;
@@ -61,8 +75,7 @@
     }
 
     #button {
-        width: 35%;
-        height: 10%;
-        margin: 0.1em;
-    }
+      margin: 0.1em;
+      height: 10%;
+    } 
 </style>

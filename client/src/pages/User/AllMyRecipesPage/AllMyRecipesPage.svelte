@@ -9,6 +9,7 @@
     import RecipeToPublicButton from "../../../components/Profile/RecipeToPublicButton/RecipeToPublicButton.svelte";
     import NavigateToButton from "../../../components/Templates/Buttons/NavigateToButton.svelte";
     import toastr from "toastr";
+    import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
 
     async function handleGetAllRecipes() {
         const url = $BASE_URL + "/api/user/recipes";
@@ -29,9 +30,9 @@
     </div>
     <div class="col-middle">
         <h2>All my recipes</h2>
-        <div class="recipes">
+        <div class="recipe-grid">
             {#each $recipes as recipe}
-                <article>
+                <article class="recipe-article">
                     <h4>{recipe.title}</h4>
                     <img src={recipe.picURL} alt="imageOfFood"/>
                     <div class="buttons">
@@ -40,7 +41,7 @@
                                 <RecipeToPublicButton recipeToPublic={recipe}/>
                             </div>
                         {:else}
-                            <button id="button" class="contrast" disabled>Is public</button>
+                            <button class="contrast public-btn" disabled>Is public</button>
                         {/if}
                         <div id="button">
                             <ModalRecipe 
@@ -62,18 +63,30 @@
         </div>
     </div>
     <div class="col-right">
+        <ProfileInfo/>
         <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
     </div>
 </div>
 
 <style>
-    .recipes {
+ .recipe-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-gap: 1em; 
+        grid-gap: 1em;
     }
 
-    img { 
+    .recipe-article {
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+       
+    }
+
+    .recipe-article h4 {
+        margin-top: 0;
+    }
+
+    .recipe-article img { 
         width: 25em;
         height: 15em;
         object-fit: cover;
@@ -82,12 +95,11 @@
 
     .buttons {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     #button {
-        width: 35%;
-        height: 10%;
-        margin: 0.1em;
-    }
+      margin: 0.1em;
+      height: 10%;
+    } 
 </style>
