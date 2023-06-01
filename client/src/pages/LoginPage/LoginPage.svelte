@@ -6,8 +6,8 @@
     import toastr from "toastr";
     import LoadingButton from "../../components/Templates/Buttons/LoadingButton.svelte";
 
-    let email = "bob@mail.dk";
-    let password = "bob123";
+    let email = "";
+    let password = "";
     let loginOK = false;
 
     async function handleLogin() {

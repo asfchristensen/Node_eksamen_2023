@@ -72,7 +72,7 @@ io.on("connection", (socket) => {
 import rateLimit from 'express-rate-limit'
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 300,
+    max: 100,
     standardHeaders: true, 
     legacyHeaders: false,
 });
@@ -85,7 +85,7 @@ const loginLimiter = rateLimit({
 });
 
 app.use(apiLimiter);
-app.use("/api/auth/login", loginLimiter);
+app.use("/api/all/auth/login", loginLimiter);
 
 
 function bothChecker(req, res, next) {
