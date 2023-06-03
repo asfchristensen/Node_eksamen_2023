@@ -13,7 +13,6 @@
   let lng = null;
   const zoomLevel = 12;
   let shareLocation = false;
-  let userMarker = null;
   let eventMarkers = [];
   let placeUserOK = false;
   
@@ -32,7 +31,7 @@
               zoom: zoomLevel
             });
 
-            userMarker = new google.maps.Marker({
+            new google.maps.Marker({
               position: { lat, lng },
               map: map,
               icon: {
@@ -61,17 +60,12 @@
         if (status === "OK") {
           const destination = results[0].geometry.location;
 
-          const markerImage = {
-            url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-            scaledSize: new google.maps.Size(32, 32),
-          };
-
           const marker = new google.maps.Marker({
             position: destination,
             map: map,
             icon: { 
               url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
-              caledSize: new google.maps.Size(32, 32)
+              scaledSize: new google.maps.Size(32, 32)
             }
           });
          

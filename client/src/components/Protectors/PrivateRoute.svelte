@@ -1,7 +1,7 @@
 <script>
     import { Route } from "svelte-navigator";
-    import PrivateRouteGuard from "./PrivateRouteGuard.svelte";
     import { user } from "../../stores/userGlobals.js";
+    import PrivateRouteGuard from "./PrivateRouteGuard.svelte";
     
     export let role = 0;
     export let path;
@@ -9,7 +9,7 @@
 
 <Route {path}>
     <PrivateRouteGuard>
-        {#if role === $user.role || role === 0 }
+        {#if role === $user.role || role === 0}
             <slot/> 
         {/if}
     </PrivateRouteGuard>

@@ -1,7 +1,7 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     import { BASE_URL } from "../../stores/urlDomain.js";
-    import { get } from "../../api/api.js";
+    import { get, post } from "../../api/api.js";
     import { user } from "../../stores/userGlobals.js";
     import { userMessages, usersInChatroom } from "../../stores/chatroom.js";
     import io from "socket.io-client";
@@ -11,7 +11,7 @@
     let message = "";
     let socket = io($BASE_URL);
 
-    onMount( async () => {
+    onMount(async () => {
         await handleGetAllMessages(); 
     });
 
@@ -21,13 +21,12 @@
 
         if (result.status === 200) {
             userMessages.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all messages");
         }
     }
 
-    onDestroy( () => {
+    onDestroy(() => {
         socket.emit("leave room", { user: $user });
     });
 
@@ -46,23 +45,24 @@
     });
 
     async function handleSendMessage() {
+        const url = $BASE_URL + "/api/both/messages";
+
         const today = new Date();
         const date = today.toLocaleDateString("en-US", { dateStyle: "medium" }); 
         const time = today.toLocaleTimeString("en-US", { timeStyle: "short" });
 
-        const messageFromUser = { sentDate: date, sentTime: time, sender: $user.username, senderEmail: $user.email, sentMessage: message };
+        const messageFromUser = { 
+            sentDate: date, 
+            sentTime: time, 
+            sender: $user.username, 
+            senderEmail: $user.email, 
+            sentMessage: message 
+        };
         const messageToJSON = JSON.stringify(messageFromUser);
 
-        const response = await fetch($BASE_URL + "/api/both/messages", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: messageToJSON,
-            credentials: "include"
-        });
+        const result = await post(url, messageToJSON);
 
-        if (response.ok) {
+        if (result.status === 200) {
             socket.emit("Let's Taco 'Bout It Room chatmessages", messageFromUser);
         } else {
             toastr.error("Unable to send message");

@@ -22,7 +22,6 @@
 
         if (result.status === 200 || result.data === undefined) {
             eventsToPublic.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all non-public events");
         }  

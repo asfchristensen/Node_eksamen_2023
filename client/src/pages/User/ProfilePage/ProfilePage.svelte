@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { BASE_URL } from "../../../stores/urlDomain.js";
-    import { user, recipes, answeredFeedback } from "../../../stores/userGlobals.js";
+    import { recipes, answeredFeedback } from "../../../stores/userGlobals.js";
     import { get, patch } from "../../../api/api.js";
     import { categories } from "../../../stores/hardcodedData.js";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
@@ -34,7 +34,6 @@
 
         if (result.status === 200) {
             recipes.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all recipes");
         } 
@@ -46,7 +45,6 @@
 
         if (result.status === 200 || result.data === undefined) {
             answeredFeedback.set(result.data);
-            return result;
         } else {
             toastr.error("Failed to get all feedback answers");
         }

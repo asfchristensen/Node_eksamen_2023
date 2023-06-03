@@ -52,7 +52,7 @@ io.on("connection", (socket) => {
 
         chatUsers[socket.id] = user;
         socket.join("Let's Taco 'Bout It Room");
-        io.to("Let's Taco 'Bout It Room").emit("User joined Room", user); 
+        socket.to("Let's Taco 'Bout It Room").emit("User joined Room", user); 
         io.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers); 
     });
 
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
         socket.leave("Let's Taco 'Bout It Room");
         socket.to("Let's Taco 'Bout It Room").emit("User left the room", user);
         delete chatUsers[socket.id];
-        io.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers);
+        socket.to("Let's Taco 'Bout It Room").emit("chatUsers", chatUsers);
     });
 });
 

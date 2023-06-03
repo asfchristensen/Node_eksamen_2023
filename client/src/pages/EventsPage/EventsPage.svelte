@@ -36,7 +36,6 @@
             });
 
             publicEvents.set(upComingEvents);
-            return upComingEvents;
         } else {
             toastr.error("Failed to get all public events");
         }

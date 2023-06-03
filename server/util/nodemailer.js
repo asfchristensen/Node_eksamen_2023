@@ -39,14 +39,14 @@ export async function sendWeeklyFoodPlan(email, weeklyPlan) {
 
     const emailContent = fs.readFileSync("email_templates/weeklyPlanContent.html").toString("utf-8");
 
-        let modifiedEmailContent = emailContent;
-      
-        weeklyPlan.forEach((placeholder) => {
-            modifiedEmailContent = modifiedEmailContent.replace(
-            `<span id="${placeholder.day}">`,
-            placeholder.recipe
-            );
-        });
+    let modifiedEmailContent = emailContent;
+    
+    weeklyPlan.forEach((placeholder) => {
+        modifiedEmailContent = modifiedEmailContent.replace(
+        `<span id="${placeholder.day}">`,
+        placeholder.recipe
+        );
+    });
 
     let transporter = nodemailer.createTransport({
         host: "smtp.ethereal.email",

@@ -27,14 +27,7 @@
         const response = await patch(url, likedRecipeToJSON);
     
         if (response.ok) { 
-            const likedRecipes = $publicRecipes.map((recipe) => {
-                if (recipe.procedure === recipeToLike.procedure) {
-                    return recipeToLike;
-                }
-                return recipe;
-            });
-
-            $publicRecipes = likedRecipes;
+            publicRecipes.set($publicRecipes);
         } else {
             toastr.error("Failed to like recipe");
         }
@@ -52,14 +45,7 @@
         const response = await patch(url, dislikedRecipeToJSON);
 
         if (response.ok) {
-            const updatePublicRecipes = $publicRecipes.map(recipe => {
-                if (recipe.procedure === recipeToDislike.procedure) {
-                    return recipeToDislike;
-                }
-                return recipe;
-            });
-
-            $publicRecipes = updatePublicRecipes;
+            publicRecipes.set($publicRecipes);
         } else {
             toastr.error("Failed to dislike recipe");
         }

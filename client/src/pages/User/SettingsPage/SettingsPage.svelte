@@ -3,7 +3,6 @@
     import { profileInfo, user } from "../../../stores/userGlobals.js"; 
     import { profilePics } from "../../../stores/hardcodedData.js";
     import { patch, remove } from "../../../api/api.js";
-    import { navigate } from "svelte-navigator";
     import { Confirm } from "svelte-confirm";
     import Sidebar from "../../../components/Navbars/Sidebar.svelte";
     import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
@@ -94,7 +93,6 @@
             toastr.success("Profile deleted");
             $user = null;
             localStorage.removeItem("user");
-            navigate("/");
         } else {
             toastr.error("Failed to delete profile");
         }

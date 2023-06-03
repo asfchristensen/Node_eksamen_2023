@@ -15,7 +15,6 @@
 
         if (result.status === 200 || result.data === undefined) {
             allUsers.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all users");
         }

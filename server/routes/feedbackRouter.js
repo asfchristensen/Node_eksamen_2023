@@ -48,7 +48,7 @@ router.patch("/api/admin/feedback/:id", async (req, res) => {
     const answerToSave = req.body;
     const { id } = req.params;
     
-    if (!answerToSave) {
+    if (!answerToSave && !id) {
         return res.status(400).send({ message: "error - failed save answer", status: 400 });
     }
 
@@ -57,7 +57,7 @@ router.patch("/api/admin/feedback/:id", async (req, res) => {
     if (answerToFeedback.modifiedCount === 0) {
         return res.status(400).send({ message: "failed to update feedback", status: 400 });
     } else {
-        const isAnswered = await db.collection("feedback").updateOne({ _id: new ObjectId(id) }, { $set: { isAnswered: true }});
+        await db.collection("feedback").updateOne({ _id: new ObjectId(id) }, { $set: { isAnswered: true }});
         return res.status(200).send({ message: "success - updated feedback", status: 200 });
     }  
 });

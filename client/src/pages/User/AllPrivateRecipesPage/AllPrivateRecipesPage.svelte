@@ -17,7 +17,6 @@
 
         if (result.status === 200 || result.data === undefined) {
             recipes.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all recipes");
         }

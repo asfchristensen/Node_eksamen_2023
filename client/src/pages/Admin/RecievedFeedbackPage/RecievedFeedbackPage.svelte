@@ -24,7 +24,6 @@
 
         if (result.status === 200 || result.data === undefined) {
             feedbackStore.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all the feedback");
         } 
@@ -39,7 +38,8 @@
 
         if (response.ok) {
             toastr.success("Answer sent")
-            await handleGetAllFeedback();
+            feedbackToAnswer.isAnswered = true;
+            feedbackStore.set($feedbackStore);
         } else {
             toastr.error("Failed to send answer");
         }

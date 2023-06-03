@@ -7,8 +7,7 @@
 
     $: myLikes = $publicRecipes.filter(recipe => recipe.likes && recipe.likes.includes($user.email));
 
-    let latestLiked;
-    $: { latestLiked = myLikes ? [...myLikes].reverse().slice(0,2) : []; }
+    $: latestLiked = myLikes ? myLikes.reverse().slice(0,2) : [];
 </script>
 
 <h2>My likes sneak-peak</h2>
@@ -37,7 +36,10 @@
     {/each}
 </div>
 
-<NavigateToButton path="/my-likes" buttonTitle="See all your liked recipes"/>
+<NavigateToButton 
+    path="/my-likes" 
+    buttonTitle="See all your liked recipes"
+/>
 
 <style>
     .recipe-article { display: inline-block; }

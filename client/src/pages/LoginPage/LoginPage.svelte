@@ -5,6 +5,7 @@
     import { post } from "../../api/api.js";
     import toastr from "toastr";
     import LoadingButton from "../../components/Templates/Buttons/LoadingButton.svelte";
+    import NavigateToButton from "../../components/Templates/Buttons/NavigateToButton.svelte";
 
     let email = "";
     let password = "";

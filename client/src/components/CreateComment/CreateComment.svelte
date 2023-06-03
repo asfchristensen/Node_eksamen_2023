@@ -32,14 +32,7 @@
         const response = await patch(url, commentToJSON);
     
         if (response.ok) { 
-            const recipeComments = $publicRecipes.map((recipe) => {
-                if (recipe.procedure === recipeToComment.procedure) {
-                    return recipeToComment;
-                }
-                return recipe;
-            });
-
-            $publicRecipes = recipeComments;
+            publicRecipes.set($publicRecipes);
         } else {
             toastr.error("Failed create a comment");
         }

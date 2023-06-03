@@ -21,7 +21,6 @@
 
         if (result.status === 200 || result.data === undefined) {
             publicRatings.set(result.data);
-            return result.data;
         } else {
             toastr.error("Failed to get all public ratings");
         }
@@ -62,10 +61,12 @@
 
         <div class="join-button">
             <div id="join-btn">
-                <NavigateToButton 
-                    path="/signup"
-                    buttonTitle="Join now"
-                />
+                {#if $user === null}
+                    <NavigateToButton 
+                        path="/signup"
+                        buttonTitle="Join now"
+                    />
+                {/if}
             </div>
         </div>
 

@@ -43,7 +43,10 @@
     </div>
     <div class="col-right">
         <ProfileInfo/>
-        <NavigateToButton path="/profile" buttonTitle="Go back to profile"/>
+        <NavigateToButton 
+            path="/profile" 
+            buttonTitle="Go back to profile"
+        />
     </div>
 </div>
 

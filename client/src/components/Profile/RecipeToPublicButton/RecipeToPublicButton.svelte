@@ -22,13 +22,7 @@
             const res = await patch(url, recipeInfo);
         
             if (res.status === 200) {
-                const updateRecipes = $recipes.map((recipeInStore) => {
-                    if (recipeInStore.procedure === recipe.procedure) {
-                        return recipe;
-                    }
-                    return recipeInStore;
-                });
-                $recipes = updateRecipes;
+                recipes.set($recipes);
             } else {
                 toastr.error("Failed to make recipe public");
             }

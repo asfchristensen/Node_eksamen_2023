@@ -8,12 +8,11 @@
 
     export let onGetAllRecipes;
 
-    let latestAdded;
-    $: { latestAdded = $recipes ? [...$recipes].reverse().slice(0,2) : []; }
+    $: latestAdded = $recipes ? $recipes.reverse().slice(0,2) : []; 
 </script>
 
 <h2 id="header">Your recipes sneak-peak</h2>
-{#if $recipes === undefined}
+{#if latestAdded.length === 0}
     <p id="p">No recipes created yet...</p>   
 {:else}
     <div class="grid">
@@ -49,7 +48,10 @@
     </div>
 {/if}
 
-<NavigateToButton path="/my-recipes" buttonTitle="See all your recipes"/>
+<NavigateToButton 
+    path="/my-recipes" 
+    buttonTitle="See all your recipes"
+/>
 
 <style>
     .recipe-article { display: inline-block; }
