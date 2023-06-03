@@ -11,7 +11,7 @@
         const url = $BASE_URL + "/api/user/publicRecipes";
         recipe.isPublic = true;
         
-        const recipeToPublic = { author: $user.email, ...recipe };
+        const recipeToPublic = { author: $user.username, ...recipe };
         const recipeToJSON = JSON.stringify(recipeToPublic);
 
         const result = await post(url, recipeToJSON);

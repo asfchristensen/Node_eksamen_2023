@@ -15,12 +15,12 @@
     import SettingsPage from "./pages/User/SettingsPage/SettingsPage.svelte";
     import RatingsPage from "./pages/Admin/RecievedRatingsPage/RecievedRatingsPage.svelte";
     import RecievedFeedbackPage from "./pages/Admin/RecievedFeedbackPage/RecievedFeedbackPage.svelte";
-    import AllMyRecipesPage from "./pages/User/AllMyRecipesPage/AllMyRecipesPage.svelte";
     import ApproveEventsPage from "./pages/Admin/ApproveEventsPage/ApproveEventsPage.svelte";
     import BackToTop from "./components/Templates/Buttons/BackToTopButton.svelte";
     import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage.svelte";
     import ChatPage from "./pages/ChatPage/ChatPage.svelte";
     import AllLikedRecipesPage from "./pages/User/AllLikedRecipesPage/AllLikedRecipesPage.svelte";
+    import AllPrivateRecipesPage from "./pages/User/AllPrivateRecipesPage/AllPrivateRecipesPage.svelte";
     import DeleteUserPage from "./pages/Admin/DeleteUserPage/DeleteUserPage.svelte";
     import WeeklyFoodPlanPage from "./pages/User/WeeklyFoodPlanPage/WeeklyFoodPlanPage.svelte";
     import toastr from "toastr";
@@ -76,7 +76,7 @@
         </PrivateRoute>
 
         <PrivateRoute path="/my-recipes" role={2}>
-            <AllMyRecipesPage/>
+            <AllPrivateRecipesPage/>
         </PrivateRoute>
         
         <PrivateRoute path="/my-likes" role={2}>

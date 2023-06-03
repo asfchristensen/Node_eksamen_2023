@@ -16,7 +16,7 @@
   let userMarker = null;
   let eventMarkers = [];
   let placeUserOK = false;
-
+  
   function toggleShareLocation() {
     shareLocation = !shareLocation;
 

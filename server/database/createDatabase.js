@@ -502,7 +502,6 @@ if (isDeleteMode) {
             address: "Nørrebros Runddel St. (Nørrebrogade)",
             isDeleted: false
         }
-
     ]);
 
     await db.collection("ratings").insertMany([

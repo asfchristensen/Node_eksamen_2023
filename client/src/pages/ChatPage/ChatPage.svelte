@@ -36,7 +36,7 @@
     });
 
     socket.emit("User joins room", { data: $user });
-
+  
     socket.on("chatUsers", (users) => {
         $usersInChatroom = Object.values(users).filter(Boolean);
     });
@@ -81,7 +81,7 @@
             });
             return list;
         }); 
-    });  
+    }); 
 </script>
 
 <div class="grid">

@@ -94,7 +94,7 @@ router.patch("/api/user/recipes/delete-recipe", async (req, res) => {
     if (!recipeToDelete) {
         return res.status(400).send({ message: "error - failed to delete recipe", status: 400 })
     } else {
-       const deleted = await db.collection("users").updateOne(
+       await db.collection("users").updateOne(
         { email: req.session.user.email}, {$pull: { recipes: { procedure: recipeToDelete.procedure }}}
         );
         return res.status(200).send({ message: "success - public recipe deleted", status: 200 }); 
