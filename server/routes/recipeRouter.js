@@ -3,7 +3,7 @@ const router = Router();
 
 import db from "../database/connectionAtlas.js"
 
-router.get("/api/user/recipes", async (req, res) => {
+router.get("/api/user/users/recipes", async (req, res) => {
     const userEmail = req.session.user.email;
 
     const user = await db.collection("users").findOne({ email: userEmail }); 
@@ -16,7 +16,7 @@ router.get("/api/user/recipes", async (req, res) => {
     } 
 });
 
-router.patch("/api/user/recipes", async (req, res) => {
+router.patch("/api/user/users/recipes", async (req, res) => {
     const { ...recipe } = req.body;
     const userEmail = req.session.user.email; 
              
@@ -35,7 +35,7 @@ router.patch("/api/user/recipes", async (req, res) => {
     }
 });
 
-router.patch("/api/user/recipes/make-public", async (req, res) => {
+router.patch("/api/user/users/recipes/make-public", async (req, res) => {
     const recipeToPublic = req.body;  
     const userEmail = req.session.user.email;
     
@@ -50,8 +50,8 @@ router.patch("/api/user/recipes/make-public", async (req, res) => {
     }
 });
 
-router.patch("/api/users/recipes/update-recipe", async (req, res) => {
-    const { title, picURL, procedure, ingredients } = req.body;
+router.patch("/api/user/users/recipes/update-recipe", async (req, res) => {
+    const { title, picURL, procedure, ingredients, isPublic } = req.body;
     const userEmail = req.session.user.email;
    
     const updateRecipeFields = {};
@@ -74,21 +74,23 @@ router.patch("/api/users/recipes/update-recipe", async (req, res) => {
 
     if (updatedRecipe.modifiedCount !== 1) {
         return res.status(400).send({ data: updatedRecipe, message: "error - recipe not found" , status: 400 });
-    } 
-
-    const updatedPublicRecipe = await db.collection("public_recipes").updateOne(
-        { title: title, picURL: picURL },
-        { $set: updatePublicRecipeFields }
-    );
-
-    if (updatedPublicRecipe.modifiedCount !== 1) {
-        return res.status(400).send({ data: updatedPublicRecipe, message: "error - recipe not found" , status: 400 });
+    }
+    
+    if (isPublic) {
+        const updatedPublicRecipe = await db.collection("public_recipes").updateOne(
+            { title: title, picURL: picURL },
+            { $set: updatePublicRecipeFields }
+        );
+    
+        if (updatedPublicRecipe.modifiedCount !== 1) {
+            return res.status(400).send({ data: updatedPublicRecipe, message: "error - recipe not found" , status: 400 });
+        }
     }
 
     return res.status(200).send({ message: "success - recipe updated", status: 200 });  
 });
 
-router.patch("/api/user/recipes/delete-recipe", async (req, res) => {
+router.patch("/api/user/users/recipes/delete-recipe", async (req, res) => {
     const recipeToDelete = req.body;
 
     if (!recipeToDelete) {

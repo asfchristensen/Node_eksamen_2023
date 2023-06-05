@@ -17,7 +17,7 @@
         const result = await post(url, recipeToJSON);
 
         if (result.status === 200) {
-            const url = $BASE_URL + "/api/user/recipes/make-public";
+            const url = $BASE_URL + "/api/user/users/recipes/make-public";
             const recipeInfo = JSON.stringify({ ...recipe });
             const res = await patch(url, recipeInfo);
         

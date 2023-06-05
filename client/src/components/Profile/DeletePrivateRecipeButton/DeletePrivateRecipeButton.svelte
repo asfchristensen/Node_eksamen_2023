@@ -7,7 +7,7 @@
     export let recipeToDelete;
 
     async function handleDeleteRecipe(recipe) {
-        const url = $BASE_URL + "/api/user/recipes/delete-recipe";
+        const url = $BASE_URL + "/api/user/users/recipes/delete-recipe";
         const recipeToJSON = JSON.stringify(recipe); 
 
         const response = await patch(url, recipeToJSON);

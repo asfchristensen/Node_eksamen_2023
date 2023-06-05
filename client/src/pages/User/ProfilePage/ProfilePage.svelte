@@ -29,7 +29,7 @@
     });
 
     async function handleGetAllRecipes() {
-        const url = $BASE_URL + "/api/user/recipes";
+        const url = $BASE_URL + "/api/user/users/recipes";
         const result = await get(url);
 
         if (result.status === 200) {
@@ -51,7 +51,7 @@
     }
 
     async function handleCreateRecipe() {
-        const url = $BASE_URL + "/api/user/recipes";
+        const url = $BASE_URL + "/api/user/users/recipes";
         const recipeToJSON = JSON.stringify({ 
             title: title, 
             category: category, 

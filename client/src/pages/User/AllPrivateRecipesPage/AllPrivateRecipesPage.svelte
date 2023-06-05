@@ -12,7 +12,7 @@
     import ProfileInfo from "../../../components/Profile/ProfileInfo/ProfileInfo.svelte";
 
     async function handleGetAllRecipes() {
-        const url = $BASE_URL + "/api/user/recipes";
+        const url = $BASE_URL + "/api/user/users/recipes";
         const result = await get(url);
 
         if (result.status === 200 || result.data === undefined) {

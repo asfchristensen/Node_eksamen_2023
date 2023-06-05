@@ -10,7 +10,7 @@
     let procedure = "";
 
     async function handleUpdateRecipe() {
-        const url = $BASE_URL + "/api/users/recipes/update-recipe";
+        const url = $BASE_URL + "/api/user/users/recipes/update-recipe";
     
         const recipe = { 
             ...recipeToUpdate, 
