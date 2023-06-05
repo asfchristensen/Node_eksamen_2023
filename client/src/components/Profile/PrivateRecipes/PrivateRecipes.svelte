@@ -8,7 +8,7 @@
 
     export let onGetAllRecipes;
 
-    $: latestAdded = $recipes ? $recipes.reverse().slice(0,2) : []; 
+    $: latestAdded = $recipes ? [...$recipes].reverse().slice(0,2) : []; 
 </script>
 
 <h2 id="header">Your recipes sneak-peak</h2>

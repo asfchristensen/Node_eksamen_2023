@@ -22,7 +22,7 @@ export async function sendConfirmationMail(username, email) {
     try {
         const info = await transporter.sendMail({
             from: "support@myfooduniverse.com", 
-            to: username + `<${email}>`, 
+            to: `<${email}>`, 
             subject: "Welcome to the site", 
             text: `Thanks for joining ${username}`, 
             html: modifiedEmailContent,  
@@ -43,8 +43,8 @@ export async function sendWeeklyFoodPlan(email, weeklyPlan) {
     
     weeklyPlan.map((placeholder) => {
         modifiedEmailContent = modifiedEmailContent.replace(
-        `<span id="${placeholder.day}">`,
-        placeholder.recipe
+            `<span id="${placeholder.day}">`,
+            placeholder.recipe
         );
     });
 

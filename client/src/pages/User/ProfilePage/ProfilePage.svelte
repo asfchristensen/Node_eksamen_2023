@@ -52,14 +52,15 @@
 
     async function handleCreateRecipe() {
         const url = $BASE_URL + "/api/user/users/recipes";
-        const recipeToJSON = JSON.stringify({ 
+        const recipe = { 
             title: title, 
             category: category, 
             picURL: picURL, 
             serves: serves, 
             ingredients: ingredients, 
             procedure: procedure 
-        });
+        };
+        const recipeToJSON = JSON.stringify(recipe);
         const response = await patch(url, recipeToJSON);
     
         if (response.ok) { 

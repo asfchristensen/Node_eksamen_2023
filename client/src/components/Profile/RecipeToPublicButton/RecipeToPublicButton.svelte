@@ -19,9 +19,10 @@
         if (result.status === 200) {
             const url = $BASE_URL + "/api/user/users/recipes/make-public";
             const recipeInfo = JSON.stringify({ ...recipe });
+            
             const res = await patch(url, recipeInfo);
         
-            if (res.status === 200) {
+            if (res.ok) {
                 recipes.set($recipes);
             } else {
                 toastr.error("Failed to make recipe public");
