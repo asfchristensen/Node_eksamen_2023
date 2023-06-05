@@ -3,6 +3,8 @@ const router = Router();
 
 import db from "../database/connectionAtlas.js"
 
+let currentId = 0;
+
 router.get("/api/user/users/recipes", async (req, res) => {
     const userEmail = req.session.user.email;
 
@@ -23,8 +25,10 @@ router.patch("/api/user/users/recipes", async (req, res) => {
     if (!{ ...recipe }) {
         return res.status(400).send({ message: "error - invalid recipe", status: 400 });
     } else {
+        currentId++;
 
         const recipeToSave = { 
+            id: currentId, 
             isPublic: false,
             ...recipe, 
             isDeleted: false 

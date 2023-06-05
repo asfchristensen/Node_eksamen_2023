@@ -10,10 +10,22 @@
     import DeleteButton from "../../components/Templates/Buttons/DeleteButton.svelte";
     import NavigateToButton from "../../components/Templates/Buttons/NavigateToButton.svelte";
     import toastr from "toastr";
+    import io from "socket.io-client";
+
+
+    const socket = io($BASE_URL);
 
     onMount(async () => {
         await handleGetAllPublicRatings();
     });
+
+    socket.emit("Welcome", { data: $user });
+
+    // socket.on("Joined", (user) => {
+    //     setInterval(() => {
+    //         toastr.success(`Welcome ${user.data.username}`);
+    //     }, 2000);
+    // });
 
     async function handleGetAllPublicRatings() {
         const url = $BASE_URL + "/api/all/ratings/public";

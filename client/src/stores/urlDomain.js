@@ -1,3 +1,3 @@
 import { readable } from "svelte/store";
 
-export const BASE_URL = readable("http://localhost:80");
+export const BASE_URL = readable("http://localhost:3000");

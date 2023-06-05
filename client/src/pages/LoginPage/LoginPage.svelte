@@ -49,7 +49,7 @@
         <div class="login-wrapper">
             <form on:submit|preventDefault={handleLogin}>
                 <input type="email" placeholder="email" name="email" bind:value={email} required>
-                <input type="password" placeholder="password" name="password" bind:value={password} required>
+                <input type="password" placeholder="password" name="password" bind:value={password} maxlength="8" required>
                 <Link style="font-size: medium;" to="/forgot-password">Forgot password?</Link>
                 <LoadingButton action={loginOK} loadingTitle="Logging in..." title="Log in"/>
             </form>

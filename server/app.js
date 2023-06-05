@@ -42,6 +42,10 @@ const chatUsers = {};
 
 io.on("connection", (socket) => {
 
+    socket.on("Welcome", (user) => {
+        socket.emit("Joined", user);
+    });
+
     socket.on("User joins room", (user) => {
         for (const socketIDKey in chatUsers) {    
             const userInList = chatUsers[socketIDKey];
@@ -146,6 +150,9 @@ app.use(feedbackRouter);
 
 import weeklyPlanRouter from "./routes/weeklyPlanRouter.js";
 app.use(weeklyPlanRouter);
+
+import testRouter from "./routes/testRouter.js";
+app.use(testRouter);
 
 
 const PORT = process.env.PORT || 8080;

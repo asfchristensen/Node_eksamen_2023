@@ -133,7 +133,7 @@
                 {/each}
             </select>
             <input type="url" placeholder="picture url (web url)" name="picURL" bind:value={picURL} required>
-            <input type="text" placeholder="4 serves" name="serves" bind:value={serves} required>
+            <input type="number" placeholder="4 serves" name="serves" bind:value={serves} required>
             <input type="text" placeholder="ingredients" name="ingredients" bind:value={ingredients} required>
             <textarea placeholder="procedure"cols="30" rows="5" bind:value={procedure} required></textarea>
             <button type="submit">Upload recipe</button>

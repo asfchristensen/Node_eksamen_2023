@@ -3,7 +3,7 @@
     import { BASE_URL } from "../../stores/urlDomain.js";
     import { get } from "../../api/api.js";
     import { publicRecipes } from "../../stores/publicRecipes.js";
-    import { user } from "../../stores/userGlobals.js";
+    import { recipes, user } from "../../stores/userGlobals.js";
     import Sidebar from "../../components/Navbars/Sidebar.svelte";
     import SearchBar from "../../components/SearchBar/SearchBar.svelte";
     import LikeButton from "../../components/LikeButton/LikeButton.svelte";
@@ -44,7 +44,7 @@
                 {#if publicRecipe.likes === undefined}
                     <p></p>
                 {:else}
-                    <p><strong>Likes: </strong>{publicRecipe.likes.length}</p>
+                    <p class="likes"><strong>Likes: </strong>{publicRecipe.likes.length}</p>
                 {/if}
                 {#if $user.role === 2}
                     <footer>
@@ -123,6 +123,10 @@
     .searchbar-wrapper {
         display: flex;
         flex-direction: column;
+    }
+
+    .likes {
+        color: purple;
     }
 </style>
 
