@@ -135,7 +135,7 @@
     path="/events"
     header="Create event"
     onModal={handleModal}
-    >
+>
     <form on:submit|preventDefault={handleCreateEvent}>
         <input type="text" bind:value={eventName} placeholder="Event name" required>
         <input type="text" bind:value={category} placeholder="Category" required>
@@ -155,10 +155,11 @@
     }
 
     article {
-      display: flex;
-      align-items: center;
-      padding: 1.1em 1em;
+        display: flex;
+        align-items: center;
+        padding: 1.1em 1em;
     }
+
     .inner-grid {
         display: grid;
         grid-template-columns: 40% 60%;
