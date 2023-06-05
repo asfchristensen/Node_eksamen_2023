@@ -7,7 +7,7 @@
 <select bind:value={day}>
   {#each list as object}
       {#if placeholder}
-          <option value="" disabled selected hidden>{placeholder}</option>
+          <option hidden>{placeholder}</option>
       {/if}
       <option value={object}>{object.title}</option>
   {/each}

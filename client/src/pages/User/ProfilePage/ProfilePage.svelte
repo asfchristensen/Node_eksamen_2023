@@ -124,7 +124,7 @@
             <input type="text" placeholder="Title" name="title" bind:value={title} required>
             <select bind:value={category} required>
                 {#if placeholder}
-                    <option value="" disabled selected hidden>{placeholder}</option>
+                    <option value="" disabled>{placeholder}</option>
                 {/if}
                 {#each $categories as category}
                     <option value={category.text}>
@@ -135,7 +135,7 @@
             <input type="url" placeholder="picture url (web url)" name="picURL" bind:value={picURL} required>
             <input type="text" placeholder="4 serves" name="serves" bind:value={serves} required>
             <input type="text" placeholder="ingredients" name="ingredients" bind:value={ingredients} required>
-            <textarea placeholder="procedure"cols="30" rows="5" bind:value={procedure} required></textarea>
+            <textarea placeholder="procedure" cols="30" rows="5" bind:value={procedure} required></textarea>
             <button type="submit">Upload recipe</button>
         </form>
     </div>

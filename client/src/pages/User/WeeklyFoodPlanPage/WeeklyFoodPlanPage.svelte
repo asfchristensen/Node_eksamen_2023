@@ -42,7 +42,6 @@
             toastr.error("Failed to send Weekly Food Plan");
         }       
     }
-
 </script>
 
 <div class="grid">

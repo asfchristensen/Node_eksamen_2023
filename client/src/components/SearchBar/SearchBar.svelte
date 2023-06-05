@@ -22,7 +22,7 @@
 <button on:click={handleToggleOptions}>{searchTitle}</button>
 
     <div class:show={showOptions} class="dropdown-content">
-        <input type="text" placeholder="Search... " id="userSearchInput" bind:value={userSearchInput} on:keyup={handleFilter}>
+        <input type="text" placeholder="Search... " bind:value={userSearchInput} on:keyup={handleFilter}>
 
         {#if userSearchInput && filteredItems.length > 0}
             {#each filteredItems as item}
@@ -39,13 +39,13 @@
 </div>
 
 <style>
-    .dropdown{
+    .dropdown {
         position: relative;
         display: inline-block;
         margin-bottom: 0.5em;
     }
 
-    .dropdown-content{
+    .dropdown-content {
         display: none;
         background-color: rgba(108, 134, 143, 0.054);
         width: auto;
