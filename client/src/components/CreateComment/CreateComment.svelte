@@ -15,7 +15,7 @@
     }
 
     async function handleCreateComment (recipeToComment) {
-        const url = $BASE_URL + `/api/user/publicRecipes/comment/${recipeToComment._id}`;
+        const url = $BASE_URL + `/api/user/public_recipes/comment/${recipeToComment._id}`;
 
         if (recipeToComment.comments === undefined) {
             recipeToComment.comments = [];

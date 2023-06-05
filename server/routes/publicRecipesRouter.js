@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 
 import db from "../database/connectionAtlas.js";
 
-router.get("/api/both/publicRecipes", async (req, res) => {
+router.get("/api/both/public_recipes", async (req, res) => {
     const publicRecipes = await db.collection("public_recipes").find().toArray();
 
     if (publicRecipes.length === 0) {
@@ -15,7 +15,7 @@ router.get("/api/both/publicRecipes", async (req, res) => {
     }
 });
 
-router.post("/api/user/publicRecipes", async (req, res) => {
+router.post("/api/user/public_recipes", async (req, res) => {
     const publicRecipeInfo = req.body;
 
     if (!publicRecipeInfo) {
@@ -26,7 +26,7 @@ router.post("/api/user/publicRecipes", async (req, res) => {
     }
 });
 
-router.patch("/api/user/publicRecipes/likes/:id", async (req, res) => {
+router.patch("/api/user/public_recipes/likes/:id", async (req, res) => {
     const { email } = req.body;
     const { id } = req.params;
     
@@ -52,7 +52,7 @@ router.patch("/api/user/publicRecipes/likes/:id", async (req, res) => {
     }
 });
 
-router.patch("/api/user/publicRecipes/dislike/:id", async (req, res) => {
+router.patch("/api/user/public_recipes/dislike/:id", async (req, res) => {
     const { email } = req.body;
     const { id } = req.params;
     
@@ -71,7 +71,7 @@ router.patch("/api/user/publicRecipes/dislike/:id", async (req, res) => {
     }
 });
 
-router.patch("/api/user/publicRecipes/comment/:id", async (req, res) => {
+router.patch("/api/user/public_recipes/comment/:id", async (req, res) => {
     const { username, comment } = req.body;
     const { id } = req.params;
     
@@ -92,7 +92,7 @@ router.patch("/api/user/publicRecipes/comment/:id", async (req, res) => {
     }
 });
 
-router.delete("/api/admin/publicRecipes/:id", async (req, res) => {
+router.delete("/api/admin/public_recipes/:id", async (req, res) => {
     const recipeToDelete = req.body;
     const { id } = req.params;
     

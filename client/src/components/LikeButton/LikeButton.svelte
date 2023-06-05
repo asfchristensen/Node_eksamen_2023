@@ -13,7 +13,7 @@
     }
 
     async function handleLike(recipeToLike) {
-        const url = $BASE_URL + `/api/user/publicRecipes/likes/${recipeToLike._id}`;
+        const url = $BASE_URL + `/api/user/public_recipes/likes/${recipeToLike._id}`;
         const email = $user.email;
 
         const likedRecipeToJSON = JSON.stringify({ email: email });
@@ -34,7 +34,7 @@
     }
 
     async function handleDislike(recipeToDislike) {
-        const url = $BASE_URL + `/api/user/publicRecipes/dislike/${recipeToLike._id}`;
+        const url = $BASE_URL + `/api/user/public_recipes/dislike/${recipeToLike._id}`;
         const email = $user.email;
 
         const updatedLikes = recipeToDislike.likes.filter(like => like !== email);

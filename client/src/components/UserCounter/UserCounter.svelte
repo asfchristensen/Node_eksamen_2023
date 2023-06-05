@@ -24,7 +24,6 @@
 <div>
     <p id="header">How many have joined the universe?</p>
     <p id="user-amount"><strong>{$allUsers.length}</strong></p>
-
 </div>
 
 <style>

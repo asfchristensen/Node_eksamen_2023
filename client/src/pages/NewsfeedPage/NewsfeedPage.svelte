@@ -17,7 +17,7 @@
     });
 
     async function handleGetAllPublicRecipes() {
-        const url = $BASE_URL + "/api/both/publicRecipes";
+        const url = $BASE_URL + "/api/both/public_recipes";
         const result = await get(url);
 
         if (result.status === 200 || result.data === undefined) {
@@ -66,7 +66,7 @@
                         <DeleteButton
                             objectToDelete={publicRecipe}
                             onHandleUpdate={handleGetAllPublicRecipes}
-                            endpoint={`/api/admin/publicRecipes/${publicRecipe._id}`}
+                            endpoint={`/api/admin/public_recipes/${publicRecipe._id}`}
                             objectName="Public recipe"
                         />
                         <ModalRecipe 

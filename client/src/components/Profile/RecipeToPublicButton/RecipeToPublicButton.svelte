@@ -8,7 +8,7 @@
     export let recipeToPublic;
     
     async function handleCreatePublicRecipe(recipe) {
-        const url = $BASE_URL + "/api/user/publicRecipes";
+        const url = $BASE_URL + "/api/user/public_recipes";
         recipe.isPublic = true;
         
         const recipeToPublic = { author: $user.username, ...recipe };

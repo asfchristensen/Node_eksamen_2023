@@ -3,7 +3,7 @@ const router = Router();
 
 import db from "../database/connectionAtlas.js";
 
-router.get("/api/both/messages", async (req, res) => {
+router.get("/api/both/chat_messages", async (req, res) => {
     const messages = await db.collection("chat_messages").find().toArray();
 
     if (!messages) {
@@ -13,7 +13,7 @@ router.get("/api/both/messages", async (req, res) => {
     }
 });
 
-router.post("/api/both/messages", async (req, res) => {
+router.post("/api/both/chat_messages", async (req, res) => {
     const messageData = req.body;
     const messageDataToSave = await db.collection("chat_messages").insertOne(messageData);
 

@@ -16,7 +16,7 @@
     });
 
     async function handleGetAllMessages() {
-        const url = $BASE_URL + "/api/both/messages";
+        const url = $BASE_URL + "/api/both/chat_messages";
         const result = await get(url);
 
         if (result.status === 200) {
@@ -45,7 +45,7 @@
     });
 
     async function handleSendMessage() {
-        const url = $BASE_URL + "/api/both/messages";
+        const url = $BASE_URL + "/api/both/chat_messages";
 
         const today = new Date();
         const date = today.toLocaleDateString("en-US", { dateStyle: "medium" }); 
