@@ -8,7 +8,7 @@ const isDeleteMode = process.argv.findIndex((argument) => argument === "delete_m
 
 if (isDeleteMode) {
     const collections = await db.listCollections().toArray();
-    collections.forEach(collectionToDrop => {
+    collections.map(collectionToDrop => {
         db.dropCollection(collectionToDrop.name); 
     });  
 }

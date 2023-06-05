@@ -120,11 +120,11 @@
 
     .about-wrapper { 
         display: flex;
-        margin-top: 1em; 
+        margin-top: 3em; 
     }
 
     .box {
-        height: 5em;
+        height: 8em;
         margin-bottom: 10em;
     }
 

@@ -41,7 +41,7 @@ export async function sendWeeklyFoodPlan(email, weeklyPlan) {
 
     let modifiedEmailContent = emailContent;
     
-    weeklyPlan.forEach((placeholder) => {
+    weeklyPlan.map((placeholder) => {
         modifiedEmailContent = modifiedEmailContent.replace(
         `<span id="${placeholder.day}">`,
         placeholder.recipe
